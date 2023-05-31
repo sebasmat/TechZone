@@ -1,11 +1,13 @@
 import React from "react";
+import ProductInterface from "@/interfaces/productsInterface";
 
-const ProductCard = () => {
+const ProductCard = ({ id, category, brand, name, imageDetail, imageCard, description, price, available, stock }: ProductInterface) => {
   return (
     <div className="flex">
-      <div>image</div>
-      <div>price/cat</div>
-      <div>detail</div>
+      <img src={imageCard} />
+      <h2>{name}</h2>
+      <h2>{price}</h2>
+      <h2>{category}</h2>
     </div>
   );
 };

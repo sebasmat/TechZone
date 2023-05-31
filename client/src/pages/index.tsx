@@ -1,4 +1,5 @@
 import ProductListing from "@/components/product-listing";
+import Link from "next/link";
 
 export async function getStaticProps() {
   return {
@@ -9,9 +10,5 @@ export async function getStaticProps() {
 }
 
 export default function Home() {
-  return (
-    <>
-      <ProductListing />
-    </>
-  );
+  return <div></div>
 }

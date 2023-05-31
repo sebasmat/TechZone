@@ -1,18 +1,30 @@
 import React from "react";
 import ProductCard from "@/components/product-card";
+import ProductInterface from "../interfaces/productsInterface"
 
-const ProductListing = () => {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-    </div>
-  );
+type ProductListingProps = {
+  arrayProducts: ProductInterface[]
+};
+
+
+const ProductListing = ({ arrayProducts }: ProductListingProps) => {
+  return (<div>
+    {arrayProducts.map((product) => {
+      return <ProductCard key={product.id}
+        id={product.id}
+        category={product.category}
+        brand={product.brand}
+        name={product.name}
+        imageDetail={product.imageDetail}
+        imageCard={product.imageCard}
+        description={product.description}
+        price={product.price}
+        available={product.available}
+        stock={product.stock} />
+    }
+    )}
+  </div>
+  )
 };
 
 export default ProductListing;
