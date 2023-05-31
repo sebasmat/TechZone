@@ -1,15 +1,18 @@
 import React from "react";
-
-export async function getStaticProps() {
-  return {
-    props: {
-      pageId: "products",
-    },
-  };
-}
+import data from "../data.json";
+import ProductListing from "@/components/product-listing";
+import ProductInterface from '../interfaces/productsInterface';
 
 const Products = () => {
-  return <div>this is products page</div>;
+
+  let arrayProducts = data as ProductInterface[];
+
+  return (<div>
+
+    <p>this is products page</p>
+    <ProductListing arrayProducts={arrayProducts} />
+  </div>
+  )
 };
 
 export default Products;
