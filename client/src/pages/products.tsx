@@ -18,7 +18,7 @@ const Products = () => {
   const [productsFiltered, setProductsFiltered] =
     useState<ProductInterface[]>(arrayProducts);
   return (
-    <div className="flex">
+    <div className="flex pl-2">
       <FilterProducts
         arrayProducts={arrayProducts}
         productsFiltered={productsFiltered}
