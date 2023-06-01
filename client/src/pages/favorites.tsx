@@ -1,4 +1,5 @@
 import React from "react";
+import { NextPage } from "next";
 
 export async function getStaticProps() {
   return {
@@ -8,7 +9,7 @@ export async function getStaticProps() {
   };
 }
 
-const Favorites = () => {
+const Favorites: NextPage = () => {
   return <div>this is favorites page</div>;
 };
 

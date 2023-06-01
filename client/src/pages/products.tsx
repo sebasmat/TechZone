@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import data from "../data.json";
 import ProductListing from "@/components/product-listing";
-import ProductInterface from '../interfaces/productsInterface';
+import ProductInterface from "../interfaces/productsInterface";
+import { useFilterProducts } from "@/hooks/useFilterProducts";
+import FilterProducts from "@/components/filter-products";
 
+export async function getStaticProps() {
+  return {
+    props: {
+      pageId: "productsPage",
+    },
+  };
+}
+
+let arrayProducts = data as ProductInterface[];
 const Products = () => {
-
-  let arrayProducts = data as ProductInterface[];
-
-  return (<div>
-
-    <p>this is products page</p>
-    <ProductListing arrayProducts={arrayProducts} />
-  </div>
-  )
+  const [productsFiltered, setProductsFiltered] =
+    useState<ProductInterface[]>(arrayProducts);
+  return (
+    <div className="flex pl-2">
+      <FilterProducts
+        arrayProducts={arrayProducts}
+        productsFiltered={productsFiltered}
+        setProductsFiltered={setProductsFiltered}
+      />
+      <ProductListing arrayProducts={productsFiltered} />
+    </div>
+  );
 };
 
 export default Products;
