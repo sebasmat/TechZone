@@ -72,56 +72,41 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
   ]);
 
   return (
-    <div>
+    <div className="bg-violet-500 p-5 rounded-br-xl">
       <div className="flex flex-col gap-2">
-        <label className="text-teal-500 font-semibold" htmlFor="category">
+        <label className="text-white font-semibold" htmlFor="category">
           Order by Price
         </label>
-        <button className="text-left" onClick={() => setOrderBy("ASC")}>
+        <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("ASC")}>
           ASC
         </button>
-        <button className="text-left" onClick={() => setOrderBy("DESC")}>
+        <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("DESC")}>
           DESC
         </button>
-        <label htmlFor="category" className="text-teal-500 font-semibold">
+        <label htmlFor="category" className="text-white font-semibold">
           Categories
         </label>
-        {valueArrayCategory.map((category, i) => {
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                setValueCategory(category);
-              }}
-              className="text-left"
-            >
-              {category}
-            </button>
-          );
-        })}
+        <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueCategory(event.currentTarget.value) }}>
+          {valueArrayCategory.map((category, i) => {
+            return (<option value={category}>{category}</option>)
+          })}
+        </select>
       </div>
-
       <div className="flex flex-col gap-2">
-        <label htmlFor="brand" className="text-teal-500 font-semibold">
+        <label htmlFor="brand" className="text-white font-semibold">
           Brands
         </label>
-        {valueArrayBrand.map((brand, i) => {
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                setValueBrand(brand);
-              }}
-              className="text-left"
-            >
-              {brand}
-            </button>
-          );
-        })}
+        <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueBrand(event.currentTarget.value) }}>
+          {valueArrayBrand.map((brand) => {
+            return (<option value={brand}>{brand}</option>)
+          })}
+        </select>
       </div>
 
       <div>
-        <label htmlFor="price" className="text-teal-500 font-semibold">
+        <label htmlFor="price" className="text-white font-semibold">
           Price
         </label>
         <input
@@ -132,11 +117,11 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
           onChange={(e) => {
             setValuePrice(e.target.value);
           }}
-          className="border border-none outline-none bg-teal-100"
+          className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
       <div>
-        <label htmlFor="stock" className="text-teal-500 font-semibold">
+        <label htmlFor="stock" className="text-white font-semibold">
           Stock
         </label>
         <input
@@ -147,7 +132,7 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
           onChange={(e) => {
             setValueStock(e.target.value);
           }}
-          className="border border-none outline-none bg-teal-100"
+          className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
     </div>

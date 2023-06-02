@@ -1,17 +1,17 @@
 import React from "react";
-import ProductCard from "@/components/product-card";
+import ProductCardHome from './product-card-home';
 import ProductInterface from "../interfaces/productsInterface";
 
 type ProductListingProps = {
   arrayProducts: ProductInterface[];
 };
 
-const ProductListing = ({ arrayProducts }: ProductListingProps) => {
+const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
   return (
-    <div className="container ">
+    <div className="flex justify-center flex-wrap py-10  ">
       {arrayProducts.map((product) => {
         return (
-          <ProductCard
+          <ProductCardHome
             key={product.id}
             id={product.id}
             category={product.category}
@@ -30,4 +30,4 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   );
 };
 
-export default ProductListing;
+export default ProductListingHome;
