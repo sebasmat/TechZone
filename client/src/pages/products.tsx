@@ -17,6 +17,7 @@ let arrayProducts = data as ProductInterface[];
 const Products = () => {
   const [productsFiltered, setProductsFiltered] =
     useState<ProductInterface[]>(arrayProducts);
+  const [search, setSearch] = useState<ProductInterface[]>(arrayProducts);
   return (
     <div className="flex flex-arrow justify-center items-start">
       <FilterProducts

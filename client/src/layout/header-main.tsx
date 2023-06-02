@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-
+import Searchbar from "@/components/product-searchbar";
+import ProductInterface from "@/interfaces/productsInterface";
+import data from "../data.json";
 const HeaderMain = () => {
+
+  let arrayProducts = data as ProductInterface[];
   return (
     <div
-      className="flex justify-between items-center px-8 py-4
+      className="flex content-center justify-between items-center px-8 py-4
      shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
     >
       <div>Brand Logo</div>
-      <div className="grow mx-4">
-        <input
-          type="search"
-          className="w-full rounded-full px-4 py-2 text-sm placeholder:text-zinc-400 border
-           focus:outline-none focus:border-teal-500"
-          placeholder="Search"
-        />
-      </div>
+      <Searchbar 
+        arrayProducts={arrayProducts}
+      />
       <div>
         <Link href={"/shopping"}>
           <button>
@@ -26,11 +25,11 @@ const HeaderMain = () => {
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                stroke-width="2"
+                strokeWidth="2"
                 stroke="currentColor"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
