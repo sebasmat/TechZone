@@ -13,6 +13,7 @@ export async function getStaticProps() {
 }
 
 const Favorites: NextPage = () => {
+  //example
   const { comments, loading, error } = useTypedSelector(
     (state) => state.comments
   );
