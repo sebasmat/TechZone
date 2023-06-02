@@ -1,20 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import data from "../data.json";
 import ProductInterface from '../interfaces/productsInterface';
-import { useRouter } from "next/router";
-import search from "@/pages/search";
 
+type Props = {
+    arrayProducts: ProductInterface[];
+  };
 
-const Searchbar = () => {
+const Searchbar = ({ arrayProducts }: Props) => {
 
     const [search, SetSearch] = useState("");
-    const router = useRouter();
-
-    let products = data as ProductInterface[];
-
+    
     const searchByName = (name: string) => {
-        products.forEach((product) => {
+        arrayProducts.forEach((product) => {
             if (product.name === name) {
                 alert(`El producto ${product.name} si se encuentra disponible`);
             }
@@ -26,7 +23,6 @@ const Searchbar = () => {
     }
     const handleClick = () => {
         searchByName(search)
-
     }
     return (
         <div className="grow mx-4 flex">
