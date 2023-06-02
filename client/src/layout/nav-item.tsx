@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 type NavItemProps = {
   title: string;
@@ -8,14 +9,14 @@ type NavItemProps = {
 const NavItem = ({ title, url, isSelected }: NavItemProps) => {
   return (
     <li>
-      <a
+      <Link
         className={`block px-3 py-2 transition hover:text-teal-500 ${
           isSelected ? "text-teal-500" : ""
         }`}
         href={url}
       >
         {title}
-      </a>
+      </Link>
     </li>
   );
 };

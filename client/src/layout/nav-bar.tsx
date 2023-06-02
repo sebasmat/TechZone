@@ -17,10 +17,15 @@ const NavBar = ({ pageId }: NavbarProps) => {
             url={"/"}
             isSelected={pageId === "homePage"}
           />
+          {/*<NavItem*/}
+          {/*  title={"Categories"}*/}
+          {/*  url={"/categories"}*/}
+          {/*  isSelected={pageId === "categoriesPage"}*/}
+          {/*/>*/}
           <NavItem
-            title={"Categories"}
-            url={"/categories"}
-            isSelected={pageId === "categoriesPage"}
+            title={"Products"}
+            url={"/products"}
+            isSelected={pageId === "productsPage"}
           />
           <NavItem
             title={"Favorites"}
