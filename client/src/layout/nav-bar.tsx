@@ -6,7 +6,7 @@ type NavbarProps = {
 };
 const NavBar = ({ pageId }: NavbarProps) => {
   return (
-    <div className="flex justify-center h-16">
+    <div className="flex justify-center">
       <nav className="w-full">
         <ul
           className="flex justify-center bg-white/90 px-3 text-sm font-medium text-zinc-800
