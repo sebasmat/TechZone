@@ -11,11 +11,24 @@ interface Comment {
   email: string;
   body: string;
 }
+interface Detail {
+  id: string,
+  category: string,
+  brand: string,
+  name: string,
+  imageDetail: string,
+  imageCard: string,
+  description: string,
+  price: number,
+  available: true,
+  stock: number
+} 
 
 export interface State {
   comments: Comment[];
   loading: boolean;
   error: string | null;
+  detail: Detail[]
 }
 
 const reducer: Reducer<Partial<State>, AnyAction> = (state, action) => {
