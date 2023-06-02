@@ -3,6 +3,8 @@ import Link from "next/link";
 import Searchbar from "@/components/product-searchbar";
 import ProductInterface from "@/interfaces/productsInterface";
 import data from "../data.json";
+import LoginLogout from "@/components/LoginLogout";
+
 const HeaderMain = () => {
 
   let arrayProducts = data as ProductInterface[];
@@ -41,6 +43,7 @@ const HeaderMain = () => {
           </button>
         </Link>
       </div>
+      <LoginLogout/>
     </div>
   );
 };
