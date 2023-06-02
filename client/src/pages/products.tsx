@@ -18,7 +18,7 @@ const Products = () => {
   const [productsFiltered, setProductsFiltered] =
     useState<ProductInterface[]>(arrayProducts);
   return (
-    <div className="flex pl-2">
+    <div className="flex flex-arrow justify-center items-start">
       <FilterProducts
         arrayProducts={arrayProducts}
         productsFiltered={productsFiltered}

@@ -8,7 +8,7 @@ type ProductListingProps = {
 
 const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   return (
-    <div className="flex flex-wrap gap-8 justify-start content-start">
+    <div className="container ">
       {arrayProducts.map((product) => {
         return (
           <ProductCard
