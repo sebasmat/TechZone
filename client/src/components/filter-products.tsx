@@ -72,7 +72,7 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
   ]);
 
   return (
-    <div className="bg-violet-500 p-5 rounded-br-xl">
+    <div className="bg-violet-800 p-5 rounded-br-xl">
       <div className="flex flex-col gap-2">
         <label className="text-white font-semibold" htmlFor="category">
           Order by Price
