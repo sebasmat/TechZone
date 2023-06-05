@@ -1,13 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import ProductInterface from '../interfaces/productsInterface';
+import ProductInterface from "../interfaces/productsInterface";
 import { getSearchs } from "@/store/actionCreators/getSearch";
 import { useDispatch } from "react-redux";
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from "next/navigation";
 
 type Props = {
-    arrayProducts: ProductInterface[];
+  arrayProducts: ProductInterface[];
 };
 
 const Searchbar = ({ arrayProducts }: Props) => {
@@ -33,7 +32,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
                 result.push(product);
             }
         })
-       await dispatch(getSearchs(result));
+       await dispatch(getSearchs("result"));
     }
     return (
         <div className="grow mx-4 flex">

@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import commentReducer from "./index";
 import searchReducer from "./searchReducer";
+import productsReducer from "@/store/reducers/productsReducer";
+import productReducer from "./index";
 
 const reducers = combineReducers({
-  comments: commentReducer,
-  searchs: searchReducer
+  product: productReducer,
+  searchs: searchReducer,
+  products: productsReducer,
 });
 
 export default reducers;
