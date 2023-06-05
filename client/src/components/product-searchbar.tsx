@@ -17,7 +17,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
     let result: ProductInterface[] = [];
     const searchByName = (name: string) => {
         arrayProducts.forEach((product) => {
-            if (product.name === name) {
+            if (product.name.toLowerCase() === name.toLowerCase()) {
                 alert(`El producto ${product.name} si se encuentra disponible`);
             }
         })
@@ -29,7 +29,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
     const handleClick = async () => {
         router.push('/products');
          arrayProducts.forEach((product) => {
-            if (product.name === search || product.name.includes(search)){
+            if (product.name.toLowerCase() === search.toLowerCase() || product.name.toLowerCase().includes(search.toLowerCase())){
                 result.push(product);
             }
         })
@@ -44,9 +44,8 @@ const Searchbar = ({ arrayProducts }: Props) => {
                 placeholder="Search"
                 onChange={handleChange}
             />
-            <button className="ml-5" onClick={()=>handleClick()}>Search</button>
             <svg
-                onClick={handleClick}
+                onClick={()=>handleClick()}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24"
                 strokeWidth={1.5}
