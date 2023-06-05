@@ -1,28 +1,32 @@
 import React from "react";
 import { useState } from "react";
 import ProductInterface from '../interfaces/productsInterface';
+import { getSearchs } from "@/store/actionCreators/getSearch";
+import { useDispatch } from "react-redux";
+import { useRouter } from 'next/navigation';
+
 
 type Props = {
     arrayProducts: ProductInterface[];
   };
 
 const Searchbar = ({ arrayProducts }: Props) => {
-
+    const dispatch = useDispatch();
+    const router = useRouter();
     const [search, SetSearch] = useState("");
-    
-    const searchByName = (name: string) => {
-        arrayProducts.forEach((product) => {
-            if (product.name === name) {
-                alert(`El producto ${product.name} si se encuentra disponible`);
-            }
-        })
-    }
+    let result: ProductInterface[] = [];
     const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
         const value = event.currentTarget.value;
         SetSearch(value);
     }
-    const handleClick = () => {
-        searchByName(search)
+    const handleClick = async () => {
+        router.push('/products');
+         arrayProducts.forEach((product) => {
+            if (product.name === search || product.name.includes(search)){
+                result.push(product);
+            }
+        })
+       await dispatch(getSearchs(result));
     }
     return (
         <div className="grow mx-4 flex">
@@ -33,7 +37,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
                 placeholder="Search"
                 onChange={handleChange}
             />
-            <button className="ml-5" onClick={handleClick}>Search</button>
+            <button className="ml-5" onClick={()=>handleClick()}>Search</button>
         </div>
     )
 }

@@ -12,7 +12,8 @@ export interface State {
   comments: Comment[];
   loading: boolean;
   error: string | null;
-  detail:Detail[];
+  detail: Detail[];
+  search: Detail[];
 }
 export interface Detail {
   id: string,
@@ -25,13 +26,14 @@ export interface Detail {
   price: number,
   available: true,
   stock: number
-} 
+}
 
 const initialState = {
   comments: [],
   loading: false,
   error: null,
-  detail:[]
+  detail: [],
+  search:[]
 };
 
 const commentReducer = (state: State = initialState, action: Action): State => {
@@ -57,12 +59,12 @@ const commentReducer = (state: State = initialState, action: Action): State => {
         error: action.payload,
         comments: [],
       };
-      case ActionType.GET_DETAILS:
+    case ActionType.GET_DETAILS:
       return {
         ...state,
         detail: action.payload,
       };
-      case ActionType.DELETE_DETAILS:
+    case ActionType.DELETE_DETAILS:
       return {
         ...state,
         detail: [],

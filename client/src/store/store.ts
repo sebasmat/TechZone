@@ -28,7 +28,7 @@ export interface State {
   comments: Comment[];
   loading: boolean;
   error: string | null;
-  detail: Detail[]
+  detail: Detail[],
 }
 
 const reducer: Reducer<Partial<State>, AnyAction> = (state, action) => {
