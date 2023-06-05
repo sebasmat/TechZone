@@ -5,10 +5,11 @@ import { PropsWithChildren } from "react";
 type Props = PropsWithChildren & EmblaOptionsType;
 
 export default function carrousel({ children, ...options }: Props) {
-  // 1. useEmblaCarousel returns a emblaRef and we must attach the ref to a container.
+
+    // 1. useEmblaCarousel returns a emblaRef and we must attach the ref to a container.
   // EmblaCarousel will use that ref as basis for swipe and other functionality.
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
+  const [emblaRef] = useEmblaCarousel({loop:false},[Autoplay()]);
+
 
   return (
     // Attach ref to a div
@@ -20,3 +21,5 @@ export default function carrousel({ children, ...options }: Props) {
     </div>
   );
 }
+
+
