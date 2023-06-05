@@ -8,7 +8,7 @@ type ProductListingProps = {
 
 const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
   return (
-    <div className="flex justify-center flex-wrap py-10  ">
+    <div className="flex justify-center flex-wrap ">
       {arrayProducts.map((product) => {
         return (
           <ProductCardHome

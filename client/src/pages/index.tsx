@@ -31,7 +31,7 @@ export default function Home() {
   }
 
   return (<div className="flex flex-col items-center ">
-    <div className=" w-[1000px] h-[400] mx-auto my-0 ">
+    <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 ">
       <Carrousel loop >
         {images.map((src, i) => {
           return (
@@ -43,7 +43,7 @@ export default function Home() {
       </Carrousel>
     </div>
     <Link href="/products">
-      <button className="bg-violet-900 rounded-xl	py-1 px-2 mt-5 text-white hover:bg-violet-700 duration-300">Ver todos los productos</button>
+      <button className="bg-violet-900 rounded-xl	py-1 px-2 mt-8 text-white hover:bg-violet-700 duration-300">Ver todos los productos</button>
     </Link>
     <ProductListingHome arrayProducts={arrayProducts} />
   </div>)
