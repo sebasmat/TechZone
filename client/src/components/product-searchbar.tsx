@@ -15,7 +15,6 @@ const Searchbar = ({ arrayProducts }: Props) => {
     const router = useRouter();
     const [search, SetSearch] = useState("");
     let result: ProductInterface[] = [];
-
     const searchByName = (name: string) => {
         arrayProducts.forEach((product) => {
             if (product.name === name) {
