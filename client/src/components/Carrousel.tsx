@@ -9,7 +9,7 @@ export default function carrousel({ children, ...options }: Props) {
     // 1. useEmblaCarousel returns a emblaRef and we must attach the ref to a container.
   // EmblaCarousel will use that ref as basis for swipe and other functionality.
   const [emblaRef] = useEmblaCarousel({loop:false},[Autoplay()]);
-  
+
 
   return (
     // Attach ref to a div

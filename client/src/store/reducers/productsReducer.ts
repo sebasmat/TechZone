@@ -1,16 +1,16 @@
-import { Action, ActionType } from "../actionTypes";
 import ProductReducerInterface from "@/interfaces/productsReducerInterface";
+import { Action, ActionType } from "@/store/actionTypes";
 
 const initialState: ProductReducerInterface = {
   ProductsFromDb: [],
 };
 
-const searchReducer = (
+const productsReducer = (
   state: ProductReducerInterface = initialState,
   action: Action
 ): ProductReducerInterface => {
   switch (action.type) {
-    case ActionType.GET_SEARCH:
+    case ActionType.GET_PRODUCTS:
       return {
         ProductsFromDb: action.payload,
       };
@@ -19,4 +19,4 @@ const searchReducer = (
   }
 };
 
-export default searchReducer;
+export default productsReducer;

@@ -3,32 +3,37 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import { createWrapper, MakeStore, HYDRATE } from "next-redux-wrapper";
 import reducers from "@/store/reducers/combine";
+import ProductInterface from "@/interfaces/productsInterface";
+import ProductReducerInterface from "@/interfaces/productsReducerInterface";
 
-interface Comment {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
-interface Detail {
-  id: string,
-  category: string,
-  brand: string,
-  name: string,
-  imageDetail: string,
-  imageCard: string,
-  description: string,
-  price: number,
-  available: true,
-  stock: number
-} 
+// interface Comment {
+//   postId: number;
+//   id: number;
+//   name: string;
+//   email: string;
+//   body: string;
+// }
+//
+// interface Detail {
+//   id: string;
+//   category: string;
+//   brand: string;
+//   name: string;
+//   imageDetail: string;
+//   imageCard: string;
+//   description: string;
+//   price: number;
+//   available: true;
+//   stock: number;
+// }
 
 export interface State {
-  comments: Comment[];
-  loading: boolean;
-  error: string | null;
-  detail: Detail[],
+  // comments: Comment[];
+  // loading: boolean;
+  // error: string | null;
+  // detail: Detail[];
+  ProductsFromDb: ProductReducerInterface;
+  ProductFromDb: ProductInterface;
 }
 
 const reducer: Reducer<Partial<State>, AnyAction> = (state, action) => {
