@@ -15,7 +15,7 @@ const ProductCard = ({
   stock,
 }: ProductInterface) => {
   return (
-    <div className="flex flex-row justify-between rounded-2xl p-5 m-5 bg-neutral-100 shadow-2xl hover:bg-violet-400 duration-300">
+    <div className="flex flex-row justify-between rounded-2xl m-7 p-5 bg-violet-400 shadow-2xl shadow-gray-700 hover:bg-violet-500 duration-300">
       <Link href={`detail/${id}`}>
       <Image src={imageCard} alt={name} width={200} height={200} className="bg-white rounded-2xl"/>
       </Link>
