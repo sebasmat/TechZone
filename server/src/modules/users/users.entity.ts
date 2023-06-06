@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, } from 'sequelize-typescript';
 import { Products } from '../products/products.entity';
 @Table
 export class User extends Model<User> {
@@ -31,4 +31,10 @@ export class User extends Model<User> {
 
     @HasMany(() => Products)
   Products: Products;
+
+    @Column({
+    type: DataType.ARRAY,
+    allowNull: true,
+  })
+  favorite: string[]
 }
