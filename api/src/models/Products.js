@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       images: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull:true,
       },
       description:{

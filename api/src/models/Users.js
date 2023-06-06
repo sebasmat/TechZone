@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         allowNull:false
       },
       favorite: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull:false
       },
       profileIMG: {
