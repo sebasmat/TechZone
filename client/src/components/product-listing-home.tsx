@@ -1,14 +1,18 @@
 import React from "react";
-import ProductCardHome from './product-card-home';
+import ProductCardHome from "./product-card-home";
 import ProductInterface from "../interfaces/productsInterface";
+import { useTypedSelector } from "@/store/useTypeSelector";
 
 type ProductListingProps = {
   arrayProducts: ProductInterface[];
 };
 
 const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
+  const { ProductsFromDb: productsHome } = useTypedSelector(
+    (state) => state.products
+  );
   return (
-    <div className="flex justify-center flex-wrap ">
+    <div className="flex justify-center flex-wrap">
       {arrayProducts.map((product) => {
         return (
           <ProductCardHome
