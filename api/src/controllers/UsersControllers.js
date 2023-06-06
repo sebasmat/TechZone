@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 // Requerimos el modelo de la tabla Diet de la base de datos
-const { Users } = require("../db");
+const { Users , Products } = require("../db");
 
 const getAllUsersDb = async () => {
   // Utilizamos el metodo finAll de sequelize en el modelo Diet para acceder a todos los atributos
@@ -21,8 +21,8 @@ const postUsers = async () => {
 };
 
 module.exports = { getAllUsersDb, postUsers };
-const getRecipesDb = async () => {
-	const res = await Recipe.findAll({
+const getProductsDb = async () => {
+	const res = await Products.findAll({
 		attributes: ["id", "name", "images", "description", "price", "avalaible"],
 		
 	});
@@ -39,29 +39,12 @@ const getRecipesDb = async () => {
 	});
 };
 
-const getRecipeById = async (id) => {
-	const source = isNaN(id) ? "bdd" : "api";
-
-	if (source === "api") {
-		const recipe = await axios.get(
-			`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&number=100`
-		);
-		return {
-			id: recipe.data.id,
-			title: recipe.data.title,
-			summary: recipe.data.summary,
-			healtscore: recipe.data.healthScore,
-			steps: recipe.data.analyzedInstructions[0].steps,
-			image: recipe.data.image,
-			diets: recipe.data.diets,
-		};
-	}
-
-	return await Recipe.findByPk(id);
+const getProductsById = async (id) => {
+	return await Products.findByPk(id);
 };
-const getDietsHandler = async (req, res) => {
-  res.send(await getDietsTypesDb());
+const getUserHandler = async (req, res) => {
+  res.send(await getAllUsersDb());
 };
 
 
-module.exports = { getRecipesApi, getRecipesDb, getRecipeById, getDietsHandler };
+module.exports = { getProductsById, getProductsDb, getUserHandler,  };
