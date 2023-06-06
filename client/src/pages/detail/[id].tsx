@@ -4,12 +4,14 @@ import ProductInterface from '../../interfaces/productsInterface';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from "react-redux";
-
+import { getDetails } from '@/store/actionCreators/getDetails';
+import { deleteDetails } from '@/store/actionCreators/deleteDetails';
 
 
 const detail = ()=>{
     const router = useRouter()
     const {id} = router.query;
+    const dispatch = useDispatch();
     //habria que hacer una action para buscar el producto por id de la bdd, guardarlo un la store y traerlo aca.
     //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card
 
