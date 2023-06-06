@@ -32,7 +32,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
         result.push(product);
       }
     });
-    await dispatch(getSearchs(result)); // result debe ser un string no un array
+    await dispatch(getSearchs("result")); // result debe ser un string no un array
   };
   return (
     <div className="grow mx-4 flex">
@@ -43,9 +43,6 @@ const Searchbar = ({ arrayProducts }: Props) => {
         placeholder="Search"
         onChange={handleChange}
       />
-      <button className="ml-5" onClick={() => handleClick()}>
-        Search
-      </button>
       <svg
         onClick={handleClick}
         xmlns="http://www.w3.org/2000/svg"
