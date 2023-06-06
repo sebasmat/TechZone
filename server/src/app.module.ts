@@ -13,7 +13,7 @@ import { Products } from './modules/products/products.entity';
         SequelizeModule.forRoot({
           dialect: 'mysql',
           host: process.env.DB_HOST,
-          port: process.env.DB_POR,
+          port: 5432,
           username: process.env.DB_USER,
           password: process.env.DB_PASS,
           database: 'techzone_vi0e',
