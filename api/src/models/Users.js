@@ -25,13 +25,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull:false
       },
-      favorite: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull:false
-      },
+      
       profileIMG: {
         type: DataTypes.STRING,
       },
+      favorite: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull:false
+      }
     
       
     },

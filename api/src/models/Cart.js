@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.UUID
         },
         products: {
-            type: DataTypes.ARRAY,
+            type: DataTypes.ARRAY(DataTypes.INTEGER),
             allowNull:true
         }
 

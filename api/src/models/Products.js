@@ -16,12 +16,13 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull:true,
       },
+      
       description:{
         type: DataTypes.TEXT,
         AllowNull:false,
       },
       price: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       } ,
       avalaible: {
