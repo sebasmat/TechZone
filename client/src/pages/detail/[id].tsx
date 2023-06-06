@@ -24,16 +24,18 @@ const detail = ()=>{
                 <div>
                     <img src={product.imageDetail} className={style.img}></img>
                 </div>
-                <div className={style.details} >
-                 <h1>{product.name}</h1>
-                  <h3>Marca:{product.brand}</h3>
-                <h3>Precio:${product.price}</h3>
-                  <h4>Stock:{product.stock}</h4>
-                  <button className={style.button}>añadir al carro</button>
-                  <br />
-                  <p>{product.description}</p>
+                    <div className={style.details} >
+                    <h1 className='font-bold mt-10 text-4xl'>{product.name}</h1>
+                    <br />
+                    <p className='my-10'>{product.description}</p>
+                    <div className='flex flex-col flex-around'>
+                    <h3 className='font-bold text-xl'>Categoria: {product.category}</h3>
+                    <h3 className='font-bold text-xl'>Marca:{product.brand}</h3>
+                    <h3 className='font-bold text-3xl text-violet-900 p-5 ' >Precio:${product.price}</h3>
+                    <button className={style.button}>añadir al carro</button>
+                    </div>
                   </div>
-                  </div>
+                </div>
             </div>
         </main>
     )

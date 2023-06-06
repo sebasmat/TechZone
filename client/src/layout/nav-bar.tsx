@@ -9,7 +9,7 @@ const NavBar = ({ pageId }: NavbarProps) => {
     <div className="flex justify-center">
       <nav className="w-full">
         <ul
-          className="flex justify-center bg-white/90 px-3 text-sm font-medium text-zinc-800
+          className="flex justify-center bg-violet-800 px-3 text-sm font-medium text-white
                  shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
         >
           <NavItem

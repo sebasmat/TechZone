@@ -1,33 +1,24 @@
-import { Comment, Detail } from "../reducers";
+import ProductInterface from "@/interfaces/productsInterface";
 
 export enum ActionType {
-  GET_POST_COMMENTS_PENDING = "GET_POST_COMMENTS_PENDING",
-  GET_POST_COMMENTS_SUCCESS = "GET_POST_COMMENTS_SUCCESS",
-  GET_POST_COMMENTS_FAIL = "GET_POST_COMMENTS_FAIL",
   GET_DETAILS = "GET_DETAILS",
-  DELETE_DETAILS = "DELETE_DETAILS"
+  GET_SEARCH = "GET_SEARCH",
+  GET_PRODUCTS = "GET_PRODUCTS",
 }
 
-interface actionPending {
-  type: ActionType.GET_POST_COMMENTS_PENDING;
-}
-
-interface actionSuccess {
-  type: ActionType.GET_POST_COMMENTS_SUCCESS;
-  payload: Comment[];
-}
-
-interface actionFail {
-  type: ActionType.GET_POST_COMMENTS_FAIL;
-  payload: string;
-}
 interface actionDetails {
   type: ActionType.GET_DETAILS;
-  payload: Detail[]
-}
-interface actionDeleteDetails {
-  type: ActionType.DELETE_DETAILS;
-  payload:[]
+  payload: ProductInterface;
 }
 
-export type Action = actionPending | actionSuccess | actionFail | actionDetails | actionDeleteDetails;
+interface actionSearch {
+  type: ActionType.GET_SEARCH;
+  payload: ProductInterface[];
+}
+
+interface actionProducts {
+  type: ActionType.GET_PRODUCTS;
+  payload: ProductInterface[];
+}
+
+export type Action = actionDetails | actionProducts | actionSearch;
