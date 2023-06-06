@@ -13,7 +13,7 @@ const NavBar = ({ pageId }: NavbarProps) => {
                  shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
         >
           <NavItem
-            title={"Home"}
+            title={"Inicio"}
             url={"/"}
             isSelected={pageId === "homePage"}
           />
@@ -23,17 +23,17 @@ const NavBar = ({ pageId }: NavbarProps) => {
           {/*  isSelected={pageId === "categoriesPage"}*/}
           {/*/>*/}
           <NavItem
-            title={"Products"}
+            title={"Productos"}
             url={"/products"}
             isSelected={pageId === "productsPage"}
           />
           <NavItem
-            title={"Favorites"}
+            title={"Favoritos"}
             url={"/favorites"}
             isSelected={pageId === "favoritesPage"}
           />
           <NavItem
-            title={"More Info"}
+            title={"Más información"}
             url={"/info"}
             isSelected={pageId === "infoPage"}
           />

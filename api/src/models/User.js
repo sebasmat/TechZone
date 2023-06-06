@@ -7,10 +7,9 @@ module.exports = (sequelize) => {
     "Users",
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        unique: true,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true
       },
       name: {
         type: DataTypes.STRING,
@@ -23,18 +22,12 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
       },
-      
+
       profileIMG: {
         type: DataTypes.STRING,
       },
-      favorite: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull:false
-      }
-    
-      
     },
     { timestamps: false }
   );

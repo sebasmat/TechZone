@@ -12,7 +12,7 @@ const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
     (state) => state.products
   );
   return (
-    <div className="flex justify-center flex-wrap ">
+    <div className="flex justify-center flex-wrap">
       {arrayProducts.map((product) => {
         return (
           <ProductCardHome
