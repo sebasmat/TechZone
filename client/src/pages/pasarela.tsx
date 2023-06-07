@@ -7,10 +7,9 @@ const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
 const pasarela =()=>{
     return (
-
-        <div>esta es la vista para la pasarela
+        <div className="max-w-400 max-h-400">esta es la vista para la pasarela
             <Elements stripe={stripe}>
-                <PayForm/>
+                <PayForm />
             </Elements>
         </div>
     )
