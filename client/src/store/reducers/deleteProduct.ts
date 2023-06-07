@@ -12,7 +12,7 @@ const productReducer = (
   switch (action.type) {
     case ActionType.GET_DETAILS:
       return {
-        detail: action.payload,
+        detail: [],
       };
     default:
       return state;

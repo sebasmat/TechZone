@@ -10,22 +10,11 @@ export const getDetails = (id: string) => {
         type: ActionType.GET_DETAILS,
         payload: data,
       });
-    } catch {
+    }catch (err: any) {
       dispatch({
         type: ActionType.GET_DETAILS,
-        payload: {
-          id: "",
-          category: "",
-          brand: "",
-          name: "",
-          imageDetail: "",
-          imageCard: "",
-          description: "",
-          price: 0,
-          available: true,
-          stock: 0,
-        },
+        payload: [],
       });
     }
-  };
-};
+  }
+}
