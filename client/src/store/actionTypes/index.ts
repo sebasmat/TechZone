@@ -4,11 +4,17 @@ export enum ActionType {
   GET_DETAILS = "GET_DETAILS",
   GET_SEARCH = "GET_SEARCH",
   GET_PRODUCTS = "GET_PRODUCTS",
+  DELETE_DETAILS = "DELETE_DETAILS"
+}
+
+interface actionDeleteDetails{
+  type: ActionType.DELETE_DETAILS;
+  payload:[];
 }
 
 interface actionDetails {
   type: ActionType.GET_DETAILS;
-  payload: ProductInterface;
+  payload: ProductInterface[];
 }
 
 interface actionSearch {
@@ -21,4 +27,4 @@ interface actionProducts {
   payload: ProductInterface[];
 }
 
-export type Action = actionDetails | actionProducts | actionSearch;
+export type Action = actionDetails | actionProducts | actionSearch | actionDeleteDetails;
