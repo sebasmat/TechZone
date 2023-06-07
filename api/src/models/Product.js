@@ -4,14 +4,14 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Products",
     {
-      name: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        unique: true,
       },
       brand:{
         type: DataTypes.STRING,
