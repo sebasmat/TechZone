@@ -6,6 +6,7 @@ import reducers from "@/store/reducers/combine";
 import ProductInterface from "@/interfaces/productsInterface";
 import ProductReducerInterface from "@/interfaces/productsReducerInterface";
 
+
 // interface Comment {
 //   postId: number;
 //   id: number;
@@ -34,6 +35,7 @@ export interface State {
   // detail: Detail[];
   ProductsFromDb: ProductReducerInterface;
   ProductFromDb: ProductInterface;
+  
 }
 
 const reducer: Reducer<Partial<State>, AnyAction> = (state, action) => {
