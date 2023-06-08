@@ -1,22 +1,22 @@
-import { Action, ActionType } from "../actionTypes";
-import detailInterface from "../../interfaces/detailInterface"
+// import { Action, ActionType } from "../actionTypes";
+// import detailReducerInterface from "../../interfaces/detailInterface"
 
-const initialState: detailInterface = {
-  detail: [],
-};
+// const initialState: detailReducerInterface = {
+//   detail: [],
+// };
 
-const productReducer = (
-  state: detailInterface = initialState,
-  action: Action
-): detailInterface => {
-  switch (action.type) {
-    case ActionType.GET_DETAILS:
-      return {
-        detail: [],
-      };
-    default:
-      return state;
-  }
-};
+// const productReducer = (
+//   state: detailReducerInterface = initialState,
+//   action: Action
+// ): detailReducerInterface => {
+//   switch (action.type) {
+//     case ActionType.GET_DETAILS:
+//       return {
+//         detail: [],
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
-export default productReducer;
+// export default productReducer;
