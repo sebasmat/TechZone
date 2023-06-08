@@ -8,8 +8,7 @@ const ProductCardHome = ({
   category,
   brand,
   name,
-  imageDetail,
-  imageCard,
+  images,
   description,
   price,
   available,
@@ -19,7 +18,7 @@ const ProductCardHome = ({
     <div className=" flex flex-col justify-around items-center bg-violet-400 shadow-2xl shadow-gray-700 rounded-xl m-8 py-5 px-5 h-500 hover:bg-violet-500 hover:scale-110 duration-300">
       <Link href={`detail/${id}`}>
         <div className="flex flex-col items-center p-2 rounded-xl" >
-          <Image className="bg-white rounded-xl" src={imageCard} alt={name} width={125} height={125} />
+          <Image className="bg-white rounded-xl" src={images[1]} alt={name} width={125} height={125} />
         </div>
         <div className="flex flex-col justify-between w-80 h-70">
           <h2 className="font-bold">{name}</h2>

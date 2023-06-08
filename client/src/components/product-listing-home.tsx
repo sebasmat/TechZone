@@ -16,13 +16,12 @@ const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
       {arrayProducts.map((product) => {
         return (
           <ProductCardHome
-            key={product.id}
+            key={product.name}
             id={product.id}
             category={product.category}
             brand={product.brand}
             name={product.name}
-            imageDetail={product.imageDetail}
-            imageCard={product.imageCard}
+            images={product.images}
             description={product.description}
             price={product.price}
             available={product.available}

@@ -1,10 +1,9 @@
 interface ProductInterface {
-  id: string;
+  id: Number;
   category: string;
   brand: string;
   name: string;
-  imageDetail: string;
-  imageCard: string;
+  images: string[];
   description: string;
   price: number;
   available: true;
