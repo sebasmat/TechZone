@@ -6,19 +6,22 @@ import { ActionType, Action } from "../actionTypes";
 //en store.ts chequear el de product.
 //en la interface de detail creo que deberia ir detailReducerInterface y exportar eso
 //y en reducers index en vez de product interface el creado arriba(detailReducerInterface)
-export const getDetails = (id: string) => {
+export const getDetails = (id: number) => {
   return async (dispatch: Dispatch<Action>) => {
+    console.log(id)
     const { data } = await axios.get(`http://localhost:3001/products/${id}`);
-    try {
+    console.log(data)
+
+    // try {
       dispatch({
         type: ActionType.GET_DETAILS,
-        payload: data,
+        payload: [data],
       });
-    }catch (err: any) {
-      dispatch({
-        type: ActionType.GET_DETAILS,
-        payload: [],
-      });
-    }
+    // }catch (err: any) {
+    //   dispatch({
+    //     type: ActionType.GET_DETAILS,
+    //     payload: [],
+    //   });
+    // }
   }
 }
