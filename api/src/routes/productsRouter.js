@@ -37,6 +37,7 @@ productsRouter.get("/", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 })
+
 productsRouter.get("/:idProduct", async (req, res) => {
     try {
         const {idProduct} = req.params;
@@ -46,5 +47,6 @@ productsRouter.get("/:idProduct", async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 })
+
 
 module.exports = productsRouter;
