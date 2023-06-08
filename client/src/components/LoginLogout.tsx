@@ -13,7 +13,7 @@ type Props = {}
         return <div>Cargando...</div>
     }
 
-    console.log({user});
+    
     
     return (
         <div>
