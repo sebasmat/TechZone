@@ -77,19 +77,33 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
         <label className="text-white font-semibold" htmlFor="category">
           Orden por precio
         </label>
-        <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("ASC")}>
+        <button
+          className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onClick={() => setOrderBy("ASC")}
+        >
           Ascendente
         </button>
-        <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("DESC")}>
+        <button
+          className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onClick={() => setOrderBy("DESC")}
+        >
           Descendente
         </button>
         <label htmlFor="category" className="text-white font-semibold">
           Categorias
         </label>
-        <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueCategory(event.currentTarget.value) }}>
+        <select
+          className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+            setValueCategory(event.currentTarget.value);
+          }}
+        >
           {valueArrayCategory.map((category, i) => {
-            return (<option value={category}>{category}</option>)
+            return (
+              <option key={i} value={category}>
+                {category}
+              </option>
+            );
           })}
         </select>
       </div>
@@ -97,10 +111,18 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
         <label htmlFor="brand" className="text-white font-semibold">
           Marcas
         </label>
-        <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueBrand(event.currentTarget.value) }}>
-          {valueArrayBrand.map((brand) => {
-            return (<option value={brand}>{brand}</option>)
+        <select
+          className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+            setValueBrand(event.currentTarget.value);
+          }}
+        >
+          {valueArrayBrand.map((brand, i) => {
+            return (
+              <option key={i} value={brand}>
+                {brand}
+              </option>
+            );
           })}
         </select>
       </div>

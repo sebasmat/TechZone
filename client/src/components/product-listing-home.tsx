@@ -21,8 +21,7 @@ const ProductListingHome = ({ arrayProducts }: ProductListingProps) => {
             category={product.category}
             brand={product.brand}
             name={product.name}
-            imageDetail={product.imageDetail}
-            imageCard={product.imageCard}
+            images={product.images}
             description={product.description}
             price={product.price}
             available={product.available}
