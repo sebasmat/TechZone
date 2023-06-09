@@ -9,8 +9,7 @@ const ProductCardHome = ({
   category,
   brand,
   name,
-  imageDetail,
-  imageCard,
+  images,
   description,
   price,
   available,
@@ -22,7 +21,7 @@ const ProductCardHome = ({
         <div className="flex flex-col items-center p-2 rounded-xl">
           <Image
             className="bg-white rounded-xl"
-            src={imageCard}
+            src={images[0]}
             alt={name}
             width={125}
             height={125}
@@ -41,8 +40,7 @@ const ProductCardHome = ({
             category,
             brand,
             name,
-            imageDetail,
-            imageCard,
+            images,
             description,
             price,
             available,

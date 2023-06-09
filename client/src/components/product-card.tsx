@@ -9,8 +9,7 @@ const ProductCard = ({
   category,
   brand,
   name,
-  imageDetail,
-  imageCard,
+  images,
   description,
   price,
   available,
@@ -20,7 +19,7 @@ const ProductCard = ({
     <div className="flex flex-row justify-between rounded-2xl m-7 p-5 bg-violet-400 shadow-2xl shadow-gray-700 hover:bg-violet-500 duration-300">
       <Link href={`detail/${id}`}>
         <Image
-          src={imageCard}
+          src={images[0]}
           alt={name}
           width={200}
           height={200}
@@ -40,8 +39,7 @@ const ProductCard = ({
               category,
               brand,
               name,
-              imageDetail,
-              imageCard,
+              images,
               description,
               price,
               available,

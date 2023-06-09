@@ -36,8 +36,8 @@ const Shopping = () => {
             {/*image*/}
             <div>
               <Image
-                src={item.product?.imageCard}
-                alt={item.product?.name}
+                src={item.product?.images[0] ? item.product.images[0] : ""}
+                alt={item.product?.name || ""}
                 width={150}
                 height={150}
               />
