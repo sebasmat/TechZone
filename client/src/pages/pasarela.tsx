@@ -7,8 +7,9 @@ const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
 const pasarela = () => {
     const createProduct = async () => {
-        const name = "Prueba1";
-        const price = 40;
+        //la información de creación en stripe puede hacerse de una vez con todos los productos o los productos 
+        const name = "Prueba2";
+        const price = 80;
         const request = await axios.post('http://localhost:3001/pay', {name:name, precio:price});
         console.log(request);
       }

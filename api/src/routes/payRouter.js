@@ -29,11 +29,53 @@ payRouter.post("/", async (req,res)=>{
         console.log("esto es el precio: ",price);
 
 
-        res.status(200).json(product);
+        res.status(200).json(price);
 
     } catch (error) {
         res.status(500).json({error: error.message});
     }
 })
+
+
+payRouter.post('/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price:'price_1NGvzWKIHVTQltADVIUmA5QB', // este es el id del producto Prueba2
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:3000/success',
+    cancel_url: 'http://localhost:3000/products',
+  });
+  console.log(session.url);
+  res.status(200).json(session.url);
+});
+
+// payRouter.post('/create-checkout-session', async (req, res) => {
+//   console.log("si llega a la ruta ");
+//   const {name,precio} = req.body;
+//   const result = precio * 100;
+//   const session = await stripe.checkout.sessions.create({
+//     line_items: [
+//       {
+//         price_data: {
+//           currency: 'usd',
+//           product_data: {
+//             name:name,
+//           },
+//           unit_amount: 80,
+//         },
+//         quantity: 1,
+//       },
+//     ],
+//     mode: 'payment',
+//     success_url: 'http://localhost:3000/success',
+//     cancel_url: 'http://localhost:3000/products',
+//   });
+//   res.redirect(303, session.url);
+// });
 
 module.exports = payRouter;

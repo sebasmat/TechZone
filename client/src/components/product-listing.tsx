@@ -11,6 +11,8 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   const { ProductsFromDb: searchs } = useTypedSelector(
     (state) => state.searchs
   );
+  console.log(searchs);
+  
   if (arrayProducts.length < 1) {
     return (
       <div className="container flex flex-col items-center pt-10 text-slate-600 text-4xl">

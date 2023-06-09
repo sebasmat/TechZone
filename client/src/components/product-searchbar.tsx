@@ -13,26 +13,26 @@ const Searchbar = ({ arrayProducts }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [search, SetSearch] = useState("");
-  let result: ProductInterface[] = [];
-  const searchByName = (name: string) => {
-    arrayProducts.forEach((product) => {
-      if (product.name === name) {
-        alert(`El producto ${product.name} si se encuentra disponible`);
-      }
-    });
-  };
+  // let result: ProductInterface[] = [];
+  // const searchByName = (name: string) => {
+  //   arrayProducts.forEach((product) => {
+  //     if (product.name === name) {
+  //       alert(`El producto ${product.name} si se encuentra disponible`);
+  //     }
+  //   });
+  // };
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
     SetSearch(value);
   };
   const handleClick = async () => {
     router.push("/products");
-    arrayProducts.forEach((product) => {
-      if (product.name === search || product.name.includes(search)) {
-        result.push(product);
-      }
-    });
-    await dispatch(getSearchs("result")); // result debe ser un string no un array
+    // arrayProducts.forEach((product) => {
+    //   if (product.name === search || product.name.includes(search)) {
+    //     result.push(product);
+    //   }
+    // });
+    await dispatch(getSearchs(search)); // result debe ser un string no un array
   };
   return (
     <div className="grow mx-4 flex">
