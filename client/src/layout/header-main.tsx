@@ -3,15 +3,17 @@ import Link from "next/link";
 import Searchbar from "@/components/product-searchbar";
 import ProductInterface from "@/interfaces/productsInterface";
 import data from "../data.json";
+import LoginLogout from "@/components/LoginLogout";
+
 const HeaderMain = () => {
 
   let arrayProducts = data as ProductInterface[];
   return (
     <div
-      className="flex content-center justify-between items-center px-8 py-4
-     shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
+      className="flex content-center justify-between items-center px-8 py-4 bg-violet-900"
     >
-      <div>Brand Logo</div>
+      <img src="https://i.ibb.co/R6yKw82/7.png" 
+      className="pb-1 w-17 h-14"/>
       <Searchbar 
         arrayProducts={arrayProducts}
       />
@@ -21,12 +23,12 @@ const HeaderMain = () => {
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-shopping-cart"
-                width="24"
-                height="24"
+                className="pt-1 icon icon-tabler icon-tabler-shopping-cart"
+                width="36"
+                height="36"
                 viewBox="0 0 24 24"
                 strokeWidth="2"
-                stroke="currentColor"
+                stroke="white"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -41,6 +43,7 @@ const HeaderMain = () => {
           </button>
         </Link>
       </div>
+      <LoginLogout/>
     </div>
   );
 };

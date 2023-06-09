@@ -72,19 +72,19 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
   ]);
 
   return (
-    <div className="bg-violet-500 p-5 rounded-br-xl">
+    <div className="bg-violet-800 p-5 rounded-br-xl max-w-[280px]  ">
       <div className="flex flex-col gap-2">
         <label className="text-white font-semibold" htmlFor="category">
-          Order by Price
+          Orden por precio
         </label>
         <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("ASC")}>
-          ASC
+          Ascendente
         </button>
         <button className="bg-white rounded-xl font-semibold hover:bg-violet-200" onClick={() => setOrderBy("DESC")}>
-          DESC
+          Descendente
         </button>
         <label htmlFor="category" className="text-white font-semibold">
-          Categories
+          Categorias
         </label>
         <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueCategory(event.currentTarget.value) }}>
@@ -95,7 +95,7 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="brand" className="text-white font-semibold">
-          Brands
+          Marcas
         </label>
         <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setValueBrand(event.currentTarget.value) }}>
@@ -107,7 +107,7 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
 
       <div>
         <label htmlFor="price" className="text-white font-semibold">
-          Price
+          Precio máximo
         </label>
         <input
           type="number"
@@ -116,21 +116,6 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
           value={valuePrice}
           onChange={(e) => {
             setValuePrice(e.target.value);
-          }}
-          className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
-        />
-      </div>
-      <div>
-        <label htmlFor="stock" className="text-white font-semibold">
-          Stock
-        </label>
-        <input
-          type="number"
-          name="stock"
-          id="stock"
-          value={valueStock}
-          onChange={(e) => {
-            setValueStock(e.target.value);
           }}
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />

@@ -9,11 +9,11 @@ const NavBar = ({ pageId }: NavbarProps) => {
     <div className="flex justify-center">
       <nav className="w-full">
         <ul
-          className="flex justify-center bg-white/90 px-3 text-sm font-medium text-zinc-800
+          className="flex justify-center bg-violet-800 px-3 text-sm font-medium text-white
                  shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
         >
           <NavItem
-            title={"Home"}
+            title={"Inicio"}
             url={"/"}
             isSelected={pageId === "homePage"}
           />
@@ -23,17 +23,17 @@ const NavBar = ({ pageId }: NavbarProps) => {
           {/*  isSelected={pageId === "categoriesPage"}*/}
           {/*/>*/}
           <NavItem
-            title={"Products"}
+            title={"Productos"}
             url={"/products"}
             isSelected={pageId === "productsPage"}
           />
           <NavItem
-            title={"Favorites"}
+            title={"Favoritos"}
             url={"/favorites"}
             isSelected={pageId === "favoritesPage"}
           />
           <NavItem
-            title={"More Info"}
+            title={"Más información"}
             url={"/info"}
             isSelected={pageId === "infoPage"}
           />

@@ -1,48 +1,26 @@
 import { Action, ActionType } from "../actionTypes";
+import detailReducerInterface from "../../interfaces/detailInterface"
 
-export interface Comment {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
-
-export interface State {
-  comments: Comment[];
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState = {
-  comments: [],
-  loading: false,
-  error: null,
+const initialState: detailReducerInterface = {
+  detail: [],
 };
 
-const commentReducer = (state: State = initialState, action: Action): State => {
+const productReducer = (
+  state: detailReducerInterface = initialState,
+  action: Action
+): detailReducerInterface => {
   switch (action.type) {
-    case ActionType.GET_POST_COMMENTS_PENDING:
+    case ActionType.GET_DETAILS:
       return {
-        loading: true,
-        comments: [],
-        error: null,
+        detail: action.payload,
       };
-    case ActionType.GET_POST_COMMENTS_SUCCESS:
-      return {
-        loading: false,
-        comments: action.payload,
-        error: null,
-      };
-    case ActionType.GET_POST_COMMENTS_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-        comments: [],
-      };
+      case ActionType.DELETE_DETAILS:
+        return {
+          detail: [],
+        };
     default:
       return state;
   }
 };
 
-export default commentReducer;
+export default productReducer;
