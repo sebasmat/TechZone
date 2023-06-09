@@ -27,10 +27,7 @@ payRouter.post("/", async (req,res)=>{
           });
         console.log("esto es el producto: ",product);
         console.log("esto es el precio: ",price);
-
-
         res.status(200).json(price);
-
     } catch (error) {
         res.status(500).json({error: error.message});
     }
