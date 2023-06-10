@@ -29,6 +29,18 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true
       },
+      direction : {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      cellPhone: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      Gender: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
     },
     { timestamps: false }
   );

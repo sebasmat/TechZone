@@ -1,8 +1,8 @@
 const express = require("express");
-const findAllProducts = require("../Controllers/Products/findAllProducts")
-const findProductByName = require("../Controllers/Products/findProductByName")
-const findById = require("../Controllers/Products/findById")
-const {Products} = require('../db')
+const findAllProducts = require("../../Controllers/Products/findAllProducts")
+const findProductByName = require("../../Controllers/Products/findProductByName")
+const findById = require("../../Controllers/Products/findById")
+const {Products} = require('../../db')
 
 const productsRouter = express.Router()
 
