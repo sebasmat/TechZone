@@ -12,7 +12,6 @@ const ProductForm = () => {
     const [productDescription, setProductDescription] = useState<string>("")
     const [productPrice, setProductPrice] = useState<number>(0)
     const [productImage1, setProductImage1] = useState<File | null>(null)
-    const [urlImage, setUrlImage] = useState<string>("")
     const [productStock, setProductStock] = useState<number>(0)
     const [categories, setCategories] = useState<categoriesInterface[]>([])
 
@@ -53,20 +52,24 @@ const ProductForm = () => {
             const image = event.target.files[0];
             if (image) setProductImage1(image)
         }
-
     };
+
     const postProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
         if (productBrand && productBrand && productCategory && productDescription && productName && productImage1 && productPrice && productStock) {
+            let url:string = ""
             if (productImage1) {
                 try {
                     const formData = new FormData();
                     formData.append('image', productImage1);
 
-                    const response = await axios.post('https://api.imgbb.com/1/upload?key=758d8e88350fb07971042e791dca970b', formData);
-
-                    setUrlImage(response.data.data.display_url);
+                    const response = await axios.post(
+                        'https://api.imgbb.com/1/upload?key=758d8e88350fb07971042e791dca970b',
+                        formData
+                    );
+                    url = response.data.data.display_url;
+                    console.log(url)
                 } catch (error) {
-                    alert("No fue posible crear el producto, por favor intente más tarde")
+                    alert('No fue posible crear el producto, por favor inténtelo más tarde');
                     return;
                 }
             }
@@ -74,7 +77,7 @@ const ProductForm = () => {
                 name: productName,
                 brand: productBrand,
                 category: productCategory,
-                images: [urlImage, urlImage],
+                images: [url, url],
                 description: productDescription,
                 price: productPrice,
                 avalaible: true,
@@ -88,6 +91,8 @@ const ProductForm = () => {
                     setProductImage1(null)
                     setProductPrice(0)
                     setProductStock(0)
+                    setProductCategory("")
+                    setProductDescription("")
                 })
                 .catch((error) => console.log(error))
         } else {
@@ -112,6 +117,7 @@ const ProductForm = () => {
                 <label>Categoría</label>
                 <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
                     onChange={handleCategory}>
+                        <option></option>
                     {categories.map((category) => {
                         return (<option value={category.category}>{category.category}</option>)
                     })}
