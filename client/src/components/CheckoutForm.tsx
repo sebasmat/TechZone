@@ -1,13 +1,14 @@
 // import {PaymentElement} from '@stripe/react-stripe-js';
 import axios from 'axios';
+import ProductInterface from '@/interfaces/productsInterface';
 
-const CheckoutForm = () => {
+const CheckoutForm = (props:ProductInterface) => {
 
   const createPayment = async ()=>{
     console.log("si entra al createpayment");
-    const name = "Prueba2";
-    const precio = 80;
-    const {data} = await axios.post("http://localhost:3001/pay/create-checkout-session", {name:name, price:precio})
+    const name = "PruebaProduct";
+    // const precio = 80;
+    const {data} = await axios.post("http://localhost:3001/pay/create-checkout-session", {name:name})
     window.location.href=data; 
     
   }

@@ -16,9 +16,11 @@ payRouter.post("/", async (req,res)=>{
         //     },
         // });
 
-        const {name,precio} = req.body;
+        const {name,precio,descripcion,imagenes} = req.body;
         const product = await stripe.products.create({
           name: name,
+          description: descripcion,
+          images:imagenes
         });
         const price = await stripe.prices.create({
             unit_amount: precio * 100,
@@ -35,11 +37,20 @@ payRouter.post("/", async (req,res)=>{
 
 
 payRouter.post('/create-checkout-session', async (req, res) => {
+  const {name} = req.body;
+  const {data} = await stripe.products.search({
+    query: `name:"${name}"`
+  })
+  const productId = data[0].id;
+  const request = await stripe.prices.search({
+    query: `product:"${productId}"`
+  })
+  const priceId = request.data[0].id;
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-        price:'price_1NGvzWKIHVTQltADVIUmA5QB', // este es el id del producto Prueba2
+        price:priceId, 
         quantity: 1,
       },
     ],
@@ -47,7 +58,6 @@ payRouter.post('/create-checkout-session', async (req, res) => {
     success_url: 'http://localhost:3000/success',
     cancel_url: 'http://localhost:3000/products',
   });
-  console.log(session.url);
   res.status(200).json(session.url);
 });
 
