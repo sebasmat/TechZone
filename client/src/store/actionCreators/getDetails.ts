@@ -9,7 +9,7 @@ import { ActionType, Action } from "../actionTypes";
 export const getDetails = (id: number) => {
   return async (dispatch: Dispatch<Action>) => {
     console.log(id);
-    const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
     console.log(data);
 
     // try {

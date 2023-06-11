@@ -3,7 +3,8 @@ import Image from "next/image";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
-
+import axios from "axios";
+import {loadStripe} from '@stripe/stripe-js'
 // div page-container
 //   div products-container
 //     div product
@@ -24,6 +25,27 @@ const Shopping = () => {
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
   }, []);
+  const stripePromise = loadStripe("pk_test_51NGLywL5P8zIQxPGujsaooDQJnByTEExEcwR422IEDpwFO0qcXBekOJxAOFhbUFUz6N8EzKPxMVuX8j54H79JgZS00im1qgTke")
+
+  const handleCheckout = async()=>{
+    const lineItems = cart.map((item)=>{
+      return{
+        price_data:{
+          currency: "usd",
+        product_data:{
+          name:item.product?.name
+        },
+      unit_amount: item.product?.price   },
+      quantity: item.quantity
+      }
+    })
+    const {data} = await axios.post("http://localhost:3000/checkout",{lineItems})
+    const stripe = await stripePromise;
+    await stripe?.redirectToCheckout({sessionId:data.id})
+
+  }
+
+
 
   return (
     // page container
