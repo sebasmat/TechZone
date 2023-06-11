@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import data from "../data.json";
-import {withPageAuthRequired} from "@auth0/nextjs-auth0/client"
 
 // div page-container
 //   div products-container
@@ -57,4 +56,4 @@ const Shopping = () => {
   );
 };
 
-export default withPageAuthRequired(Shopping);
+export default (Shopping);

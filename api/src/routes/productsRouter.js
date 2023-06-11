@@ -24,7 +24,6 @@ productsRouter.get("/", async (req, res) => {
         if(!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
             size = sizeAsNumber
         }
-
         const allProducts = await Products.findAndCountAll({
         limit: size,
         offset: page * size
