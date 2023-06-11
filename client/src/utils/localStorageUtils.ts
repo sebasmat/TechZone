@@ -13,11 +13,9 @@ export const manageCart = ({
   stock,
 }: ProductInterface) => {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  console.log(`cart: ${JSON.stringify(cart)}`);
   const index = cart.findIndex(
     (item: ShoppingCartInterface) => item.product?.id === id
   );
-  console.log(`index: ${index}`);
   if (index === -1) {
     cart.push({
       product: {

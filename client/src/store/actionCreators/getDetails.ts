@@ -8,10 +8,10 @@ import { ActionType, Action } from "../actionTypes";
 //y en reducers index en vez de product interface el creado arriba(detailReducerInterface)
 export const getDetails = (id: number) => {
   return async (dispatch: Dispatch<Action>) => {
-    console.log(id);
-    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
-    console.log(data);
 
+  
+    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
+  
     // try {
     dispatch({
       type: ActionType.GET_DETAILS,
