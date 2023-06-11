@@ -5,7 +5,7 @@ import axios from "axios";
 export const getProducts = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/products}`);
+      const { data } = await axios.get(`http://localhost:3001/products}`);
       dispatch({
         type: ActionType.GET_PRODUCTS,
         payload: data,
