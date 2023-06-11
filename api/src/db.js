@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
@@ -43,8 +43,15 @@ const { Products, Users } = sequelize.models;
 Users.belongsToMany(Products, { through: "Favorites" });
 Products.belongsToMany(Users, { through: "Favorites" });
 
-Users.belongsToMany(Products, { through: "Cart" });
-Products.belongsToMany(Users, { through: "Cart" });
+const Cart = sequelize.define(
+  "Cart",
+  { quantity: DataTypes.INTEGER },
+  {
+    timestamps: false,
+  }
+);
+Users.belongsToMany(Products, { through: Cart });
+Products.belongsToMany(Users, { through: Cart });
 // Product.hasMany(Reviews);
 
 module.exports = {

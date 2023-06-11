@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import LoginLogout from "@/components/LoginLogout";
 import { useTypedSelector } from "@/store/useTypeSelector";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserInterface from "@/interfaces/userInterface";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -54,12 +54,10 @@ const User: React.FC<UserProps> = ({ user }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (userForm.name === "") {
-      console.log("el nombre es olbigatorio");
+      alert("El nombre no puede estar vacío");
 
       return;
     }
-    console.log("paso la valida");
-
     let url = "";
     if (userImage) {
       try {
@@ -70,21 +68,20 @@ const User: React.FC<UserProps> = ({ user }) => {
           formData
         );
         url = response.data.data.display_url;
-        console.log(url);
       } catch (error) {
-        console.log(error);
-        console.log("no se pudo subir la imagen");
+        alert("no se pudo subir la imagen, intenta nuevamente");
         return;
       }
     }
-    try {
-      await axios.post("http://localhost:3001/create/User", {
-        email: user.email,
-      });
-    } catch (error) {
-      console.log(error);
-      console.log("error al crear el usuario");
-      return;
+    if (Error !== undefined) {
+      try {
+        await axios.post("http://localhost:3001/create/User", {
+          email: user.email,
+        });
+      } catch (error) {
+        alert("error al crear el usuario, intenta nuevamente");
+        return;
+      }
     }
     try {
       const resUser = await axios.put(
@@ -101,8 +98,7 @@ const User: React.FC<UserProps> = ({ user }) => {
       dispatch({ type: ActionType.GET_USER, payload: resUser.data });
     } catch (error: any) {
       dispatch({ type: ActionType.GET_USER_ERROR, payload: error.message });
-      console.log(error);
-      console.log("error al modificar el usuario");
+      alert("error al modificar el usuario");
       return;
     }
     setUserForm({
@@ -114,115 +110,130 @@ const User: React.FC<UserProps> = ({ user }) => {
     });
   };
 
+  useEffect(() => {
+    if (UserFromDb.name) {
+      setUserForm(UserFromDb);
+    }
+  }, [UserFromDb]);
+
   return (
     <>
-      {Error && (
-        <div className="flex flex-col justify-center items-center pt-10">
-          <div>
-            <h1 className="text-3xl">
-              Bienvenido <span className="text-violet-800">{user.email}</span>
-            </h1>
-            <p className="text-center">
-              Completa tus datos para una mejor experiencia
-            </p>
-          </div>
-
-          <div className="w-2/4">
-            <form onSubmit={handleSubmit} className="p-4">
-              <div className="mb-4">
-                <label htmlFor="name" className="block font-bold mb-2">
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={userForm.name}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4 hidden">
-                <label htmlFor="email" className="block font-bold mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={userForm.email}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="direction" className="block font-bold mb-2">
-                  Direccion
-                </label>
-                <input
-                  type="text"
-                  name="direction"
-                  id="direction"
-                  value={userForm.direction}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="cellPhone" className="block font-bold mb-2">
-                  Telefono/Celular
-                </label>
-                <input
-                  type="tel"
-                  name="cellPhone"
-                  id="cellPhone"
-                  value={userForm.cellPhone}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="gender" className="block font-bold mb-2">
-                  Gender
-                </label>
-                <select
-                  name="Gender"
-                  id="Gender"
-                  value={userForm.Gender}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                >
-                  <option value="">Elegir...</option>
-                  <option value="male">Masculino</option>
-                  <option value="female">Femenino</option>
-                  <option value="non-binary">No binario</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="profileIMG" className="block font-bold mb-2">
-                  Imagen de perfil
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="userImage"
-                  id="userImage"
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+      (
+      <div className="flex flex-col justify-center items-center pt-10">
+        <div>
+          <h1 className="text-3xl">
+            Bienvenido <span className="text-violet-800">{user.email}</span>
+          </h1>
+          <p className="text-center">
+            {UserFromDb.name
+              ? "Es bueno tenerte de vuelta"
+              : "Completa tus datos para una mejor experiencia"}
+          </p>
         </div>
-      )}
 
-      {!Error && (
+        <div className="w-2/4">
+          <form onSubmit={handleSubmit} className="p-4">
+            <div className="mb-4">
+              {UserFromDb.profileIMG ? (
+                <Image
+                  src={UserFromDb.profileIMG}
+                  alt="user"
+                  width={200}
+                  height={200}
+                />
+              ) : null}
+              <label htmlFor="name" className="block font-bold mb-2">
+                Nombre
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={userForm.name}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="mb-4 hidden">
+              <label htmlFor="email" className="block font-bold mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={userForm.email}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="direction" className="block font-bold mb-2">
+                Direccion
+              </label>
+              <input
+                type="text"
+                name="direction"
+                id="direction"
+                value={userForm.direction}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="cellPhone" className="block font-bold mb-2">
+                Telefono/Celular
+              </label>
+              <input
+                type="tel"
+                name="cellPhone"
+                id="cellPhone"
+                value={userForm.cellPhone}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="gender" className="block font-bold mb-2">
+                Gender
+              </label>
+              <select
+                name="Gender"
+                id="Gender"
+                value={userForm.Gender}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              >
+                <option value="">Elegir...</option>
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="non-binary">No binario</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="profileIMG" className="block font-bold mb-2">
+                Imagen de perfil
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                name="userImage"
+                id="userImage"
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Actualizar Informacion
+            </button>
+          </form>
+        </div>
+      </div>
+      )
+      {/* {!Error && (
         <div className="flex flex-col justify-center items-center pt-10">
           <div>
             <h1 className="text-3xl text-center">
@@ -248,7 +259,7 @@ const User: React.FC<UserProps> = ({ user }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -1,4 +1,6 @@
 import ProductListingHome from "@/components/product-listing-home";
+import { useState } from "react";
+import { useEffect } from "react";
 import data from "../data.json";
 import Link from "next/link";
 import ProductInterface from "@/interfaces/productsInterface";
@@ -24,13 +26,18 @@ const images = [
 export default function Home() {
   const { Loading } = useTypedSelector((state) => state.user);
 
-  let dataProducts = data as ProductInterface[];
-  let arrayProducts: ProductInterface[] = [];
-  let i: number = 0;
-  while (dataProducts.length > i && arrayProducts.length < 9) {
-    arrayProducts.push(dataProducts[i]);
-    i = i + 5;
-  }
+  const [arrayProducts, setArrayProducts] = useState([]);
+
+  const result = async () => {
+    let productsHome: ProductInterface[];
+    await fetch("http://localhost:3001/homeproducts")
+      .then((response) => response.json())
+      .then((data) => setArrayProducts(data));
+  };
+
+  useEffect(() => {
+    result();
+  }, []);
 
   if (Loading) {
     return <div>Loading...</div>;

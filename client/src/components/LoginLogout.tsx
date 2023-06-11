@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 import { getUser } from "@/store/actionCreators/getUser";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 type Props = {};
 
 const LoginLogout = ({}: Props) => {
   const { error, isLoading, user } = useUser();
-  const { Error } = useTypedSelector((state) => state.user);
+  const { Error, UserFromDb } = useTypedSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -26,6 +27,37 @@ const LoginLogout = ({}: Props) => {
       router.push("/user");
     }
   }, [Error]);
+
+  const handleCartPostItems = async () => {
+    try {
+      const localData = JSON.parse(localStorage.getItem("cart") || "[]");
+      const formatData = localData.map((item: any) => {
+        return {
+          userId: UserFromDb.id,
+          productId: item.product.id,
+          quantity: item.quantity,
+        };
+      });
+      console.log("this is format data", formatData);
+
+      const dataConsole = await axios.post("http://localhost:3001/cart", {
+        cartItems: formatData,
+      });
+      console.log(dataConsole.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (UserFromDb.name !== undefined) {
+      console.log("desde logincomponent sgiendo userfromdb");
+      if (JSON.parse(localStorage.getItem("cart") || "[]").length > 0) {
+        console.log(JSON.parse(localStorage.getItem("cart") || "[]"));
+        handleCartPostItems();
+      }
+    }
+  }, [UserFromDb]);
 
   if (error) {
     return <div>Error</div>;
