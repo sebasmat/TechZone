@@ -1,10 +1,12 @@
 import React from "react";
 import NavItem from "@/layout/nav-item";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 type NavbarProps = {
   pageId: string;
 };
 const NavBar = ({ pageId }: NavbarProps) => {
+  const { user } = useUser();
   return (
     <div className="flex justify-center">
       <nav className="w-full">
@@ -37,6 +39,13 @@ const NavBar = ({ pageId }: NavbarProps) => {
             url={"/info"}
             isSelected={pageId === "infoPage"}
           />
+          {user && (
+            <NavItem
+              title={"Perfil"}
+              url={"/user"}
+              isSelected={pageId === "userPage"}
+            />
+          )}
         </ul>
       </nav>
     </div>
