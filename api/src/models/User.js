@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
         allowNull: true
       },
       cellPhone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: true
       },
       Gender: {
