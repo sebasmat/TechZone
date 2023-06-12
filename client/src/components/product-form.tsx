@@ -63,7 +63,7 @@ const ProductForm = () => {
                     formData.append('image', productImage1);
 
                     const response = await axios.post(
-                        'https://api.imgbb.com/1/upload?key=758d8e88350fb07971042e791dca970b',
+                        'https://api.imgbb.com/1/upload?key=49a1b0e207191c858c5ee634e59c96bc',
                         formData
                     );
                     url = response.data.data.display_url;
