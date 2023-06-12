@@ -10,11 +10,8 @@ const addItems = async (cartItems) => {
   }
   const allItems = await Promise.all(allItemsPromises);
 
-<<<<<<< HEAD
-  // console.log(allItems[0]);
 
-=======
->>>>>>> 2aa93ca53498ac551610048ca4cbf55fbeebb1e0
+
   let itemsAddToCartUsers = [];
   for (let i = 0; i < allItems.length; i++) {
     itemsAddToCartUsers.push(
@@ -35,3 +32,4 @@ const addItems = async (cartItems) => {
 };
 
 module.exports = addItems;
+// console.log(allItems[0]);

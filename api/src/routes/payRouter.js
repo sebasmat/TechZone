@@ -4,6 +4,27 @@ const payRouter = express.Router()
 
 const stripe = new Stripe(`${process.env.STRIPE_KEY_SECRET}`);
 
+// const actualizarStock = require("../Controllers/updateStock.js");
+
+
+// payRouter.put("/", async (req, res) => {
+//   try {
+//     const {productId, stock } = req.body;
+//     const update = await actualizarStock(productId, stock);
+//   }
+// catch(error){
+//   res.status(404).send({error: error.message})
+// }
+// });
+
+// module.exports = putItem;
+
+
+
+
+
+
+
 payRouter.post("/", async (req, res) => {
   try {
     // const {amount} = req.body;

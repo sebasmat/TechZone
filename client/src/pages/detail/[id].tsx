@@ -38,10 +38,12 @@ const detail = ()=>{
        
          <main>
            
+            {Object.keys(result).length ?
              <div className={style.backround}>
                  <div className={style.container}>
                     <div>
-                         <img src={result[0]?.images[1]} className={style.img}></img>
+                         <img src={result[0]?.images[1]} className={style.img}></img>?
+                        
                      </div>
                 <div className={style.details} >
                     <h1 className='font-bold mt-10 text-4xl'>{result[0]?.name}</h1>
@@ -53,9 +55,13 @@ const detail = ()=>{
                      <h3 className='font-bold text-3xl text-violet-900 p-5 ' >Precio:${result[0]?.price}</h3>
                      <button className={style.button}>añadir al carro</button>
                      </div>
+                     
                 </div>
                 </div>
-        </div>
+                
+
+                
+        </div>: <h1 className='font-bold mt-10 text-4xl'>CARGANDO...</h1>}
  
            
             
