@@ -4,6 +4,7 @@ import ProductListing from "@/components/product-listing";
 import ProductInterface from "../interfaces/productsInterface";
 import { useFilterProducts } from "@/hooks/useFilterProducts";
 import FilterProducts from "@/components/filter-products";
+import { useRouter } from "next/router";
 
 export async function getStaticProps() {
   return {

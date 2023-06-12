@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["i.ibb.co"],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;

@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
@@ -22,12 +22,25 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
 
       profileIMG: {
         type: DataTypes.STRING,
+        allowNull: true
       },
+      direction : {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      cellPhone: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      Gender: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
     },
     { timestamps: false }
   );

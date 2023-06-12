@@ -1,7 +1,7 @@
 import ProductInterface from "@/interfaces/productsInterface";
 
-interface ProductReducerInterface {
+interface detailReducerInterface {
   detail: ProductInterface[];
 }
 
-export default ProductReducerInterface;
+export default detailReducerInterface;

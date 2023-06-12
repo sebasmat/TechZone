@@ -1,15 +1,19 @@
 import ProductInterface from "@/interfaces/productsInterface";
+import UserInterface from "@/interfaces/userInterface";
 
 export enum ActionType {
   GET_DETAILS = "GET_DETAILS",
   GET_SEARCH = "GET_SEARCH",
   GET_PRODUCTS = "GET_PRODUCTS",
-  DELETE_DETAILS = "DELETE_DETAILS"
+  DELETE_DETAILS = "DELETE_DETAILS",
+  GET_USER = "GET_USER",
+  GET_USER_ERROR = "GET_USER_ERROR",
+  GET_USER_LOADING = "GET_USER_LOADING",
 }
 
-interface actionDeleteDetails{
+interface actionDeleteDetails {
   type: ActionType.DELETE_DETAILS;
-  payload:[];
+  payload: [];
 }
 
 interface actionDetails {
@@ -27,4 +31,25 @@ interface actionProducts {
   payload: ProductInterface[];
 }
 
-export type Action = actionDetails | actionProducts | actionSearch | actionDeleteDetails;
+interface actionUser {
+  type: ActionType.GET_USER;
+  payload: UserInterface;
+}
+
+interface actionUserError {
+  type: ActionType.GET_USER_ERROR;
+  payload: string | undefined;
+}
+
+interface actionUserLoading {
+  type: ActionType.GET_USER_LOADING;
+}
+
+export type Action =
+  | actionDetails
+  | actionProducts
+  | actionSearch
+  | actionDeleteDetails
+  | actionUser
+  | actionUserError
+  | actionUserLoading;
