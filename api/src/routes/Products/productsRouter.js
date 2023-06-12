@@ -20,7 +20,7 @@ productsRouter.get("/", async (req, res) => {
             page= pageAsNumber
         }
 
-        let size = 11
+        let size = 10   
         if(!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
             size = sizeAsNumber
         }

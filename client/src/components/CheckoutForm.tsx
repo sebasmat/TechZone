@@ -3,13 +3,13 @@ import axios from 'axios';
 import ProductInterface from '@/interfaces/productsInterface';
 
 const CheckoutForm = (props:any) => {
-
+  console.log(props.state);
   const createPayment = async ()=>{
     const estado:any = [];
-    const array:any[] = props.state;
+    const array:any[] = props.state.products;
     array.forEach((obj:any)=>{
       estado.push({
-        name:obj.product.name,
+        name:obj.name,
         cantidad: obj.quantity,
       })
     })

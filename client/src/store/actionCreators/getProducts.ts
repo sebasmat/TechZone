@@ -2,13 +2,13 @@ import { Dispatch } from "redux";
 import { Action, ActionType } from "@/store/actionTypes";
 import axios from "axios";
 
-export const getProducts = () => {
+export const getProducts = (page: number) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/products}`);
+      const { data } = await axios.get(`http://localhost:3001/products?page=${page}`);
       dispatch({
         type: ActionType.GET_PRODUCTS,
-        payload: data,
+        payload: data.content,
       });
     } catch (err: any) {
       dispatch({

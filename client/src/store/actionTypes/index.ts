@@ -1,4 +1,5 @@
 import ProductInterface from "@/interfaces/productsInterface";
+import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import UserInterface from "@/interfaces/userInterface";
 
 export enum ActionType {
@@ -9,6 +10,8 @@ export enum ActionType {
   GET_USER = "GET_USER",
   GET_USER_ERROR = "GET_USER_ERROR",
   GET_USER_LOADING = "GET_USER_LOADING",
+  GET_CART_ITEMS = "GET_CART_ITEMS",
+  GET_CART_ITEMS_ERROR = "GET_CART_ITEMS_ERROR",
 }
 
 interface actionDeleteDetails {
@@ -45,6 +48,16 @@ interface actionUserLoading {
   type: ActionType.GET_USER_LOADING;
 }
 
+interface actionCartItems {
+  type: ActionType.GET_CART_ITEMS;
+  payload: ShoppingCartInterface;
+}
+
+interface actionCartItemsError {
+  type: ActionType.GET_CART_ITEMS_ERROR;
+  payload: string | undefined;
+}
+
 export type Action =
   | actionDetails
   | actionProducts
@@ -52,4 +65,6 @@ export type Action =
   | actionDeleteDetails
   | actionUser
   | actionUserError
-  | actionUserLoading;
+  | actionUserLoading
+  | actionCartItems
+  | actionCartItemsError;

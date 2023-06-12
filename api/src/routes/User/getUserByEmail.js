@@ -7,7 +7,6 @@ getUserByEmail.get("/", async (req, res) => {
   try {
     const { email } = req.query;
     const user = await findUserByEmail(email);
-    // console.log("user", user);
     if (user === null) {
       res.status(404).send("User not found");
     } else {

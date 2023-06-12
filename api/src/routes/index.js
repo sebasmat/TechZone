@@ -8,6 +8,10 @@ const homeProductsRouter = require("./homeProductsRouter");
 const categoriesRouter = require("./categoriesRouter");
 const postItemsToCart = require("./ShoppingCart/postItems");
 const payRouter = require("./payRouter");
+const postItemToCart = require("./ShoppingCart/postItem");
+const getIems = require("./ShoppingCart/getIems");
+const deleteItem = require("./ShoppingCart/deleteItem");
+const putItem = require("./ShoppingCart/putItem");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -22,5 +26,9 @@ router.use("/create", PutUser);
 router.use("/users", getUserByEmail);
 router.use("/cart", postItemsToCart);
 router.use("/pay", payRouter)
+router.use("/cart", postItemToCart);
+router.use("/cart", getIems);
+router.use("/cart", deleteItem);
+router.use("/cart", putItem);
 
 module.exports = router;
