@@ -16,35 +16,32 @@ export async function getStaticProps() {
   };
 }
 
-
-
 let arrayProducts = data as ProductInterface[];
 const Products = () => {
-
-  const dispatch = useDispatch()
-  const result = useTypedSelector((state) => state.products.ProductsFromDb)
+  const dispatch = useDispatch();
+  const result = useTypedSelector((state) => state.products.ProductsFromDb);
 
   useEffect(() => {
-    dispatch(getProducts(1))
-  }, [])
+    dispatch(getProducts(0));
+  }, []);
 
-  const arrayProducts = result
+  const arrayProducts = result;
 
   const [productsFiltered, setProductsFiltered] =
-     useState<ProductInterface[]>(arrayProducts);
-   const [search, setSearch] = useState<ProductInterface[]>(arrayProducts);
-
-  
+    useState<ProductInterface[]>(arrayProducts);
+  const [search, setSearch] = useState<ProductInterface[]>(arrayProducts);
 
   return (
     <div className="flex flex-arrow items-start">
-       <FilterProducts
+      <FilterProducts
         arrayProducts={arrayProducts}
         productsFiltered={productsFiltered}
         setProductsFiltered={setProductsFiltered}
       />
-      <ProductListing arrayProducts={arrayProducts} />
-      <Paginated />
+      <div className="w-[100%] pb-6">
+        <ProductListing arrayProducts={arrayProducts} />
+        <Paginated />
+      </div>
     </div>
   );
 };
