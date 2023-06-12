@@ -3,7 +3,6 @@ import axios from 'axios';
 import ProductInterface from '@/interfaces/productsInterface';
 
 const CheckoutForm = (props:any) => {
-  console.log(props.state);
   const createPayment = async ()=>{
     const estado:any = [];
     const array:any[] = props.state.products;
