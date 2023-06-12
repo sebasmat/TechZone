@@ -3,6 +3,11 @@ import Image from "next/image";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
+
+const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
 // div page-container
 //   div products-container
@@ -24,6 +29,8 @@ const Shopping = () => {
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
   }, []);
+  console.log(cart);
+
 
   return (
     // page container
@@ -81,6 +88,9 @@ const Shopping = () => {
           </div>
         ))}
       </div>
+      <Elements stripe={stripe} >
+        <CheckoutForm state={cart} />
+      </Elements>
     </div>
   );
 };

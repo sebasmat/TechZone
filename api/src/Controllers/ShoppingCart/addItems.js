@@ -10,7 +10,7 @@ const addItems = async (cartItems) => {
   }
   const allItems = await Promise.all(allItemsPromises);
 
-  console.log(allItems[0]);
+  // console.log(allItems[0]);
 
   let itemsAddToCartUsers = [];
   for (let i = 0; i < allItems.length; i++) {

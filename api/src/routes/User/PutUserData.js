@@ -16,10 +16,10 @@ PutUserData.put("/User/:email", async (req, res) => {
       cellPhone,
       Gender,
     });
-    console.log(`this is putUser: ${JSON.stringify(putUser)}`);
+    // console.log(`this is putUser: ${JSON.stringify(putUser)}`);
     return res.status(200).json(putUser);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json(error);
   }
 });

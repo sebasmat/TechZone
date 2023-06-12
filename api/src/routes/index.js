@@ -7,6 +7,7 @@ const getUserByEmail = require("./User/getUserByEmail");
 const homeProductsRouter = require("./homeProductsRouter");
 const categoriesRouter = require("./categoriesRouter");
 const postItemsToCart = require("./ShoppingCart/postItems");
+const payRouter = require("./payRouter");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -20,5 +21,6 @@ router.use("/create", addUser);
 router.use("/create", PutUser);
 router.use("/users", getUserByEmail);
 router.use("/cart", postItemsToCart);
+router.use("/pay", payRouter)
 
 module.exports = router;

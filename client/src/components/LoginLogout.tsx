@@ -38,12 +38,12 @@ const LoginLogout = ({}: Props) => {
           quantity: item.quantity,
         };
       });
-      console.log("this is format data", formatData);
+      // console.log("this is format data", formatData);
 
       const dataConsole = await axios.post("http://localhost:3001/cart", {
         cartItems: formatData,
       });
-      console.log(dataConsole.data);
+      // console.log(dataConsole.data);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +53,7 @@ const LoginLogout = ({}: Props) => {
     if (UserFromDb.name !== undefined) {
       console.log("desde logincomponent sgiendo userfromdb");
       if (JSON.parse(localStorage.getItem("cart") || "[]").length > 0) {
-        console.log(JSON.parse(localStorage.getItem("cart") || "[]"));
+        // console.log(JSON.parse(localStorage.getItem("cart") || "[]"));
         handleCartPostItems();
       }
     }
