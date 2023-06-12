@@ -35,7 +35,7 @@ const ProductForm = () => {
     const handleCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setProductCategory(event.currentTarget.value)
     }
-    const handleDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setProductDescription(event.currentTarget.value)
     }
     const handlePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ const ProductForm = () => {
 
     const postProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
         if (productBrand && productBrand && productCategory && productDescription && productName && productImage1 && productPrice && productStock) {
-            let url:string = ""
+            let url: string = ""
             if (productImage1) {
                 try {
                     const formData = new FormData();
@@ -101,47 +101,50 @@ const ProductForm = () => {
     }
 
     return (
-        <div>
-            <div>
+        <div className="bg-violet-100 p-10 rounded-xl drop-shadow-2xl shadow-violet-950 ">
+            <div className="flex justify-center py-10 text-4xl text-violet-950 ">
                 <h1>Crea un producto</h1>
             </div>
-            <div>
+            <div className="py-3 text-xl" >
                 <label>Nombre: </label>
-                <input value={productName} onChange={handleNameValue} type="text" />
+                <input value={productName} onChange={handleNameValue} type="text" className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950" />
             </div>
-            <div>
+            <div className="py-3 text-xl">
                 <label>Marca: </label>
-                <input value={productBrand} onChange={handleBrandValue} type="text" />
+                <input value={productBrand} onChange={handleBrandValue} type="text" className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950" />
             </div>
-            <div>
+            <div className="py-3 text-xl">
                 <label>Categoría</label>
-                <select className="bg-white rounded-xl font-semibold hover:bg-violet-200"
+                <select className="mx-3 px-4 bg-white py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
                     onChange={handleCategory}>
-                        <option></option>
+                    <option></option>
                     {categories.map((category) => {
                         return (<option value={category.category}>{category.category}</option>)
                     })}
                 </select>
             </div>
-            <div>
+            <div className="py-3 text-xl">
                 <label>Descripción: </label>
-                <input value={productDescription} onChange={handleDescription} type="text" />
+                <textarea value={productDescription} onChange={handleDescription} className="mx-3 mt-5 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950 w-[100%] h-[100px] " />
             </div>
-            <div>
+            <div className="py-3 text-xl">
                 <label>Precio</label>
-                <input value={productPrice} onChange={handlePrice} type="number" />
+                <input value={productPrice} onChange={handlePrice} type="number" className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950" />
             </div>
-            <div>
+            <div className="py-3 text-xl">
                 <label>Seleccione las imagenes:</label>
-                <input type="file" accept="image/*" onChange={handleImages} />
+                <input type="file" accept="image/*" onChange={handleImages} className="bg-violet-300 mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950" />
             </div>
-            {productImage1 && <img src={URL.createObjectURL(productImage1)} />}
-            <div>
+            {productImage1 && <div className="bg-white p-3 w-80">
+                <img className="h-150" src={URL.createObjectURL(productImage1)} />
+            </div>}
+            <div className="py-3 text-xl">
                 <label>Existencias: </label>
-                <input value={productStock} onChange={handleStock} type="number" />
+                <input value={productStock} onChange={handleStock} type="number" className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950" />
             </div>
-
-            <button onClick={postProduct}>Crear Producto</button>
+            <div className="flex justify-center py-5 text-xl text-white">
+                <button className="bg-violet-900 rounded-xl px-3 py-2 hover:bg-violet-300 hover:text-violet-900 duration-150" onClick={postProduct}>Crear Producto</button>
+            </div>
         </div>
     )
 };
