@@ -73,7 +73,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className="flex flex-row justify-between rounded-2xl m-7 p-5 bg-violet-400 shadow-2xl shadow-gray-700 hover:bg-violet-500 duration-300">
+    <div className="flex flex-row  rounded-2xl m-7 p-5 bg-violet-400 shadow-2xl shadow-gray-700 hover:bg-violet-500 duration-300">
       <Link href={`detail/${id}`}>
         <Image
           src={images[0]}
@@ -89,18 +89,20 @@ const ProductCard = ({
           }}
         />
       </Link>
-      <div className="flex flex-col items-end justify-between">
+      <div className="flex flex-col items-start justify-between pl-20 w-[100%] ">
         <Link href={`detail/${id}`}>
-          <h2 className="font-bold">{name}</h2>
+          <h2 className="font-bold text-xl">{name}</h2>
           <h2>{category}</h2>
           <h2 className="text-violet-950 font-bold text-2xl">${price}</h2>
         </Link>
-        <button
-          onClick={() => handleCartPostItems()}
-          className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
-        >
-          Agregar al carrito
-        </button>
+        <div className="flex w-[100%] justify-end">
+          <button
+            onClick={() => handleCartPostItems()}
+            className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
+          >
+            Agregar al carrito
+          </button>
+        </div>
       </div>
     </div>
   );
