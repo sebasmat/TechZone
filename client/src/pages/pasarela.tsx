@@ -9,17 +9,27 @@ const pasarela = () => {
     const createProduct = async () => {
         //aqui iria la información del o los productos, especialmente el nombre 
         //la información de creación en stripe puede hacerse de una vez con todos los productos o los productos 
-        const {data} = await axios.get('http://localhost:3001/products/1');
-        const name = "PruebaProduct";
-        const price = 100;
-        const descripcion = "esta es la descripcion de PruebaProduct";
-        const imagenes = data.images;
-        const request = await axios.post('http://localhost:3001/pay', {
-            name:name, 
-            precio:price,
-            descripcion: descripcion,
-            imagenes: imagenes
+        //traer todos los productos 
+        //recorrerlos y tomar las props pertinentes 
+        //preparar el back para que reciba un array 
+        const {data} = await axios.get('http://localhost:3001/products?page=4');
+
+        const productos: any[] | undefined = [];
+        const allproducts = data.content;
+        allproducts.forEach((product:any) => {
+            productos.push({
+                name: product.name,
+                price: product.price,
+                descripcion: product.description,
+            })
         });
+        console.log(allproducts);
+        
+        // const name = "PruebaProduct";
+        // const price = 100;
+        // const descripcion = "esta es la descripcion de PruebaProduct";
+        // const imagenes = data.images;
+        const request = await axios.post('http://localhost:3001/pay', {arrayProducts:productos});
         console.log(request);
       }
 
