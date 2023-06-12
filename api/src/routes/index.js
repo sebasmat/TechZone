@@ -7,6 +7,7 @@ const getUserByEmail = require("./User/getUserByEmail");
 const homeProductsRouter = require("./homeProductsRouter");
 const categoriesRouter = require("./categoriesRouter");
 const postItemsToCart = require("./ShoppingCart/postItems");
+const payRouter = require("./payRouter");
 const postItemToCart = require("./ShoppingCart/postItem");
 const getIems = require("./ShoppingCart/getIems");
 const deleteItem = require("./ShoppingCart/deleteItem");
@@ -24,6 +25,7 @@ router.use("/create", addUser);
 router.use("/create", PutUser);
 router.use("/users", getUserByEmail);
 router.use("/cart", postItemsToCart);
+router.use("/pay", payRouter)
 router.use("/cart", postItemToCart);
 router.use("/cart", getIems);
 router.use("/cart", deleteItem);

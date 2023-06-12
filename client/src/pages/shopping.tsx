@@ -8,6 +8,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ActionType } from "@/store/actionTypes";
 import { formatDataForLocal } from "@/utils/formatDataUtils";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
+
+
+const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
 const Shopping = () => {
   const [cart, setCart] = useState<ShoppingCartInterface[] | any[]>([]);
@@ -78,6 +84,7 @@ const Shopping = () => {
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
   }, []);
+
 
   return (
     <div className="flex justify-center content-center">
@@ -188,6 +195,9 @@ const Shopping = () => {
           <p>No hay productos</p>
         )}
       </div>
+      <Elements stripe={stripe} >
+        <CheckoutForm state={CartItems} />
+      </Elements>
     </div>
   );
 };

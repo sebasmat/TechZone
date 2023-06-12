@@ -74,7 +74,6 @@ const LoginLogout = ({}: Props) => {
         payload: formatData,
       });
     } catch (error: any) {
-      console.log(error);
       dispatch({
         type: ActionType.GET_CART_ITEMS_ERROR,
         payload: error.message,
