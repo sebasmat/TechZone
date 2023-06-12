@@ -1,8 +1,13 @@
 import ProductInterface from "@/interfaces/productsInterface";
+import UserInterface from "./userInterface";
+
+interface ProductsWithQuantity extends ProductInterface {
+  quantity?: number;
+}
 
 interface ShoppingCartInterface {
-  product: ProductInterface | undefined;
-  quantity: number;
+  products: ProductsWithQuantity[];
+  user: UserInterface;
 }
 
 export default ShoppingCartInterface;
