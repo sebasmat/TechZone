@@ -81,6 +81,12 @@ const ProductCard = ({
           width={200}
           height={200}
           className="bg-white rounded-2xl"
+          style={{
+            maxHeight: "200px",
+            maxWidth: "200px",
+            minHeight: "200px",
+            minWidth: "200px",
+          }}
         />
       </Link>
       <div className="flex flex-col items-end justify-between">

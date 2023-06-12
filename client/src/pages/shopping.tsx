@@ -13,7 +13,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
 
-
 const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
 const Shopping = () => {
@@ -86,32 +85,50 @@ const Shopping = () => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
   }, []);
 
-
   return (
     <div className="flex justify-center content-center">
-      <div className="flex flex-col bg-teal-100">
+      <div className="flex flex-col w-3/4 gap-4 py-4">
         {UserFromDb.name !== undefined ? (
           CartItems.products?.length > 0 ? (
             CartItems.products?.map((item: any) => (
-              <div key={item.id} className="flex">
-                <div>
-                  <Image
-                    src={item.images[0] ? item.images[0] : ""}
-                    alt={item.name || ""}
-                    width={150}
-                    height={150}
-                  />
+              <div
+                key={item.id}
+                className="flex justify-between bg-violet-300 h-44 rounded-md"
+              >
+                <div className="flex p-2">
+                  <div
+                    className="w-40 h-40 flex justify-center items-center"
+                    style={{
+                      minWidth: "150px",
+                      maxWidth: "150px",
+                      maxHeight: "150px",
+                    }}
+                  >
+                    <Image
+                      src={item.images[0] ? item.images[1] : ""}
+                      alt={item.name || ""}
+                      width={150}
+                      height={150}
+                      style={{ maxHeight: "150px" }}
+                    />
+                  </div>
+                  <div className="pl-2">
+                    <p className="font-bold">{item.name}</p>
+                    <p>{item.brand}</p>
+                    <p className="text-violet-950 font-bold text-2xl">
+                      ${item.price}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p>{item.name}</p>
-                  <p>{item.brand}</p>
-                  <p>{item.price}</p>
-                </div>
-                <div className="flex justify-center content-center items-center">
+
+                <div
+                  className="flex justify-center gap-4 content-center items-center w-36"
+                  style={{ minWidth: "150px" }}
+                >
                   <input
                     type="text"
                     placeholder="1"
-                    className="h-10"
+                    className="h-10 rounded-md w-10 text-center"
                     value={item.quantity}
                     onChange={(e) =>
                       ManageModifyCart(item.id, Number(e.target.value))
@@ -120,7 +137,7 @@ const Shopping = () => {
                   <svg
                     onClick={() => ManageRemoveCart(item.id)}
                     xmlns="http://www.w3.org/2000/svg"
-                    className="icon icon-tabler icon-tabler-trash"
+                    className="icon icon-tabler icon-tabler-trash bg-violet-600 w-14 h-10 rounded-lg"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -146,24 +163,39 @@ const Shopping = () => {
         ) : cart.length > 0 ? (
           cart.map((item: any) => (
             <div key={item.product?.id} className="flex">
-              <div>
-                <Image
-                  src={item.product?.images[0] ? item.product.images[0] : ""}
-                  alt={item.product?.name || ""}
-                  width={150}
-                  height={150}
-                />
+              <div className="flex p-2">
+                <div
+                  className="w-40 h-40 flex justify-center items-center"
+                  style={{
+                    minWidth: "150px",
+                    maxWidth: "150px",
+                    maxHeight: "150px",
+                  }}
+                >
+                  <Image
+                    src={item.product?.images[0] ? item.product.images[0] : ""}
+                    alt={item.product?.name || ""}
+                    width={150}
+                    height={150}
+                    style={{ maxHeight: "150px" }}
+                  />
+                </div>
+                <div className="pl-2">
+                  <p className="font-bold">{item.product?.name}</p>
+                  <p>{item.product?.brand}</p>
+                  <p className="text-violet-950 font-bold text-2xl">
+                    {item.product?.price}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p>{item.product?.name}</p>
-                <p>{item.product?.brand}</p>
-                <p>{item.product?.price}</p>
-              </div>
-              <div className="flex justify-center content-center items-center">
+              <div
+                className="flex justify-center gap-4 content-center items-center w-36"
+                style={{ minWidth: "150px" }}
+              >
                 <input
                   type="text"
                   placeholder="1"
-                  className="h-10"
+                  className="h-10 rounded-md w-10 text-center"
                   value={item.quantity}
                   onChange={(e) =>
                     ManageModifyCart(item.product?.id, Number(e.target.value))
@@ -172,7 +204,7 @@ const Shopping = () => {
                 <svg
                   onClick={() => ManageRemoveCart(item.product?.id)}
                   xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-trash"
+                  className="icon icon-tabler icon-tabler-trash bg-violet-600 w-14 h-10 rounded-lg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -196,7 +228,7 @@ const Shopping = () => {
           <p>No hay productos</p>
         )}
       </div>
-      <Elements stripe={stripe} >
+      <Elements stripe={stripe}>
         <CheckoutForm state={CartItems} />
       </Elements>
     </div>
