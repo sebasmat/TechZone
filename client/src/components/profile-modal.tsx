@@ -13,7 +13,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showModal, closeModal }) =>
     if (!showModal) return null
 
     return (
-        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => closeModal(event)} className="absolute inset-0 mt-20 pr-2 flex justify-end ">
+        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => closeModal(event)} className="absolute inset-0 mt-20 pr-2 flex justify-end z-50">
             <div className="bg-violet-900 w-[200px] h-[400px]">
                 {
                     UserFromDb.name == undefined &&
@@ -40,6 +40,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showModal, closeModal }) =>
                     UserFromDb.name != undefined &&
                     <div>
                         <img className=" rounded-full ml-4 h-40 w-40" src={UserFromDb.profileIMG} alt="" />
+                        
+                        
+                        <h1>{UserFromDb.name}</h1>
+                        <Link href={"/profilePage"}>
+                        <h1>Ver perfil</h1>
+                        </Link>
                         <Link href={"/api/auth/logout"}>
                             <h1 className="bg-white">Logout</h1>
                         </Link>
