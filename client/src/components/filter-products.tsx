@@ -1,12 +1,16 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ProductInterface from "@/interfaces/productsInterface";
+import categoriesInterface from "@/interfaces/categoriesInterface";
+import brandsInterface from "@/interfaces/brandsInterface";
+import { useDispatch } from "react-redux";
+import { getProducts } from "@/store/actionCreators/getProducts";
 
-type Props = {
-  arrayProducts: ProductInterface[];
-  productsFiltered: ProductInterface[];
-  setProductsFiltered: Dispatch<SetStateAction<ProductInterface[]>>;
-};
-const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
+// type Props = {
+//   arrayProducts: ProductInterface[];
+//   productsFiltered: ProductInterface[];
+//   setProductsFiltered: Dispatch<SetStateAction<ProductInterface[]>>;
+// };
+const FilterProducts = () => {
   const [valueArrayCategory, setArrayValueCategory] = useState<string[]>([]);
   const [valueArrayBrand, setArrayValueBrand] = useState<string[]>([]);
   const [valueCategory, setValueCategory] = useState("Todos");
@@ -14,62 +18,101 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
   const [valuePrice, setValuePrice] = useState("");
   const [valueStock, setValueStock] = useState("");
   const [orderBy, setOrderBy] = useState("ASC");
+  const [categories, setCategories] = useState<categoriesInterface[]>([])
+  const [brands, setBrands] = useState<brandsInterface[]>([])
+
+  const dispatch = useDispatch()
+
+  const resultCategories = async () => {
+    await fetch("http://localhost:3001/categories")
+      .then((response) => response.json())
+      .then((data) => setCategories(data));
+  };
+
+  const resultBrands = async () => {
+    await fetch("http://localhost:3001/brands")
+      .then((response) => response.json())
+      .then((data) => setBrands(data));
+  };
 
   useEffect(() => {
-    const getUniqueCategories = () => {
-      const unique = new Set(arrayProducts.map((product) => product.category));
-      const uniqueArray = Array.from(unique);
-      setArrayValueCategory(["Todos", ...uniqueArray]);
-    };
-    const getUniqueBrands = () => {
-      const unique = new Set(arrayProducts.map((product) => product.brand));
-      const uniqueArray = Array.from(unique);
-      setArrayValueBrand(["Todos", ...uniqueArray]);
-    };
-    getUniqueCategories();
-    getUniqueBrands();
-  }, [arrayProducts]);
+    resultBrands()
+    resultCategories()
+  }, [])
 
-  useEffect(() => {
-    setProductsFiltered(arrayProducts);
-    setProductsFiltered(
-      arrayProducts.sort((a, b) => {
-        if (orderBy === "ASC") {
-          return a.price - b.price;
-        } else {
-          return b.price - a.price;
-        }
-      })
-    );
-    setProductsFiltered(
-      arrayProducts
-        .filter((product) => {
-          return valueCategory !== "Todos"
-            ? product.category === valueCategory
-            : true;
-        })
-        .filter((product) =>
-          valueBrand !== "Todos" ? product.brand === valueBrand : true
-        )
-        .filter((product) =>
-          valueStock !== "" && Number(valueStock) > 0
-            ? product.stock <= Number(valueStock)
-            : true
-        )
-        .filter((product) =>
-          valuePrice !== "" && Number(valuePrice) > 0
-            ? product.price <= Number(valuePrice)
-            : true
-        )
-    );
-  }, [
-    arrayProducts,
-    valueCategory,
-    valueBrand,
-    valuePrice,
-    valueStock,
-    orderBy,
-  ]);
+  const handleButtonFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if(valueCategory == "Todos" && valueBrand == "Todos"){
+      dispatch(getProducts(0,null,null))
+      }
+    if(valueCategory != "Todos" && valueCategory != "Todos"){
+      dispatch(getProducts(null,valueCategory,valueBrand))
+    }
+    if(valueCategory != "Todos" && valueBrand == "Todos"){
+      dispatch(getProducts(null,valueCategory,null))
+    }
+    if(valueCategory == "Todos" && valueBrand != "Todos"){
+      dispatch(getProducts(null,null,valueBrand))
+    }
+  }  
+
+  // useEffect(() => {
+  //   const getUniqueCategories = () => {
+  //     const unique = new Set(arrayProducts.map((product) => product.category));
+  //     const uniqueArray = Array.from(unique);
+  //     setArrayValueCategory(["Todos", ...uniqueArray]);
+  //   };
+  //   const getUniqueBrands = () => {
+  //     const unique = new Set(arrayProducts.map((product) => product.brand));
+  //     const uniqueArray = Array.from(unique);
+  //     setArrayValueBrand(["Todos", ...uniqueArray]);
+  //   };
+  //   getUniqueCategories();
+  //   getUniqueBrands();
+  // }, [arrayProducts]);
+
+  // useEffect(() => {
+  //   setProductsFiltered(arrayProducts);
+  //   setProductsFiltered(
+  //     arrayProducts.sort((a, b) => {
+  //       if (orderBy === "ASC") {
+  //         return a.price - b.price;
+  //       } else {
+  //         return b.price - a.price;
+  //       }
+  //     })
+  //   );
+  //   setProductsFiltered(
+  //     arrayProducts
+  //       .filter((product) => {
+  //         return valueCategory !== "Todos"
+  //           ? product.category === valueCategory
+  //           : true;
+  //       })
+  //       .filter((product) =>
+  //         valueBrand !== "Todos" ? product.brand === valueBrand : true
+  //       )
+  //       .filter((product) =>
+  //         valueStock !== "" && Number(valueStock) > 0
+  //           ? product.stock <= Number(valueStock)
+  //           : true
+  //       )
+  //       .filter((product) =>
+  //         valuePrice !== "" && Number(valuePrice) > 0
+  //           ? product.price <= Number(valuePrice)
+  //           : true
+  //       )
+  //   );
+  // }, [
+  //   arrayProducts,
+  //   valueCategory,
+  //   valueBrand,
+  //   valuePrice,
+  //   valueStock,
+  //   orderBy,
+  // ]);
+
+
+
 
   return (
     <div className="bg-violet-800 p-5 rounded-br-xl max-w-[280px]  ">
@@ -98,11 +141,10 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
             setValueCategory(event.currentTarget.value);
           }}
         >
-          {valueArrayCategory.map((category, i) => {
+          <option>Todos</option>
+          {categories.map((category) => {
             return (
-              <option key={i} value={category}>
-                {category}
-              </option>
+              <option value={category.category}>{category.category}</option>
             );
           })}
         </select>
@@ -117,11 +159,10 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
             setValueBrand(event.currentTarget.value);
           }}
         >
-          {valueArrayBrand.map((brand, i) => {
+          <option>Todos</option>
+          {brands.map((brand) => {
             return (
-              <option key={i} value={brand}>
-                {brand}
-              </option>
+              <option value={brand.brand}>{brand.brand}</option>
             );
           })}
         </select>
@@ -141,6 +182,9 @@ const FilterProducts = ({ arrayProducts, setProductsFiltered }: Props) => {
           }}
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
+      </div>
+      <div>
+        <button className="bg-white" onClick={handleButtonFilter}>Filtrar</button>
       </div>
     </div>
   );
