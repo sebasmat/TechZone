@@ -10,6 +10,10 @@ const productsReducer = (
   action: Action
 ): ProductReducerInterface => {
   switch (action.type) {
+    case ActionType.GET_SEARCH:
+      return{
+        ProductsFromDb: action.payload,
+      }
     case ActionType.GET_PRODUCTS:
       return {
         ProductsFromDb: action.payload,
