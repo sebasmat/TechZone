@@ -15,11 +15,13 @@ const putItem = require("./ShoppingCart/putItem");
 const postItemFav = require("./Favorites/postItem");
 const deleteItemFav = require("./Favorites/deleteItem");
 const getItemsFav = require ("./Favorites/getItems")
+const brandRouter = require("./brandRouter");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
 
+router.use("/brands", brandRouter); //GET
 router.use("/categories", categoriesRouter); //GET
 router.use("/products", productsRouter); //GET
 router.use("/homeproducts", homeProductsRouter); //GET
