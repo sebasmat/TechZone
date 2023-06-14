@@ -40,8 +40,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Products, Users } = sequelize.models;
 
 // Aca vendrian las relaciones
-Users.belongsToMany(Products, { through: "Favorites" });
-Products.belongsToMany(Users, { through: "Favorites" });
+const Favorites = sequelize.define(
+  "Favorites", 
+  { productos : DataTypes.ARRAY(DataTypes.STRING)},
+  {
+    timestamps: false,
+  }
+)
+Users.belongsToMany(Products, { through: Favorites});
+Products.belongsToMany(Users, { through: Favorites});
 
 const Cart = sequelize.define(
   "Cart",
