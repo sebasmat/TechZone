@@ -1,13 +1,13 @@
-const {Users, Products, Favorites} = require ("../../db");
+const {Favorites} = require ("../../db");
 
 const RemoveItemFav = async (userId, productId) => {
     const deleteFav = await Favorites.destroy({
         where : {
             UserId : userId,
-            ProductsId: productId
+            ProductsId: productId,
         },
     });
     return deleteFav;
 }
 
-module.exports = RemoveItemFav
+module.exports = RemoveItemFav;

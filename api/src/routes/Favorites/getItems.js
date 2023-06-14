@@ -8,7 +8,7 @@ getItemsFav.get("/items/:userId", async (req, res) => {
         const {userId} = req.params;
         const fav = await getItemsControllerFav(userId);
         if (fav && fav.Products.length >0) {
-            res.status(200).json(cart);
+            res.status(200).json(fav);
         } else{
             res.status(404).json({message : "No hay items en Favoritos"})
         };

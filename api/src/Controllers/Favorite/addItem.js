@@ -10,7 +10,7 @@ const addFav = async (item) => {
         where: {id: item.userId },
         include: Products,
     });
-    return Fav
+    return Fav;
 }
 
-module.exports = addFav
+module.exports = addFav;
