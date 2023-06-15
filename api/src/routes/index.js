@@ -12,6 +12,9 @@ const postItemToCart = require("./ShoppingCart/postItem");
 const getIems = require("./ShoppingCart/getIems");
 const deleteItem = require("./ShoppingCart/deleteItem");
 const putItem = require("./ShoppingCart/putItem");
+const modifyProduct = require("./Products/updateProduct");
+const getUsers = require("./User/getUsers");
+const updateUserEstate = require("./User/updateUserEstate");
 const postItemFav = require("./Favorites/postItem");
 const deleteItemFav = require("./Favorites/deleteItem");
 const getItemsFav = require ("./Favorites/getItems")
@@ -26,11 +29,14 @@ router.use("/categories", categoriesRouter); //GET
 router.use("/products", productsRouter); //GET
 router.use("/homeproducts", homeProductsRouter); //GET
 router.use("/create", addProduct);
+router.use("/update", modifyProduct);
 router.use("/create", addUser);
 router.use("/create", PutUser);
+router.use("/create", updateUserEstate);
 router.use("/users", getUserByEmail);
+router.use("/users", getUsers);
 router.use("/cart", postItemsToCart);
-router.use("/pay", payRouter)
+router.use("/pay", payRouter);
 router.use("/cart", postItemToCart);
 router.use("/cart", getIems);
 router.use("/cart", deleteItem);

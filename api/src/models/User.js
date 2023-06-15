@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -22,25 +22,30 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
 
       profileIMG: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
-      direction : {
+      direction: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       cellPhone: {
         type: DataTypes.BIGINT,
-        allowNull: true
+        allowNull: true,
       },
       Gender: {
         type: DataTypes.STRING,
-        allowNull: true
-      }
+        allowNull: true,
+      },
+      available: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true,
+      },
     },
     { timestamps: false }
   );

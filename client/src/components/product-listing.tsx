@@ -33,7 +33,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
                 images={product.images}
                 description={product.description}
                 price={product.price}
-                available={product.available}
+                avalaible={product.avalaible}
                 stock={product.stock}
               />
             );

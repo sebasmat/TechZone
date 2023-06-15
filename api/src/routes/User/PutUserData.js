@@ -1,6 +1,5 @@
 const express = require("express");
 const putUsers = require("../../Controllers/User/PutUsers");
-const { Users } = require("../../db");
 
 const PutUserData = express.Router();
 

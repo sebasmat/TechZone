@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionType, Action } from "../actionTypes";
+import { Action, ActionType } from "../actionTypes";
 // desde la bdd viene el id como number, y las imagenes en array las dos "images".
 //habria que modificar la interface, aca el id :number.
 //en store.ts chequear el de product.

@@ -1,4 +1,3 @@
-import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import ProductInterface from "@/interfaces/productsInterface";
 
 export const manageCart = ({
@@ -9,7 +8,7 @@ export const manageCart = ({
   images,
   description,
   price,
-  available,
+  avalaible,
   stock,
 }: ProductInterface) => {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -24,7 +23,7 @@ export const manageCart = ({
         images,
         description,
         price,
-        available,
+        avalaible,
         stock,
       },
       quantity: 1,
