@@ -31,6 +31,7 @@ const getProductsByBrand = async (req, res) => {
     res.json({
       totalPages,
       content: allProducts.rows,
+      origin: ["brand", brand]
     });
   } catch (error) {
     console.error(error);

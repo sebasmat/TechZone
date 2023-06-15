@@ -17,8 +17,7 @@ productsRouter.get("/", async (req, res) => {
     const sizeAsNumber = Number.parseInt(req.query.pageSize)
 
   if (name) {
-    const productByName = await findProductByName(req, res)
-    return res.status(200).json(productByName)
+    return findProductByName(req,res)
 }
 
     if (category && brand) {
@@ -48,6 +47,7 @@ productsRouter.get("/", async (req, res) => {
       res.json({
         totalPages,
         content: allProducts.rows,
+        origin: ["all"]
       });
     } catch (error) {
       console.error(error);

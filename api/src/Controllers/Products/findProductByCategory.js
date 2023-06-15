@@ -31,6 +31,7 @@ const getProductsByCategory = async (req, res) => {
     res.json({
       totalPages,
       content: allProducts.rows,
+      origin: ["category", category]
     });
   } catch (error) {
     console.error(error);

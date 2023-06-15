@@ -1,5 +1,5 @@
-const {Products} = require("../../db");
-const {Op} = require("sequelize")
+const { Products } = require("../../db");
+const { Op } = require("sequelize")
 
 const getProductsByName = async (req, res) => {
   const { name } = req.query;
@@ -9,24 +9,24 @@ const getProductsByName = async (req, res) => {
 
   const filterOptions = {
     name: {
-        [Op.like]: `%${name}%`
+      [Op.like]: `%${name}%`
     }
   };
   let page = 1;
-        if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
-            page = pageAsNumber
-        }
+  if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+    page = pageAsNumber
+  }
 
-        let size = 5
-        if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 5) {
-            size = sizeAsNumber
-        }
+  let size = 5
+  if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 5) {
+    size = sizeAsNumber
+  }
 
   try {
     const allProducts = await Products.findAndCountAll({
       where: filterOptions,
       limit: size,
-      offset: ( page - 1) * size,
+      offset: (page-1) * size,
     });
 
     const totalPages = Math.ceil(allProducts.count / size);
@@ -34,6 +34,7 @@ const getProductsByName = async (req, res) => {
     res.json({
       totalPages,
       content: allProducts.rows,
+      origin: ["name", name]
     });
   } catch (error) {
     console.error(error);

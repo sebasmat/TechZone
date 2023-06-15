@@ -1,17 +1,12 @@
 import React from "react";
 import ProductCard from "@/components/product-card";
 import ProductInterface from "../interfaces/productsInterface";
-import { useTypedSelector } from "@/store/useTypeSelector";
 
 type ProductListingProps = {
   arrayProducts: ProductInterface[];
 };
 
-const ProductListing = ({ arrayProducts }: ProductListingProps) => {
-  const { ProductsFromDb: searchs } = useTypedSelector(
-    (state) => state.searchs
-  );
-
+const ProductListing = ({ arrayProducts }: ProductListingProps) => {  
   if (arrayProducts.length < 1) {
     return (
       <div className="container flex flex-col items-center pt-10 text-slate-600 text-4xl">
@@ -27,24 +22,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   }
   return (
     <div className="container ">
-      {searchs.length > 0
-        ? searchs.map((search) => {
-            return (
-              <ProductCard
-                key={search.id}
-                id={search.id}
-                category={search.category}
-                brand={search.brand}
-                name={search.name}
-                images={search.images}
-                description={search.description}
-                price={search.price}
-                avalaible={search.avalaible}
-                stock={search.stock}
-              />
-            );
-          })
-        : arrayProducts.map((product) => {
+      {arrayProducts.map((product) => {
             return (
               <ProductCard
                 key={product.id}
