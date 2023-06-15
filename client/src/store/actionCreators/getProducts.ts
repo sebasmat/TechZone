@@ -35,7 +35,8 @@ export const getProducts = (page: number | null, category: string | null, brand:
         type: ActionType.GET_PRODUCTS,
         payload:{
           content:[],
-          totalPages: 0
+          totalPages: 0,
+          origin: []
         }
       });
     }

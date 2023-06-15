@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts } from "@/store/actionCreators/getProducts";
 import { useTypedSelector } from "@/store/useTypeSelector";
+import { getSearchs } from "@/store/actionCreators/getSearch";
 
 
 const Paginated = () => {
@@ -21,6 +22,7 @@ const Paginated = () => {
   // });
 
   const totalPages = useTypedSelector((state) => state.products.totalPages);
+  const origin = useTypedSelector((state) => state.products.origin);
 
   const arrayButton: number[] = [];
 
@@ -31,27 +33,35 @@ const Paginated = () => {
   const handlePaginatedButton = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    const actualPage = parseInt(event.currentTarget.value);
-    setPage(actualPage);
-    dispatch(getProducts(actualPage,null,null));
+    if (origin[0] == "all") {
+      const actualPage = parseInt(event.currentTarget.value);
+      setPage(actualPage);
+      dispatch(getProducts(actualPage, null, null));
+    }
+    if(origin[0] == "name"){
+      const actualPage = parseInt(event.currentTarget.value) +1 ;
+      setPage(actualPage);
+      dispatch(getSearchs(origin[1],actualPage));
+    }
+    
   };
 
-  const handleNextBackButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event.currentTarget.value == "next") {
-      let nextPage = page + 1;
-      setPage(nextPage);
-      dispatch(getProducts(nextPage,null,null));
-    }
-    if (event.currentTarget.value == "back") {
-      let nextPage = page - 1;
-      setPage(nextPage);
-      dispatch(getProducts(nextPage,null,null));
-    }
-  };
+  // const handleNextBackButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (event.currentTarget.value == "next") {
+  //     let nextPage = page + 1;
+  //     setPage(nextPage);
+  //     dispatch(getProducts(nextPage, null, null));
+  //   }
+  //   if (event.currentTarget.value == "back") {
+  //     let nextPage = page - 1;
+  //     setPage(nextPage);
+  //     dispatch(getProducts(nextPage, null, null));
+  //   }
+  // };
 
   return (
     <div className=" flex justify-center h-14 ">
-      {page > 0 && (
+      {/* {page > 0 && (
         <button
           value="back"
           onClick={handleNextBackButton}
@@ -59,9 +69,9 @@ const Paginated = () => {
         >
           Anterior
         </button>
-      )}
+      )} */}
       {arrayButton.map((number) => {
-        if (number - 1 != page) {
+        if (number) {
           return (
             <button
               value={number - 1}
@@ -72,15 +82,17 @@ const Paginated = () => {
               {number}
             </button>
           );
-        } else {
-          return (
-            <label className="m-3 px-2 py-1 text-xl rounded bg-violet-400">
-              {page + 1}
-            </label>
-          );
-        }
-      })}
-      {page < totalPages-1 && (
+        } 
+        // else {
+        //   return (
+        //     <label className="m-3 px-2 py-1 text-xl rounded bg-violet-400">
+        //       {page + 1}
+        //     </label>
+        //   );
+        // }
+      })
+      }
+      {/* {page < totalPages - 1 && (
         <button
           value="next"
           onClick={handleNextBackButton}
@@ -88,7 +100,7 @@ const Paginated = () => {
         >
           Siguiente
         </button>
-      )}
+      )} */}
     </div>
   );
 };

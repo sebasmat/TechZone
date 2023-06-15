@@ -32,7 +32,7 @@ const Searchbar = ({ arrayProducts }: Props) => {
     //     result.push(product);
     //   }
     // });
-    await dispatch(getSearchs(search)); // result debe ser un string no un array
+    await dispatch(getSearchs(search, 0 )); // result debe ser un string no un array
   };
   return (
     <div className="grow mx-4 flex">

@@ -11,36 +11,23 @@ const findProductByCategory = require("../../Controllers/Products/findProductByC
 const productsRouter = express.Router()
 
 productsRouter.get("/", async (req, res) => {
-    try {
-        const { name, category, brand, pagea } = req.query
-        if (category && brand) {
-            const productCombine = await combineFilter(category, brand)
-            return res.status(200).json({
-                content: productCombine,
-                totalPages: 1
-            })
-        }
-        if (category) {
-            const productByCategory = await findProductByCategory(category)
-            return res.status(200).json({
-                content: productByCategory,
-                totalPages: 1
-            })
-        }
-        if (brand) {
-            const productByBrand = await findProductByBrand(brand)
-            return res.status(200).json({
-                content: productByBrand,
-                totalPages: 1
-            })
-        }
-        if (name) {
-            const productByName = await findProductByName(name, pagea)
-            return res.status(200).json(productByName)
-        }
+    const { name, category, brand } = req.query;
 
-        const pageAsNumber = Number.parseInt(req.query.page)
-        const sizeAsNumber = Number.parseInt(req.query.size)
+    const pageAsNumber = Number.parseInt(req.query.page)
+    const sizeAsNumber = Number.parseInt(req.query.pageSize)
+
+  if (name) {
+    return findProductByName(req,res)
+}
+
+    if (category && brand) {
+    return combineFilter(req, res);
+  } else if (category) {
+    return findProductByCategory(req, res);
+  } else if (brand) {
+    return findProductByBrand(req, res);
+  } else {
+    try {
         let page = 0;
         if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
             page = pageAsNumber
@@ -50,20 +37,62 @@ productsRouter.get("/", async (req, res) => {
         if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
             size = sizeAsNumber
         }
-        const allProducts = await Products.findAndCountAll({
-            limit: size,
-            offset: page * size
-        })
+      const allProducts = await Products.findAndCountAll({
+        limit: size,
+        offset: page * size
+      });
 
-        // console.log(allProducts.rows);
-        res.status(200).json({
-            content: allProducts.rows,
-            totalPages: Math.ceil(allProducts.count / size)
-        })
+      const totalPages = Math.ceil(allProducts.count / size);
+
+      res.json({
+        totalPages,
+        content: allProducts.rows,
+        origin: ["all"]
+      });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-})
+  }
+});
+
+
+// productsRouter.get("/", async (req, res) => {
+//     try {
+//         const { name, page, pageSize, category, brand } = req.query
+
+//         const offset = (page - 1) * pageSize
+//         const limit = parseInt(pageSize)
+
+//         if (category && brand) {
+//             const productCombine = await combineFilter(category, brand)
+//             return res.status(200).json({
+//                 content: productCombine,
+//                 totalPages: 1
+//             })
+//         }
+//         if (category) {
+//             const productByCategory = await findProductByCategory(category)
+//             return res.status(200).json({
+//                 content: productByCategory,
+//                 totalPages: 1
+//             })
+//         }
+//         if (brand) {
+//             const productByBrand = await findProductByBrand(brand)
+//             return res.status(200).json({
+//                 content: productByBrand,
+//                 totalPages: 1
+//             })
+//         }
+//         if (name) {
+//             const productByName = await findProductByName(name)
+//             return res.status(200).json(productByName)
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// })
 productsRouter.get("/:idProduct", async (req, res) => {
     try {
         const { idProduct } = req.params;

@@ -29,7 +29,8 @@ interface actionSearch {
   type: ActionType.GET_SEARCH;
   payload: {
     content: ProductInterface[],
-    totalPages: number
+    totalPages: number,
+    origin: string[],
   };
 }
 
@@ -37,7 +38,8 @@ interface actionProducts {
   type: ActionType.GET_PRODUCTS;
   payload: {
     content: ProductInterface[],
-    totalPages: number
+    totalPages: number,
+    origin: string[]
   };
 }
 
