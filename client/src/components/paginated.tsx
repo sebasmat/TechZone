@@ -2,21 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts } from "@/store/actionCreators/getProducts";
+import { useTypedSelector } from "@/store/useTypeSelector";
+
 
 const Paginated = () => {
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  //const [totalPages, setTotalPages] = useState(0);
   const dispatch = useDispatch();
 
-  const findPageNumber = async () => {
-    const response = await axios
-      .get("http://localhost:3001/products")
-      .then((data) => setTotalPages(data.data.totalPages));
-  };
+  // const findPageNumber = async () => {
+  //   const response = await axios
+  //     .get("http://localhost:3001/products")
+  //     .then((data) => setTotalPages(data.data.totalPages));
+  // };
 
-  useEffect(() => {
-    findPageNumber();
-  });
+  // useEffect(() => {
+  //   findPageNumber();
+  // });
+
+  const totalPages = useTypedSelector((state) => state.products.totalPages);
 
   const arrayButton: number[] = [];
 
@@ -29,19 +33,19 @@ const Paginated = () => {
   ) => {
     const actualPage = parseInt(event.currentTarget.value);
     setPage(actualPage);
-    dispatch(getProducts(actualPage));
+    dispatch(getProducts(actualPage,null,null));
   };
 
   const handleNextBackButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event.currentTarget.value == "next") {
       let nextPage = page + 1;
       setPage(nextPage);
-      dispatch(getProducts(nextPage));
+      dispatch(getProducts(nextPage,null,null));
     }
     if (event.currentTarget.value == "back") {
       let nextPage = page - 1;
       setPage(nextPage);
-      dispatch(getProducts(nextPage));
+      dispatch(getProducts(nextPage,null,null));
     }
   };
 
@@ -76,7 +80,7 @@ const Paginated = () => {
           );
         }
       })}
-      {page < 4 && (
+      {page < totalPages-1 && (
         <button
           value="next"
           onClick={handleNextBackButton}
