@@ -1,9 +1,23 @@
 const express = require("express");
 const Stripe = require("stripe");
 const payRouter = express.Router()
-
+// const {transporter} = require("../../configMail")
 const stripe = new Stripe(`${process.env.STRIPE_KEY_SECRET}`);
 
+// const nodemailer = require("nodemailer");
+
+// const transporter = nodemailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 465,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//       user: 'urculluvalentin@gmail.com', // generated ethereal user
+//       pass: 'cmpesvwqtyltqcck', // generated ethereal password
+//     },
+// })
+// transporter.verify().then(()=>{
+//     console.log('ready for send email')
+// })
 // const actualizarStock = require("../Controllers/updateStock.js");
 
 
@@ -75,6 +89,7 @@ payRouter.post("/", async (req, res) => {
 payRouter.post('/create-checkout-session', async (req, res) => {
 
   const { estado } = req.body;
+console.log(estado[0].email)
   const aux = async (estado) => {
     let arrayProducts = [];
     await Promise.all(
@@ -91,8 +106,10 @@ payRouter.post('/create-checkout-session', async (req, res) => {
           price: priceId,
           quantity: obj.cantidad,
         });
+        
       })
     );
+    
     return arrayProducts;
   };
   let resultfinal;
@@ -104,6 +121,14 @@ payRouter.post('/create-checkout-session', async (req, res) => {
     .catch((error) => {
       console.error(error);
     });
+    ///////////////////////////////////////////
+    // await transporter.sendMail({
+    //   from: `"succesfull purchase" <urculluvalentin@gmail.com>`, // sender address
+    //   to: `${estado[0].email}`, // list of receivers
+    //   subject: "succesfull purchase ✔", // Subject line
+    //   text: "Hello world?", // plain text body
+    //   html: "<b>Hello world?</b>", // html body
+    // });
 
     const obtenerResultado = async () => {
       try {
@@ -114,6 +139,7 @@ payRouter.post('/create-checkout-session', async (req, res) => {
             success_url: 'http://localhost:3000/success',
             cancel_url: 'http://localhost:3000/shopping',
           });
+          console.log(session.receipt_email)
           res.status(200).json(session.url);
       } catch (error) {
         res.status(500).json({error:error.message})
