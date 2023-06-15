@@ -11,7 +11,6 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   const { ProductsFromDb: searchs } = useTypedSelector(
     (state) => state.searchs
   );
-  console.log(searchs);
 
   if (arrayProducts.length < 1) {
     return (

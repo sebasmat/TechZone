@@ -1,5 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import Image from "next/image";
+import data from "../data.json";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
 import { useTypedSelector } from "@/store/useTypeSelector";
