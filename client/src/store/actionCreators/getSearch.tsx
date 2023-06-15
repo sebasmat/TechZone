@@ -1,12 +1,12 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionType, Action } from "../actionTypes";
-import type {} from "redux-thunk/extend-redux";
+import type { } from "redux-thunk/extend-redux";
 
-export const getSearchs = (name: string) => {  
+export const getSearchs = (name: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/products?name=${name}`);
+      const { data } = await axios.get(`http://localhost:3001/products?name=${name}&pagea=0`);
       dispatch({
         type: ActionType.GET_SEARCH,
         payload: data,
@@ -14,7 +14,10 @@ export const getSearchs = (name: string) => {
     } catch (err: any) {
       dispatch({
         type: ActionType.GET_SEARCH,
-        payload: [],
+        payload: {
+          content: [],
+          totalPages: 0
+        }
       });
     }
   };

@@ -3,6 +3,7 @@ import { Action, ActionType } from "@/store/actionTypes";
 
 const initialState: ProductReducerInterface = {
   ProductsFromDb: [],
+  totalPages: 0
 };
 
 const productsReducer = (
@@ -11,12 +12,15 @@ const productsReducer = (
 ): ProductReducerInterface => {
   switch (action.type) {
     case ActionType.GET_SEARCH:
+      console.log(action)
       return{
-        ProductsFromDb: action.payload,
+        ProductsFromDb: action.payload.content,
+        totalPages: action.payload.totalPages,
       }
     case ActionType.GET_PRODUCTS:
       return {
-        ProductsFromDb: action.payload,
+        ProductsFromDb: action.payload.content,
+        totalPages: action.payload.totalPages 
       };
     default:
       return state;

@@ -12,7 +12,7 @@ const productsRouter = express.Router()
 
 productsRouter.get("/", async (req, res) => {
     try {
-        const { name, category, brand } = req.query
+        const { name, category, brand, pagea } = req.query
         if (category && brand) {
             const productCombine = await combineFilter(category, brand)
             return res.status(200).json({
@@ -35,7 +35,7 @@ productsRouter.get("/", async (req, res) => {
             })
         }
         if (name) {
-            const productByName = await findProductByName(name)
+            const productByName = await findProductByName(name, pagea)
             return res.status(200).json(productByName)
         }
 
