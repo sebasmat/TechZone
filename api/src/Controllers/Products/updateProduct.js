@@ -1,5 +1,6 @@
 const { Products } = require("../../db");
-const createProduct = async ({
+const updateProduct = async ({
+  id,
   name,
   category,
   brand,
@@ -9,7 +10,9 @@ const createProduct = async ({
   avalaible,
   stock,
 }) => {
-  return await Products.create({
+  console.log(`this is avalaible ${avalaible}`);
+  return await Products.upsert({
+    id,
     name,
     category,
     brand,
@@ -20,4 +23,4 @@ const createProduct = async ({
     stock,
   });
 };
-module.exports = createProduct;
+module.exports = updateProduct;

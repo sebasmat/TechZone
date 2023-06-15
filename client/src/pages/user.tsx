@@ -1,11 +1,9 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
-import LoginLogout from "@/components/LoginLogout";
 import { useTypedSelector } from "@/store/useTypeSelector";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInterface from "@/interfaces/userInterface";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { putUser } from "@/store/actionCreators/putUser";
 import { ActionType } from "@/store/actionTypes";
 import Image from "next/image";
 
@@ -27,7 +25,7 @@ interface UserProps {
   };
 }
 
-const User: React.FC<UserProps> = ({ user }) => {
+const User: React.FC<UserProps> = ({ user }: UserProps) => {
   const [userForm, setUserForm] = useState<UserInterface>({
     name: "",
     email: "",

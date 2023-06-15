@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Searchbar from "@/components/product-searchbar";
 import ProductInterface from "@/interfaces/productsInterface";
@@ -6,17 +6,11 @@ import data from "../data.json";
 import LoginLogout from "@/components/LoginLogout";
 
 const HeaderMain = () => {
-
   let arrayProducts = data as ProductInterface[];
   return (
-    <div
-      className="flex content-center justify-between items-center px-8 py-4 bg-violet-900"
-    >
-      <img src="https://i.ibb.co/R6yKw82/7.png" 
-      className="pb-1 w-17 h-14"/>
-      <Searchbar 
-        arrayProducts={arrayProducts}
-      />
+    <div className="flex content-center justify-between items-center px-8 py-4 bg-violet-900">
+      <img src="https://i.ibb.co/R6yKw82/7.png" className="pb-1 w-17 h-14" />
+      <Searchbar arrayProducts={arrayProducts} />
       <div>
         <Link href={"/shopping"}>
           <button>
@@ -43,7 +37,7 @@ const HeaderMain = () => {
           </button>
         </Link>
       </div>
-      <LoginLogout/>
+      <LoginLogout />
     </div>
   );
 };

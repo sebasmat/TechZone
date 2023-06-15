@@ -56,10 +56,11 @@ const Paginated = () => {
           Anterior
         </button>
       )}
-      {arrayButton.map((number) => {
+      {arrayButton.map((number, index) => {
         if (number - 1 != page) {
           return (
             <button
+              key={index}
               value={number - 1}
               onClick={handlePaginatedButton}
               className="bg-violet-900 
@@ -70,7 +71,10 @@ const Paginated = () => {
           );
         } else {
           return (
-            <label className="m-3 px-2 py-1 text-xl rounded bg-violet-400">
+            <label
+              key={index}
+              className="m-3 px-2 py-1 text-xl rounded bg-violet-400"
+            >
               {page + 1}
             </label>
           );

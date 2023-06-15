@@ -13,8 +13,7 @@ import ProfileModal from "./profile-modal";
 
 type Props = {};
 
-
-const LoginLogout = ({ }: Props) => {
+const LoginLogout = ({}: Props) => {
   const { error, isLoading, user } = useUser();
   const { Error, UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
@@ -141,4 +140,3 @@ const LoginLogout = ({ }: Props) => {
 };
 
 export default LoginLogout;
-

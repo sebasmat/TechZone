@@ -11,7 +11,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   const { ProductsFromDb: searchs } = useTypedSelector(
     (state) => state.searchs
   );
-  
+
   if (arrayProducts.length < 1) {
     return (
       <div className="container flex flex-col items-center pt-10 text-slate-600 text-4xl">
@@ -39,7 +39,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
                 images={search.images}
                 description={search.description}
                 price={search.price}
-                available={search.available}
+                avalaible={search.avalaible}
                 stock={search.stock}
               />
             );
@@ -55,7 +55,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
                 images={product.images}
                 description={product.description}
                 price={product.price}
-                available={product.available}
+                avalaible={product.avalaible}
                 stock={product.stock}
               />
             );

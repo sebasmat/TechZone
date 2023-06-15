@@ -1,11 +1,10 @@
-import { createStore, applyMiddleware, AnyAction, Reducer, Store } from "redux";
+import { AnyAction, applyMiddleware, createStore, Reducer, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import { createWrapper, MakeStore, HYDRATE } from "next-redux-wrapper";
+import { createWrapper, HYDRATE, MakeStore } from "next-redux-wrapper";
 import reducers from "@/store/reducers/combine";
 import ProductInterface from "@/interfaces/productsInterface";
 import ProductReducerInterface from "@/interfaces/productsReducerInterface";
-
 
 // interface Comment {
 //   postId: number;
@@ -35,7 +34,6 @@ export interface State {
   // detail: Detail[];
   ProductsFromDb: ProductReducerInterface;
   ProductFromDb: ProductInterface;
-  
 }
 
 const reducer: Reducer<Partial<State>, AnyAction> = (state, action) => {
