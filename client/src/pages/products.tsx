@@ -23,7 +23,7 @@ const Products = () => {
   const result = useTypedSelector((state) => state.products.ProductsFromDb);
 
   useEffect(() => {
-    dispatch(getProducts(0));
+    dispatch(getProducts(0,null,null));
   }, []);
 
   const arrayProducts = result;
@@ -34,11 +34,7 @@ const Products = () => {
 
   return (
     <div className="flex flex-arrow items-start">
-      <FilterProducts
-        arrayProducts={arrayProducts}
-        productsFiltered={productsFiltered}
-        setProductsFiltered={setProductsFiltered}
-      />
+      <FilterProducts/>
       <div className="w-[100%] pb-6">
         <ProductListing arrayProducts={arrayProducts} />
         <Paginated />

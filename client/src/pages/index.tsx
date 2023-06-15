@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center ">
-      <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 ">
+      <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 -z-50">
         <Carrousel loop>
           {images.map((src, i) => {
             return (
