@@ -4,6 +4,7 @@ import ProductListing from "@/components/product-listing";
 import ProductInterface from "../interfaces/productsInterface";
 import Paginated from "@/components/paginated";
 import FilterProducts from "@/components/filter-products";
+import { useRouter } from "next/router";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { getProducts } from "@/store/actionCreators/getProducts";
