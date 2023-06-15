@@ -21,6 +21,7 @@ const Shopping = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  
 
   const ManageRemoveCart = async (id: number | undefined) => {
     if (UserFromDb.name !== undefined) {
@@ -234,6 +235,9 @@ const Shopping = () => {
       <Elements stripe={stripe}>
         <CheckoutForm state={CartItems} />
       </Elements>
+      
+       
+      
     </div>
   );
 };
