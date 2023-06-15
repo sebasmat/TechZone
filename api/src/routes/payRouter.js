@@ -1,24 +1,10 @@
 const express = require("express");
 const Stripe = require("stripe");
 const payRouter = express.Router()
-// const {transporter} = require("../../configMail")
+
 const stripe = new Stripe(`${process.env.STRIPE_KEY_SECRET}`);
 
-// const nodemailer = require("nodemailer");
 
-// const transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 465,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//       user: 'urculluvalentin@gmail.com', // generated ethereal user
-//       pass: 'cmpesvwqtyltqcck', // generated ethereal password
-//     },
-// })
-// transporter.verify().then(()=>{
-//     console.log('ready for send email')
-// })
-// const actualizarStock = require("../Controllers/updateStock.js");
 
 
 // payRouter.put("/", async (req, res) => {
@@ -115,20 +101,13 @@ console.log(estado[0].email)
   let resultfinal;
   aux(estado)
     .then((response) => {
-      // console.log(response);
+      
       resultfinal = response;
     })
     .catch((error) => {
       console.error(error);
     });
-    ///////////////////////////////////////////
-    // await transporter.sendMail({
-    //   from: `"succesfull purchase" <urculluvalentin@gmail.com>`, // sender address
-    //   to: `${estado[0].email}`, // list of receivers
-    //   subject: "succesfull purchase ✔", // Subject line
-    //   text: "Hello world?", // plain text body
-    //   html: "<b>Hello world?</b>", // html body
-    // });
+    
 
     const obtenerResultado = async () => {
       try {
