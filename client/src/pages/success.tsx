@@ -1,7 +1,17 @@
-export default function succes(){
+import axios from "axios"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
+import SuccesPay from "@/components/SuccesPay"
+
+export default function succes() {
+
+
+    const router = useRouter();
+    const {id} = router.query;
+
     return (
         <div>
-            <h3>Felicidades por su compra</h3>
+            <SuccesPay id={id} />
         </div>
     )
 }

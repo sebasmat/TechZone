@@ -13,7 +13,8 @@ const CheckoutForm = (props:any) => {
       })
     })
     const {data} = await axios.post("http://localhost:3001/pay/create-checkout-session", {estado:estado})
-    window.location.href=data;
+    console.log(data.sessionId);
+    window.location.href=`${data.sessionURL}`;
   }
   return (
     <div>
