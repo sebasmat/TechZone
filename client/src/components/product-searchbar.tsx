@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import ProductInterface from "../interfaces/productsInterface";
 import { getSearchs } from "@/store/actionCreators/getSearch";
 import { useDispatch } from "react-redux";

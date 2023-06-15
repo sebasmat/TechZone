@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Image from "next/image";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -11,10 +10,12 @@ import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
+import { NextPageWithLayout } from "@/pages/_app";
+import MainLayout from "@/layout/main-layout";
 
 const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
-const Shopping = () => {
+const Shopping: NextPageWithLayout = () => {
   const [cart, setCart] = useState<ShoppingCartInterface[] | any[]>([]);
 
   const dispatch = useDispatch();
@@ -233,5 +234,9 @@ const Shopping = () => {
     </div>
   );
 };
+Shopping.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+export default Shopping;
 
-export default withPageAuthRequired(Shopping);
+// export default withPageAuthRequired(Shopping);

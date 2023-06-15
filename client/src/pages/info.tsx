@@ -5,19 +5,15 @@ import MainLayout from "@/layout/main-layout";
 export async function getStaticProps() {
   return {
     props: {
-      pageId: "favoritesPage",
+      pageId: "infoPage",
     },
   };
 }
 
-const Favorites: NextPageWithLayout = () => {
-  return (
-    <>
-      <div>this is favorites page</div>
-    </>
-  );
+const Info: NextPageWithLayout = () => {
+  return <div>this is info page</div>;
 };
-Favorites.getLayout = function getLayout(page: ReactElement) {
+Info.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
-export default Favorites;
+export default Info;

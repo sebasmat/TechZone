@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { ActionType } from "@/store/actionTypes";
 import { formatDataForLocal } from "@/utils/formatDataUtils";
-import { removeCart } from "@/utils/localStorageUtils";
 
 type Props = {};
 

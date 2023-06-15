@@ -1,11 +1,12 @@
 const express = require("express");
-const createProduct = require("../../Controllers/Products/createProduct");
+const updateProduct = require("../../Controllers/Products/updateProduct");
 
-const addProduct = express.Router();
+const modifyProduct = express.Router();
 
-addProduct.post("/", async (req, res) => {
+modifyProduct.put("/", async (req, res) => {
   try {
     const {
+      id,
       name,
       category,
       brand,
@@ -16,7 +17,8 @@ addProduct.post("/", async (req, res) => {
       stock,
     } = req.body;
 
-    const addProduct = await createProduct({
+    const product = await updateProduct({
+      id,
       name,
       category,
       brand,
@@ -26,10 +28,10 @@ addProduct.post("/", async (req, res) => {
       avalaible,
       stock,
     });
-    res.status(200).json(addProduct);
+    res.status(200).json(product);
   } catch (error) {
     res.status(500).send(console.log(error));
   }
 });
 
-module.exports = addProduct;
+module.exports = modifyProduct;

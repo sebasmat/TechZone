@@ -7,6 +7,7 @@ interface UserInterface {
   direction?: string;
   cellPhone?: number;
   Gender?: string;
+  available?: boolean;
 }
 
 export default UserInterface;

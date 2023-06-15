@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useCategories } from "@/hooks/products/useCategories";
+import { useTypedSelector } from "@/store/useTypeSelector";
+import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "@/store/actionCreators/deleteProduct";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-const ProductForm = () => {
+const ProductFormUpdate = () => {
   const [product, setProduct] = useState({
     name: "",
     brand: "",
@@ -12,6 +18,11 @@ const ProductForm = () => {
     images: [] as File[],
     stock: 0,
   });
+
+  const { detail } = useTypedSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const categories = useCategories();
 
@@ -31,7 +42,7 @@ const ProductForm = () => {
     }
   };
 
-  const postProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const putProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const isDataValid = Object.values(product).every(Boolean);
 
     if (!isDataValid) {
@@ -42,14 +53,17 @@ const ProductForm = () => {
     }
 
     try {
-      const formData = new FormData();
-      product.images.forEach((image) => formData.append("image", image));
-      const response = await axios.post(
-        "https://api.imgbb.com/1/upload?key=49a1b0e207191c858c5ee634e59c96bc",
-        formData
-      );
-      const urls = response.data.data.display_url;
-      await axios.post("http://localhost:3001/create", {
+      let urls = detail[0].images[0];
+      if (product.images.length > 0) {
+        const formData = new FormData();
+        product.images.forEach((image) => formData.append("image", image));
+        const response = await axios.post(
+          "https://api.imgbb.com/1/upload?key=49a1b0e207191c858c5ee634e59c96bc",
+          formData
+        );
+        urls = response.data.data.display_url;
+      }
+      await axios.put("http://localhost:3001/update", {
         ...product,
         price: parseFloat(product.price.toString()),
         stock: parseInt(product.stock.toString()),
@@ -70,14 +84,38 @@ const ProductForm = () => {
         images: [] as File[],
         stock: 0,
       });
+      dispatch(deleteProduct());
+      router.push("/admin/products");
     }
   };
+
+  useEffect(() => {
+    console.log(`this is detail: ${detail[0]}`);
+    if (detail[0] === undefined) return;
+    setProduct({
+      ...product,
+      name: detail[0].name,
+      brand: detail[0].brand,
+      category: detail[0].category,
+      description: detail[0].description,
+      price: detail[0].price,
+      stock: detail[0].stock,
+    });
+  }, [detail]);
 
   return (
     <div className="p-4 py-0 rounded-xl drop-shadow-2xl shadow-violet-950 ">
       <div className="flex justify-center py-10 text-4xl text-violet-950 ">
-        <h1>Crea un producto</h1>
+        <h1>Editar - {product.name}</h1>
       </div>
+      {detail[0].images.length > 0 && (
+        <Image
+          src={detail[0].images[0]}
+          alt={product.name}
+          width={300}
+          height={300}
+        />
+      )}
       <div className="py-3 text-xl">
         <label>Nombre: </label>
         <input
@@ -102,6 +140,7 @@ const ProductForm = () => {
         <label>Categoría</label>
         <select
           name="category"
+          value={product.category}
           className="mx-3 px-4 bg-white py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
           onChange={handleValueChange}
         >
@@ -162,16 +201,16 @@ const ProductForm = () => {
           className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />
       </div>
-      <div className="flex justify-center py-5 text-xl text-white">
-        <button
-          className="bg-violet-900 rounded-xl px-3 py-2 hover:bg-violet-300 hover:text-violet-900 duration-150"
-          onClick={postProduct}
-        >
-          Crear Producto
+      <div className="flex justify-center py-5 text-xl text-white gap-2">
+        <Link className="tz-btn tz-btn-secondary" href={"/admin/products"}>
+          Volver
+        </Link>
+        <button className="tz-btn tz-btn-primary" onClick={putProduct}>
+          Modificar Producto
         </button>
       </div>
     </div>
   );
 };
 
-export default ProductForm;
+export default ProductFormUpdate;

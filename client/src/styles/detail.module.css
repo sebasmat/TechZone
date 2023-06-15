@@ -1,13 +1,14 @@
-.container{
+.container {
     margin-top: 5%;
-    display: flex; 
+    display: flex;
     border-radius: 9px 27px 18px 11px;
     border-image: 10%;
     background: white;
     height: 600px;
     width: 1200px;
 }
-.backround{
+
+.backround {
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -15,7 +16,8 @@
     align-items: center;
     min-height: 100vh
 }
-.details{
+
+.details {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -24,15 +26,16 @@
     margin-top: 40px;
     width: 500px;
     height: 400px;
-    color: #252323 ;
+    color: #252323;
 }
-.button{
+
+.button {
     padding: 5px;
     background-color: rgb(129, 56, 196);
     border-radius: 12px;
     color: white;
 }
 
-.button:hover{
+.button:hover {
     background-color: rgb(96, 43, 146);
 }
