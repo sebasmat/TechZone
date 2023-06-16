@@ -1,12 +1,12 @@
 import ProductListingHome from "@/components/product-listing-home";
-import { useState } from "react";
-import { useEffect } from "react";
-import data from "../data.json";
+import { ReactElement, useEffect, useState } from "react";
 import Link from "next/link";
 import ProductInterface from "@/interfaces/productsInterface";
 import Carrousel from "@/components/Carrousel";
 import Image from "next/image";
 import { useTypedSelector } from "@/store/useTypeSelector";
+import { NextPageWithLayout } from "./_app";
+import MainLayout from "@/layout/main-layout";
 
 export async function getStaticProps() {
   return {
@@ -23,9 +23,7 @@ const images = [
   "https://i.ibb.co/hY91G8W/carrusel2.jpg",
 ];
 
-export default function Home() {
-  const { Loading } = useTypedSelector((state) => state.user);
-
+const Home: NextPageWithLayout = () => {
   const [arrayProducts, setArrayProducts] = useState([]);
 
   const result = async () => {
@@ -39,13 +37,9 @@ export default function Home() {
     result();
   }, []);
 
-  if (Loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="flex flex-col items-center ">
-      <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 ">
+      <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 -z-50">
         <Carrousel loop>
           {images.map((src, i) => {
             return (
@@ -69,4 +63,10 @@ export default function Home() {
       <ProductListingHome arrayProducts={arrayProducts} />
     </div>
   );
-}
+};
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+
+export default Home;

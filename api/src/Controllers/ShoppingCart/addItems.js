@@ -30,4 +30,4 @@ const addItems = async (cartItems) => {
 };
 
 module.exports = addItems;
-// console.log(allItems[0]);
+

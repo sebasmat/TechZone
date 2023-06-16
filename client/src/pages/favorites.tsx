@@ -1,5 +1,6 @@
-import React from "react";
-import { NextPage } from "next";
+import React, { ReactElement } from "react";
+import { NextPageWithLayout } from "@/pages/_app";
+import MainLayout from "@/layout/main-layout";
 
 export async function getStaticProps() {
   return {
@@ -9,12 +10,14 @@ export async function getStaticProps() {
   };
 }
 
-const Favorites: NextPage = () => {
+const Favorites: NextPageWithLayout = () => {
   return (
     <>
       <div>this is favorites page</div>
     </>
   );
 };
-
+Favorites.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
 export default Favorites;

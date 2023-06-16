@@ -6,7 +6,7 @@ interface ProductInterface {
   images: string[];
   description: string;
   price: number;
-  available: true;
+  avalaible: boolean;
   stock: number;
 }
 
