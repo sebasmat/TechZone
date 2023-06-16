@@ -107,7 +107,8 @@ const Shopping: NextPageWithLayout = () => {
       setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     }
   };
-
+  console.log(CartItems);
+  
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
