@@ -162,9 +162,13 @@ payRouter.get('/checkout-session', async (req, res) => {
 
 payRouter.post("/getName", async (req, res) => {
   try {
+    console.log("si entra a la ruta");
     const { idProduct } = req.body;
     const data = await stripe.products.retrieve(idProduct);
-    const product = await findProductByName(data.name);
+    console.log("esto es la data",data);
+    console.log("esto es el data.name", data.name);
+    // const product = await findProductByName(data.name);
+    // console.log("esto es el product", product.content);
     const id = product[0].id;
     console.log(id);
     res.status(200).json(id);

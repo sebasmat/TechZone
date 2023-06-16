@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import Image from "next/image";
 import data from "../data.json";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -24,6 +24,8 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+
+  const { user } = useUser();
 
   const ManageRemoveCart = async (id: number | undefined) => {
     if (UserFromDb.name !== undefined) {
@@ -56,8 +58,24 @@ const Shopping: NextPageWithLayout = () => {
   };
 
   const ManageModifyCart = async (id: number | undefined, quantity: number) => {
+    if (quantity <= 0) {
+      alert("La cantidad debe ser mayor a 0");
+      return;
+    }
     if (UserFromDb.name !== undefined) {
       try {
+        const itemFindCart = CartItems.products?.find(
+          (item: any) => item.id === id
+        );
+
+        if (
+          itemFindCart?.stock !== undefined &&
+          itemFindCart.stock < quantity
+        ) {
+          alert("No hay stock suficiente");
+          return;
+        }
+
         const { data } = await axios.put(`http://localhost:3001/cart/item`, {
           userId: UserFromDb.id,
           productId: id,
@@ -78,6 +96,13 @@ const Shopping: NextPageWithLayout = () => {
         });
       }
     } else {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const index = cart.find((item: any) => item.product.id === Number(id));
+      if (index.product.stock !== undefined && index.product.stock < quantity) {
+        alert("No hay stock suficiente");
+        return;
+      }
+
       modifyCart(id, quantity);
       setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     }
@@ -86,6 +111,7 @@ const Shopping: NextPageWithLayout = () => {
   
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
+    console.log(user);
   }, []);
 
   return (
@@ -121,6 +147,7 @@ const Shopping: NextPageWithLayout = () => {
                     <p className="text-violet-950 font-bold text-2xl">
                       ${item.price}
                     </p>
+                    <p>{item.stock}</p>
                   </div>
                 </div>
 
@@ -189,6 +216,7 @@ const Shopping: NextPageWithLayout = () => {
                   <p className="text-violet-950 font-bold text-2xl">
                     {item.product?.price}
                   </p>
+                  <p>{item.product?.stock}</p>
                 </div>
               </div>
               <div
@@ -230,10 +258,42 @@ const Shopping: NextPageWithLayout = () => {
         ) : (
           <p>No hay productos</p>
         )}
+        {user !== undefined ? (
+          user.email_verified !== null ? (
+            user.email_verified !== undefined ? (
+              user.email_verified ? (
+                UserFromDb.name !== undefined ? (
+                  CartItems.products?.length > 0 ? (
+                    <Elements stripe={stripe}>
+                      <CheckoutForm state={CartItems} />
+                    </Elements>
+                  ) : null
+                ) : (
+                  <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                    Logueate y completa tus datos para continuar la compra
+                  </button>
+                )
+              ) : (
+                <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                  Logueate y completa tus datos para continuar la compra
+                </button>
+              )
+            ) : (
+              <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                Logueate y completa tus datos para continuar la compra
+              </button>
+            )
+          ) : (
+            <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+              Logueate y completa tus datos para continuar la compra
+            </button>
+          )
+        ) : cart.length > 0 ? (
+          <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+            Logueate y completa tus datos para continuar la compra
+          </button>
+        ) : null}
       </div>
-      <Elements stripe={stripe}>
-        <CheckoutForm state={CartItems} />
-      </Elements>
     </div>
   );
 };

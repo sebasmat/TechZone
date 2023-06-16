@@ -19,6 +19,8 @@ const postItemFav = require("./Favorites/postItem");
 const deleteItemFav = require("./Favorites/deleteItem");
 const getItemsFav = require ("./Favorites/getItems")
 const brandRouter = require("./brandRouter");
+const succesRouter = require("./succesRouter");
+const salesRouter = require("./Sales/addSales");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -44,5 +46,7 @@ router.use("/cart", putItem);
 router.use("/favorites", getItemsFav)
 router.use("/favorites", postItemFav)
 router.use("/favorites", deleteItemFav)
+router.use("/confirmacion", succesRouter)
+router.use("/sales", salesRouter)
 
 module.exports = router;

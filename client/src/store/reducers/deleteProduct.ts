@@ -2,7 +2,7 @@
 // import detailReducerInterface from "../../interfaces/detailInterface"
 
 // const initialState: detailReducerInterface = {
-//   detail: [],
+//   Detail: [],
 // };
 
 // const productReducer = (
@@ -12,7 +12,7 @@
 //   switch (action.type) {
 //     case ActionType.GET_DETAILS:
 //       return {
-//         detail: [],
+//         Detail: [],
 //       };
 //     default:
 //       return state;

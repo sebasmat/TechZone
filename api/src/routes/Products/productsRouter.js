@@ -5,13 +5,17 @@ const findById = require("../../Controllers/Products/findById")
 const { Products } = require('../../db')
 const combineFilter = require("../../Controllers/Products/combineFilter")
 const findProductByBrand = require("../../Controllers/Products/findProductByBrand")
-const findProductByCategory = require("../../Controllers/Products/findProductByCategory")
+const findProductByCategory = require("../../Controllers/Products/findProductByCategory");
+const filterByPrice = require("../../Controllers/Products/filterByPrice");
+const combineFilterByPrice = require("../../Controllers/Products/priceCombineFilter");
+const combineFilterByPriceCategory = require("../../Controllers/Products/combineFilterByPriceCategory");
+const combineFilterByPriceBrand = require("../../Controllers/Products/combineFilterByPriceBrand");
 
 
 const productsRouter = express.Router()
 
 productsRouter.get("/", async (req, res) => {
-    const { name, category, brand } = req.query;
+    const { name, category, brand, minPrice, maxPrice  } = req.query;
 
     const pageAsNumber = Number.parseInt(req.query.page)
     const sizeAsNumber = Number.parseInt(req.query.pageSize)
@@ -22,6 +26,15 @@ productsRouter.get("/", async (req, res) => {
 
     if (category && brand) {
     return combineFilter(req, res);
+  } else if (category && maxPrice && minPrice) {
+    return combineFilterByPriceCategory(req, res)
+  } else if (category && brand && maxPrice && minPrice) {
+    console.log('llega hasta aca');
+    return combineFilterByPrice(req, res)
+  } else if (brand && maxPrice && minPrice) {
+    return combineFilterByPriceBrand(req, res)
+  } else if (maxPrice && minPrice) {
+    return filterByPrice(req, res)
   } else if (category) {
     return findProductByCategory(req, res);
   } else if (brand) {

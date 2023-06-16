@@ -18,6 +18,7 @@ const CheckoutForm = (props: any) => {
   return (
     <div>
       <button
+        className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded"
         role="link"
         onClick={() => {
           createPayment();

@@ -5,7 +5,6 @@ import { getProducts } from "@/store/actionCreators/getProducts";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { getSearchs } from "@/store/actionCreators/getSearch";
 
-
 const Paginated = () => {
   const [page, setPage] = useState(0);
   //const [totalPages, setTotalPages] = useState(0);
@@ -38,12 +37,11 @@ const Paginated = () => {
       setPage(actualPage);
       dispatch(getProducts(actualPage, null, null));
     }
-    if(origin[0] == "name"){
-      const actualPage = parseInt(event.currentTarget.value) +1 ;
+    if (origin[0] == "name") {
+      const actualPage = parseInt(event.currentTarget.value) + 1;
       setPage(actualPage);
-      dispatch(getSearchs(origin[1],actualPage));
+      dispatch(getSearchs(origin[1], actualPage));
     }
-    
   };
 
   // const handleNextBackButton = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -70,10 +68,11 @@ const Paginated = () => {
           Anterior
         </button>
       )} */}
-      {arrayButton.map((number) => {
+      {arrayButton.map((number, index) => {
         if (number) {
           return (
             <button
+              key={index}
               value={number - 1}
               onClick={handlePaginatedButton}
               className="bg-violet-900 
@@ -82,7 +81,7 @@ const Paginated = () => {
               {number}
             </button>
           );
-        } 
+        }
         // else {
         //   return (
         //     <label className="m-3 px-2 py-1 text-xl rounded bg-violet-400">
@@ -90,8 +89,7 @@ const Paginated = () => {
         //     </label>
         //   );
         // }
-      })
-      }
+      })}
       {/* {page < totalPages - 1 && (
         <button
           value="next"
