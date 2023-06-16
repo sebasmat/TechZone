@@ -26,7 +26,7 @@ const Products: NextPageWithLayout = () => {
         ...currentProduct,
         avalaible: !currentProduct?.avalaible,
       });
-      dispatch(getProducts(0,null,null));
+      dispatch(getProducts(0, null, null));
       alert("El producto se modifico con éxito");
     } catch (error) {
       alert(
@@ -46,7 +46,7 @@ const Products: NextPageWithLayout = () => {
   }
 
   useEffect(() => {
-    dispatch(getProducts(0,null,null));
+    dispatch(getProducts(0, null, null));
   }, [dispatch]);
 
   return (
@@ -118,23 +118,20 @@ const Products: NextPageWithLayout = () => {
                     >
                       Editar
                     </button>
-                    <label className="tz-swap">
-                      <input type="checkbox" checked={product.avalaible} />
+                    <div className="tz-join">
+                      <span
+                        className="tz-join-item tz-btn"
+                        onClick={(e) => handleAvailability(e, product.id)}
+                      >
+                        Cambiar Estado
+                      </span>
                       <div
-                        className="tz-swap-on tz-btn tz-btn-secondary"
+                        className=" tz-join-item tz-btn tz-btn-secondary"
                         id="a"
-                        onClick={(e) => handleAvailability(e, product.id)}
                       >
-                        Disponible
+                        {product.avalaible ? "Disponible" : "No disponible"}
                       </div>
-                      <div
-                        className="tz-swap-off tz-btn tz-btn-secondary"
-                        id="na"
-                        onClick={(e) => handleAvailability(e, product.id)}
-                      >
-                        No Disponible
-                      </div>
-                    </label>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -31,7 +31,7 @@ export interface State {
   // comments: Comment[];
   // loading: boolean;
   // error: string | null;
-  // detail: Detail[];
+  // Detail: Detail[];
   ProductsFromDb: ProductReducerInterface;
   ProductFromDb: ProductInterface;
 }

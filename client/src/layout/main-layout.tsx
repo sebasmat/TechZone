@@ -6,7 +6,11 @@ const MainLayout = ({ children }: any) => {
   return (
     <>
       <HeaderMain />
-      <NavBar pageId={children.props.pageId} />
+      {children.props?.pageId !== undefined ? (
+        <NavBar pageId={children.props?.pageId} />
+      ) : (
+        <NavBar pageId={""} />
+      )}
       <main>{children}</main>
     </>
   );
