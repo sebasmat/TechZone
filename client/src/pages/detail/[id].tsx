@@ -5,13 +5,77 @@ import { useDispatch } from "react-redux";
 import { getDetails } from "@/store/actionCreators/getDetails";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { deleteProduct } from "@/store/actionCreators/deleteProduct";
+import axios from "axios";
+import { formatDataForLocal } from "@/utils/formatDataUtils";
+import { ActionType } from "@/store/actionTypes";
+import { manageCart } from "@/utils/localStorageUtils";
+import Link from "next/link";
 
-const detail = () => {
+const Detail = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
 
   const result = useTypedSelector((state) => state.product.detail);
+  const { UserFromDb } = useTypedSelector((state) => state.user);
+  const { CartItems } = useTypedSelector((state) => state.cart);
+
+  const handleCartPostItems = async () => {
+    try {
+      if (UserFromDb.name !== undefined) {
+        const findInCart = CartItems.products.findIndex(
+          (item: any) => item.id === Number(id)
+        );
+
+        if (findInCart === -1) {
+          const { data } = await axios.post("http://localhost:3001/cart/item", {
+            cartItem: {
+              userId: UserFromDb.id,
+              productId: Number(id),
+              quantity: 1,
+            },
+          });
+
+          const formatData = formatDataForLocal(data);
+
+          dispatch({
+            type: ActionType.GET_CART_ITEMS,
+            payload: formatData,
+          });
+          alert("Producto añadido al carrito");
+        } else {
+          alert("Producto ya en carrito");
+        }
+      } else {
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const index = cart.findIndex(
+          (item: any) => item.product.id === Number(id)
+        );
+        if (index === -1) {
+          manageCart({
+            id: result[0]?.id,
+            category: result[0]?.category,
+            brand: result[0]?.brand,
+            name: result[0]?.name,
+            images: result[0]?.images,
+            description: result[0]?.description,
+            price: result[0]?.price,
+            avalaible: result[0]?.avalaible,
+            stock: result[0]?.stock,
+          });
+          alert("Producto añadido al carrito");
+        } else {
+          alert("Producto ya en carrito");
+        }
+      }
+    } catch (error: any) {
+      console.log(error);
+      dispatch({
+        type: ActionType.GET_CART_ITEMS_ERROR,
+        payload: error.message,
+      });
+    }
+  };
 
   useEffect(() => {
     if (id !== undefined) {
@@ -43,7 +107,17 @@ const detail = () => {
               <h3 className="font-bold text-3xl text-violet-900 p-5 ">
                 Precio:${result[0]?.price}
               </h3>
-              <button className={style.button}>añadir al carro</button>
+              <button
+                className={style.button}
+                onClick={() => handleCartPostItems()}
+              >
+                añadir al carro
+              </button>
+              <Link href = {`/reviewAndScore/${id}`}>
+              <button>
+                Comentar y calificar
+              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -52,4 +126,4 @@ const detail = () => {
   );
 };
 
-export default detail;
+export default Detail;

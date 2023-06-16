@@ -6,7 +6,7 @@ type ProductListingProps = {
   arrayProducts: ProductInterface[];
 };
 
-const ProductListing = ({ arrayProducts }: ProductListingProps) => {  
+const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   if (arrayProducts.length < 1) {
     return (
       <div className="container flex flex-col items-center pt-10 text-slate-600 text-4xl">
@@ -22,22 +22,24 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   }
   return (
     <div className="container ">
-      {arrayProducts.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                category={product.category}
-                brand={product.brand}
-                name={product.name}
-                images={product.images}
-                description={product.description}
-                price={product.price}
-                avalaible={product.avalaible}
-                stock={product.stock}
-              />
-            );
-          })}
+      {arrayProducts
+        .filter((product) => product.avalaible)
+        .map((product) => {
+          return (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              category={product.category}
+              brand={product.brand}
+              name={product.name}
+              images={product.images}
+              description={product.description}
+              price={product.price}
+              avalaible={product.avalaible}
+              stock={product.stock}
+            />
+          );
+        })}
     </div>
   );
 };

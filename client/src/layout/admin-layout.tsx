@@ -1,6 +1,26 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useTypedSelector } from "@/store/useTypeSelector";
+import { useRouter } from "next/router";
 
 const AdminLayout = ({ children }: any) => {
+  const { user } = useUser();
+  const { UserFromDb } = useTypedSelector((state) => state.user);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (
+      user === undefined ||
+      user === null ||
+      user.email !== "techzone.imgbb@gmail.com" ||
+      UserFromDb.email !== "techzone.imgbb@gmail.com"
+    ) {
+      router.push("/");
+    }
+  }, [user, UserFromDb]);
+
   return (
     <>
       <div className="tz-navbar shadow-md bg-violet-900 text-white">
