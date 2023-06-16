@@ -7,7 +7,7 @@ import { useTypedSelector } from "@/store/useTypeSelector";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { ActionType } from "@/store/actionTypes";
-import { formatDataForLocal } from "@/utils/formatDataUtils";
+import { formatDataForFavorites, formatDataForLocal } from "@/utils/formatDataUtils";
 import { removeCart } from "@/utils/localStorageUtils";
 import ProfileModal from "./profile-modal";
 
@@ -20,6 +20,7 @@ const LoginLogout = ({ }: Props) => {
   const { CartItems } = useTypedSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { FavItems} = useTypedSelector((state) => state.favorites)
 
   const router = useRouter();
 
@@ -74,6 +75,31 @@ const LoginLogout = ({ }: Props) => {
     }
   };
 
+  const handleFavPostItems = async (producto: []) => {
+    try {
+      const formatDataForApi: {} = producto.map((item: any) => {
+        return {
+          userId: UserFromDb.id,
+          productId: item.product.id,
+        };
+      });
+      const { data } = await axios.post("http://localhost:3001/cart/items", {
+        cartItems: formatDataForApi,
+      });
+      dispatch({
+        type: ActionType.GET_FAV_ITEMS,
+        payload: formatDataForApi,
+      });
+    } catch (error: any) {
+      console.log(error);
+      dispatch({
+        type: ActionType.GET_FAV_ITEMS_ERROR,
+        payload: error.message,
+      });
+    }
+  };
+
+
   const handleGetCartItems = async () => {
     try {
       const { data } = await axios.get(
@@ -92,9 +118,55 @@ const LoginLogout = ({ }: Props) => {
     }
   };
 
+  const handleGetFavItems = async () =>{
+    try {
+      const {data} = await axios.get(
+        `http://localhost:3001/favorites/items/${UserFromDb.id}`
+      );
+      const formatDataFav = formatDataForFavorites(data)
+      dispatch({
+        type: ActionType.GET_FAV_ITEMS,
+        payload: formatDataFav,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ActionType.GET_FAV_ITEMS_ERROR,
+        payload: error.message,
+      })
+      
+    }
+  };
+
+  const handleFavDelete = async (id:number | undefined) => {
+    if ( UserFromDb.name ! == undefined){
+      try {
+        const deleteOk = await axios.delete(
+          `http://localhost:3001/favorites/item/${UserFromDb.id}/${id}`
+        );
+        if (deleteOk.status ===200) {
+          const {data } = await axios.get (
+            `http://localhost:3001/favorites/item/${UserFromDb.id}`
+          );
+          const FormatData = formatDataForFavorites(data);
+          dispatch({
+            type: ActionType.GET_FAV_ITEMS,
+            payload: FormatData
+          });
+        }
+      } catch (error: any) {
+        console.log(error);
+        dispatch({
+          type: ActionType.GET_FAV_ITEMS_ERROR,
+          payload: error.message,
+        })
+      }
+    }
+  }
+
   useEffect(() => {
     if (UserFromDb.name !== undefined) {
       handleGetCartItems();
+      handleGetFavItems();
       if (JSON.parse(localStorage.getItem("cart") || "[]").length > 0) {
         handleCartPostItems();
       }

@@ -1,7 +1,7 @@
 import ProductInterface from "@/interfaces/productsInterface";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import UserInterface from "@/interfaces/userInterface";
-
+import favoritesInterface from "@/interfaces/favoritesInterface"
 export enum ActionType {
   GET_DETAILS = "GET_DETAILS",
   GET_SEARCH = "GET_SEARCH",
@@ -12,6 +12,8 @@ export enum ActionType {
   GET_USER_LOADING = "GET_USER_LOADING",
   GET_CART_ITEMS = "GET_CART_ITEMS",
   GET_CART_ITEMS_ERROR = "GET_CART_ITEMS_ERROR",
+  GET_FAV_ITEMS = "GET_FAV_ITEMS",
+  GET_FAV_ITEMS_ERROR = "GET_FAV_ITEMS_ERROR",
 }
 
 interface actionDeleteDetails {
@@ -58,6 +60,16 @@ interface actionCartItemsError {
   payload: string | undefined;
 }
 
+interface actionFavFitems{
+  type: ActionType.GET_FAV_ITEMS;
+  payload: favoritesInterface
+}
+
+interface actionFavItemsError {
+  type : ActionType.GET_FAV_ITEMS_ERROR;
+  payload: string | undefined
+}
+
 export type Action =
   | actionDetails
   | actionProducts
@@ -67,4 +79,6 @@ export type Action =
   | actionUserError
   | actionUserLoading
   | actionCartItems
-  | actionCartItemsError;
+  | actionCartItemsError
+  |actionFavFitems
+  |actionFavItemsError;
