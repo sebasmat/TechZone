@@ -24,8 +24,6 @@ const images = [
 ];
 
 const Home: NextPageWithLayout = () => {
-  const { Loading } = useTypedSelector((state) => state.user);
-
   const [arrayProducts, setArrayProducts] = useState([]);
 
   const result = async () => {
@@ -38,10 +36,6 @@ const Home: NextPageWithLayout = () => {
   useEffect(() => {
     result();
   }, []);
-
-  if (Loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="flex flex-col items-center ">
