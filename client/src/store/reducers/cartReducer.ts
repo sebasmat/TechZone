@@ -1,6 +1,4 @@
-import ProductReducerInterface from "@/interfaces/productsReducerInterface";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
-import UserInterface from "@/interfaces/userInterface";
 import { Action, ActionType } from "@/store/actionTypes";
 
 interface CartReducerInterface {

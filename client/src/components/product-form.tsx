@@ -1,126 +1,89 @@
-import React, { use, useState } from "react";
-import { useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import categoriesInterface from "@/interfaces/categoriesInterface";
+import { useCategories } from "@/hooks/products/useCategories";
 
 const ProductForm = () => {
-  const [productName, setProductName] = useState<string>("");
-  const [productBrand, setProductBrand] = useState<string>("");
-  const [productCategory, setProductCategory] = useState<string>("");
-  const [productDescription, setProductDescription] = useState<string>("");
-  const [productPrice, setProductPrice] = useState<number>(0);
-  const [productImage1, setProductImage1] = useState<File | null>(null);
-  const [productStock, setProductStock] = useState<number>(0);
-  const [categories, setCategories] = useState<categoriesInterface[]>([]);
+  const [product, setProduct] = useState({
+    name: "",
+    brand: "",
+    category: "",
+    description: "",
+    price: 0,
+    images: [] as File[],
+    stock: 0,
+  });
 
-  const result = async () => {
-    await fetch("http://localhost:3001/categories")
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
-  };
+  const categories = useCategories();
 
-  useEffect(() => {
-    result();
-  }, []);
-
-  const handleNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductName(event.currentTarget.value);
-  };
-  const handleBrandValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductBrand(event.currentTarget.value);
-  };
-  const handleCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setProductCategory(event.currentTarget.value);
-  };
-  const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setProductDescription(event.currentTarget.value);
-  };
-  const handlePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const price: number = parseFloat(event.currentTarget.value);
-    setProductPrice(price);
-  };
-  const handleStock = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const stock: number = parseInt(event.currentTarget.value);
-    setProductStock(stock);
+  const handleValueChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = event.target;
+    setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
-  const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const image = event.target.files[0];
-      if (image) setProductImage1(image);
+      const images = Array.from(event.target.files);
+      setProduct((prevProduct) => ({ ...prevProduct, images }));
     }
   };
 
   const postProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (
-      productBrand &&
-      productBrand &&
-      productCategory &&
-      productDescription &&
-      productName &&
-      productImage1 &&
-      productPrice &&
-      productStock
-    ) {
-      let url: string = "";
-      if (productImage1) {
-        try {
-          const formData = new FormData();
-          formData.append("image", productImage1);
+    const isDataValid = Object.values(product).every(Boolean);
 
-          const response = await axios.post(
-            "https://api.imgbb.com/1/upload?key=49a1b0e207191c858c5ee634e59c96bc",
-            formData
-          );
-          url = response.data.data.display_url;
-          console.log(url);
-        } catch (error) {
-          alert(
-            "No fue posible crear el producto, por favor inténtelo más tarde"
-          );
-          return;
-        }
-      }
-      axios
-        .post("http://localhost:3001/create", {
-          name: productName,
-          brand: productBrand,
-          category: productCategory,
-          images: [url, url],
-          description: productDescription,
-          price: productPrice,
-          avalaible: true,
-          stock: productStock,
-        })
-        .then(() => alert("El producto fue creado con exito"))
-        .then(() => {
-          setProductCategory("");
-          setProductName("");
-          setProductBrand("");
-          setProductImage1(null);
-          setProductPrice(0);
-          setProductStock(0);
-          setProductCategory("");
-          setProductDescription("");
-        })
-        .catch((error) => console.log(error));
-    } else {
+    if (!isDataValid) {
       alert(
-        "No es posilble crear el producto si no están llenos todos los datos"
+        "No es posible crear el producto si no están llenos todos los datos"
       );
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      product.images.forEach((image) => formData.append("image", image));
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload?key=49a1b0e207191c858c5ee634e59c96bc",
+        formData
+      );
+      const urls = response.data.data.display_url;
+      await axios.post("http://localhost:3001/create", {
+        ...product,
+        price: parseFloat(product.price.toString()),
+        stock: parseInt(product.stock.toString()),
+        images: [urls, urls],
+        avalaible: true,
+      });
+      alert("El producto fue creado con éxito");
+    } catch (error) {
+      alert("No fue posible crear el producto, por favor inténtelo más tarde");
+      console.log(error);
+    } finally {
+      setProduct({
+        name: "",
+        brand: "",
+        category: "",
+        description: "",
+        price: 0,
+        images: [] as File[],
+        stock: 0,
+      });
     }
   };
 
   return (
-    <div className="bg-violet-100 p-10 rounded-xl drop-shadow-2xl shadow-violet-950 ">
+    <div className="p-4 py-0 rounded-xl drop-shadow-2xl shadow-violet-950 ">
       <div className="flex justify-center py-10 text-4xl text-violet-950 ">
         <h1>Crea un producto</h1>
       </div>
       <div className="py-3 text-xl">
         <label>Nombre: </label>
         <input
-          value={productName}
-          onChange={handleNameValue}
+          name="name"
+          value={product.name}
+          onChange={handleValueChange}
           type="text"
           className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />
@@ -128,8 +91,9 @@ const ProductForm = () => {
       <div className="py-3 text-xl">
         <label>Marca: </label>
         <input
-          value={productBrand}
-          onChange={handleBrandValue}
+          name="brand"
+          value={product.brand}
+          onChange={handleValueChange}
           type="text"
           className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />
@@ -137,13 +101,16 @@ const ProductForm = () => {
       <div className="py-3 text-xl">
         <label>Categoría</label>
         <select
+          name="category"
           className="mx-3 px-4 bg-white py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
-          onChange={handleCategory}
+          onChange={handleValueChange}
         >
           <option></option>
           {categories.map((category) => {
             return (
-              <option value={category.category}>{category.category}</option>
+              <option key={category.category} value={category.category}>
+                {category.category}
+              </option>
             );
           })}
         </select>
@@ -151,16 +118,18 @@ const ProductForm = () => {
       <div className="py-3 text-xl">
         <label>Descripción: </label>
         <textarea
-          value={productDescription}
-          onChange={handleDescription}
+          name="description"
+          value={product.description}
+          onChange={handleValueChange}
           className="mx-3 mt-5 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950 w-[100%] h-[100px] "
         />
       </div>
       <div className="py-3 text-xl">
         <label>Precio</label>
         <input
-          value={productPrice}
-          onChange={handlePrice}
+          name="price"
+          value={product.price}
+          onChange={handleValueChange}
           type="number"
           className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />
@@ -170,20 +139,25 @@ const ProductForm = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={handleImages}
+          onChange={handleImageChange}
           className="bg-violet-300 mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />
       </div>
-      {productImage1 && (
+      {product.images[0] && (
         <div className="bg-white p-3 w-80">
-          <img className="h-150" src={URL.createObjectURL(productImage1)} />
+          <img
+            className="h-150"
+            src={URL.createObjectURL(product.images[0])}
+            alt="image"
+          />
         </div>
       )}
       <div className="py-3 text-xl">
         <label>Existencias: </label>
         <input
-          value={productStock}
-          onChange={handleStock}
+          name="stock"
+          value={product.stock}
+          onChange={handleValueChange}
           type="number"
           className="mx-3 px-4 py-1 rounded-xl focus:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-950"
         />

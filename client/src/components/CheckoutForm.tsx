@@ -1,14 +1,13 @@
 // import {PaymentElement} from '@stripe/react-stripe-js';
-import axios from 'axios';
-import ProductInterface from '@/interfaces/productsInterface';
+import axios from "axios";
 
-const CheckoutForm = (props:any) => {
-  const createPayment = async ()=>{
-    const estado:any = [];
-    const array:any[] = props.state.products;
-    array.forEach((obj:any)=>{
+const CheckoutForm = (props: any) => {
+  const createPayment = async () => {
+    const estado: any = [];
+    const array: any[] = props.state.products;
+    array.forEach((obj: any) => {
       estado.push({
-        name:obj.name,
+        name: obj.name,
         cantidad: obj.quantity,
       })
     })
@@ -18,7 +17,15 @@ const CheckoutForm = (props:any) => {
   }
   return (
     <div>
-      <button role='link' onClick={()=>{createPayment();}}> Submit </button>
+      <button
+        role="link"
+        onClick={() => {
+          createPayment();
+        }}
+      >
+        {" "}
+        Submit
+      </button>
     </div>
   );
 };

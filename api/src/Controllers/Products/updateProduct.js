@@ -1,7 +1,26 @@
-const { Products } = require("../../db")
-const updateProduct = async (id,quantity) => {
-    const product = await Products.findByPk(id);
-    product.stock = product.stock - quantity;
-    return product;
-}
+const { Products } = require("../../db");
+const updateProduct = async ({
+  id,
+  name,
+  category,
+  brand,
+  images,
+  description,
+  price,
+  avalaible,
+  stock,
+}) => {
+  console.log(`this is avalaible ${avalaible}`);
+  return await Products.upsert({
+    id,
+    name,
+    category,
+    brand,
+    images,
+    description,
+    price,
+    avalaible,
+    stock,
+  });
+};
 module.exports = updateProduct;

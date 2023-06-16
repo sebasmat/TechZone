@@ -1,6 +1,5 @@
-
 interface categoriesInterface {
-    category : string
+  category: string;
 }
 
 export default categoriesInterface;

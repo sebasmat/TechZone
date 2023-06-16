@@ -11,7 +11,9 @@ const NavItem = ({ title, url, isSelected }: NavItemProps) => {
     <li>
       <Link
         className={`block px-3 py-2 transition hover:bg-white ${
-          isSelected ? "bg-white text-violet-900 font-bold" : "hover:text-violet-900 hover:font-bold"
+          isSelected
+            ? "bg-white text-violet-900 font-bold"
+            : "hover:text-violet-900 hover:font-bold"
         }`}
         href={url}
       >

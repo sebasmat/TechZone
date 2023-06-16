@@ -1,4 +1,5 @@
 import ProductInterface from "@/interfaces/productsInterface";
+import ProductReducerInterface from "@/interfaces/productsReducerInterface";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import UserInterface from "@/interfaces/userInterface";
 
@@ -26,12 +27,20 @@ interface actionDetails {
 
 interface actionSearch {
   type: ActionType.GET_SEARCH;
-  payload: ProductInterface[];
+  payload: {
+    content: ProductInterface[],
+    totalPages: number,
+    origin: string[],
+  };
 }
 
 interface actionProducts {
   type: ActionType.GET_PRODUCTS;
-  payload: ProductInterface[];
+  payload: {
+    content: ProductInterface[],
+    totalPages: number,
+    origin: string[]
+  };
 }
 
 interface actionUser {
