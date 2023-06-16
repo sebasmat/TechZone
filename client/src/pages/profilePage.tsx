@@ -26,7 +26,7 @@ const ProfilePage: NextPageWithLayout = () => {
             Editar perfil
           </button>
         </Link>
-        {UserFromDb.email === "admin@admin.com" && (
+        {UserFromDb.email === "techzone.imgbb@gmail.com" && (
           <Link href={"/admin/products"}>
             <button className="bg-violet-400 font-white px-3 py-1 rounded-xl hover:bg-violet-600 duration-300">
               Panel de Administracion
