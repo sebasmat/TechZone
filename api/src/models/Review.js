@@ -7,17 +7,13 @@ module.exports = (sequelize) => {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                autoincrement: true,
+                autoIncrement: true,
             },
             review: {
                 type: DataTypes.STRING,
-                allowNull: true,
-                unique: true,
             },
             score: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
-                unique: true,
             }
         },
         { timestamps: false }
