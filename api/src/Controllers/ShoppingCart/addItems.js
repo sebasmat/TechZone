@@ -9,7 +9,7 @@ const addItems = async (cartItems) => {
     allItemsPromises.push(Products.findByPk(cartItems[i].productId));
   }
   const allItems = await Promise.all(allItemsPromises);
-
+  
   let itemsAddToCartUsers = [];
   for (let i = 0; i < allItems.length; i++) {
     itemsAddToCartUsers.push(
@@ -30,3 +30,4 @@ const addItems = async (cartItems) => {
 };
 
 module.exports = addItems;
+
