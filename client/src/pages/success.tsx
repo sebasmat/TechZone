@@ -133,9 +133,15 @@ const Succes: NextPageWithLayout = () => {
       product: CartItems.products //OJO, para crear efectivamente la venta toca mandarle todos los campos del producto, por eso lo mando desde CartItem.products
     });
     
+    const updateStock = await axios.put('http://localhost:3001/stock', {products:CartItems.products})//esta ruta actualiza el stock
+    
+    
     const getSales = await axios.get('http://localhost:3001/sales'); // esta ruta me TRAE todas las ventas realizadas
-
+    
+    
     const getSalesByUser = await axios.get('http://localhost:3001/sales/'+user[0].id); //esta ruta me TRAE todas las compras que un usuario realizo, añadir el ID del usuario
+    
+    
     const { data } = await axios.post("http://localhost:3001/confirmacion", { user, productos })
 
     window.location.href = data.url;
