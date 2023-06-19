@@ -14,8 +14,9 @@ const AdminLayout = ({ children }: any) => {
     if (
       user === undefined ||
       user === null ||
-      user.email !== "techzone.imgbb@gmail.com" ||
-      UserFromDb.email !== "techzone.imgbb@gmail.com"
+      // TODO: Email change for testing | email original: techzone.imgbb@gmail.com
+      user.email !== "admin@admin.com" ||
+      UserFromDb.email !== "admin@admin.com"
     ) {
       router.push("/");
     }
@@ -40,6 +41,9 @@ const AdminLayout = ({ children }: any) => {
             </Link>
             <Link href={"/admin/users"} className="tz-btn tz-btn-ghost">
               Usuarios
+            </Link>
+            <Link href={"/admin/sales"} className="tz-btn tz-btn-ghost">
+              Ventas
             </Link>
             <Link href={"/"} className="tz-btn tz-btn-ghost">
               Home

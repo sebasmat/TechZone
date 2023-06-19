@@ -69,73 +69,71 @@ const Products: NextPageWithLayout = () => {
       {ProductsFromDb &&
         ProductsFromDb.map((product) => {
           return (
-            <>
-              <div
-                key={product.id}
-                className="tz-card tz-card-side bg-base-100 shadow-xl my-2 tz-card-bordered"
+            <div
+              key={product.id}
+              className="tz-card tz-card-side bg-base-100 shadow-xl my-2 tz-card-bordered"
+            >
+              <figure
+                style={{
+                  minHeight: "200px",
+                  minWidth: "200px",
+                  maxWidth: "200px",
+                  maxHeight: "200px",
+                }}
               >
-                <figure
+                <Image
+                  width={200}
+                  height={200}
+                  src={product.images[0]}
+                  alt="Movie"
                   style={{
-                    minHeight: "200px",
-                    minWidth: "200px",
-                    maxWidth: "200px",
-                    maxHeight: "200px",
+                    minHeight: "150px",
+                    minWidth: "150px",
+                    maxWidth: "150px",
+                    maxHeight: "150px",
                   }}
-                >
-                  <Image
-                    width={200}
-                    height={200}
-                    src={product.images[0]}
-                    alt="Movie"
-                    style={{
-                      minHeight: "150px",
-                      minWidth: "150px",
-                      maxWidth: "150px",
-                      maxHeight: "150px",
-                    }}
-                  />
-                </figure>
-                <div className="tz-card-body">
-                  <h2 className="tz-card-title">{product.name}</h2>
-                  <div className="tz-badge tz-badge-outline tz-badge-primary">
-                    Categoria: {product.category}
+                />
+              </figure>
+              <div className="tz-card-body">
+                <h2 className="tz-card-title">{product.name}</h2>
+                <div className="tz-badge tz-badge-outline tz-badge-primary">
+                  Categoria: {product.category}
+                </div>
+                <div className="tz-badge tz-badge-outline tz-badge-secondary">
+                  Marca: {product.brand}
+                </div>
+                <div className="flex">
+                  <div className="tz-badge tz-badge-outline">
+                    Stock: {product.stock}
                   </div>
-                  <div className="tz-badge tz-badge-outline tz-badge-secondary">
-                    Marca: {product.brand}
+                  <div className="tz-badge tz-badge-outline">
+                    Precio: {product.price}
                   </div>
-                  <div className="flex">
-                    <div className="tz-badge tz-badge-outline">
-                      Stock: {product.stock}
-                    </div>
-                    <div className="tz-badge tz-badge-outline">
-                      Precio: {product.price}
-                    </div>
-                  </div>
-                  <div className="tz-card-actions justify-end">
-                    <button
-                      onClick={(e) => handleUpdateModal(e, product)}
-                      className="tz-btn tz-btn-primary"
+                </div>
+                <div className="tz-card-actions justify-end">
+                  <button
+                    onClick={(e) => handleUpdateModal(e, product)}
+                    className="tz-btn tz-btn-primary"
+                  >
+                    Editar
+                  </button>
+                  <div className="tz-join">
+                    <span
+                      className="tz-join-item tz-btn"
+                      onClick={(e) => handleAvailability(e, product.id)}
                     >
-                      Editar
-                    </button>
-                    <div className="tz-join">
-                      <span
-                        className="tz-join-item tz-btn"
-                        onClick={(e) => handleAvailability(e, product.id)}
-                      >
-                        Cambiar Estado
-                      </span>
-                      <div
-                        className=" tz-join-item tz-btn tz-btn-secondary"
-                        id="a"
-                      >
-                        {product.avalaible ? "Disponible" : "No disponible"}
-                      </div>
+                      Cambiar Estado
+                    </span>
+                    <div
+                      className=" tz-join-item tz-btn tz-btn-secondary"
+                      id="a"
+                    >
+                      {product.avalaible ? "Disponible" : "No disponible"}
                     </div>
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           );
         })}
       <Paginated />
