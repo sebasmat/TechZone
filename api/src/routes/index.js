@@ -53,5 +53,7 @@ router.use("/favorites", postItemFav);
 router.use("/favorites", deleteItemFav);
 router.use("/review", getReview)
 router.use("/addreview", addReview)
+router.use("/sales", salesRouter)
+    
 
 module.exports = router;

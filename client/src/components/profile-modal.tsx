@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useTypedSelector } from "@/store/useTypeSelector";
-import user from "@/pages/user";
 
 type ProfileModalProps = {
   showModal: boolean;
