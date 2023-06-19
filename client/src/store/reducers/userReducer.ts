@@ -1,4 +1,3 @@
-import ProductReducerInterface from "@/interfaces/productsReducerInterface";
 import UserInterface from "@/interfaces/userInterface";
 import { Action, ActionType } from "@/store/actionTypes";
 

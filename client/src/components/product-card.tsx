@@ -17,7 +17,7 @@ const ProductCard = ({
   images,
   description,
   price,
-  available,
+  avalaible,
   stock,
 }: ProductInterface) => {
   const { UserFromDb } = useTypedSelector((state) => state.user);
@@ -47,21 +47,30 @@ const ProductCard = ({
             type: ActionType.GET_CART_ITEMS,
             payload: formatData,
           });
+          alert("Producto añadido al carrito");
         } else {
-          alert("Product already in cart");
+          alert("Producto ya en carrito");
         }
       } else {
-        manageCart({
-          id,
-          category,
-          brand,
-          name,
-          images,
-          description,
-          price,
-          available,
-          stock,
-        });
+        // find product in local storage
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const index = cart.findIndex((item: any) => item.product?.id === id);
+        if (index === -1) {
+          manageCart({
+            id,
+            category,
+            brand,
+            name,
+            images,
+            description,
+            price,
+            avalaible,
+            stock,
+          });
+          alert("Producto añadido al carrito");
+        } else {
+          alert("Producto ya en carrito");
+        }
       }
     } catch (error: any) {
       console.log(error);

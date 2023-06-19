@@ -1,17 +1,12 @@
 import React from "react";
 import ProductCard from "@/components/product-card";
 import ProductInterface from "../interfaces/productsInterface";
-import { useTypedSelector } from "@/store/useTypeSelector";
 
 type ProductListingProps = {
   arrayProducts: ProductInterface[];
 };
 
 const ProductListing = ({ arrayProducts }: ProductListingProps) => {
-  const { ProductsFromDb: searchs } = useTypedSelector(
-    (state) => state.searchs
-  );
-  
   if (arrayProducts.length < 1) {
     return (
       <div className="container flex flex-col items-center pt-10 text-slate-600 text-4xl">
@@ -27,39 +22,25 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
   }
   return (
     <div className="container ">
-      {searchs.length > 0
-        ? searchs.map((search) => {
-            return (
-              <ProductCard
-                key={search.id}
-                id={search.id}
-                category={search.category}
-                brand={search.brand}
-                name={search.name}
-                images={search.images}
-                description={search.description}
-                price={search.price}
-                available={search.available}
-                stock={search.stock}
-              />
-            );
-          })
-        : arrayProducts.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                category={product.category}
-                brand={product.brand}
-                name={product.name}
-                images={product.images}
-                description={product.description}
-                price={product.price}
-                available={product.available}
-                stock={product.stock}
-              />
-            );
-          })}
+      {arrayProducts
+        .filter((product) => product.avalaible)
+        .filter((product) => product.stock > 0)
+        .map((product) => {
+          return (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              category={product.category}
+              brand={product.brand}
+              name={product.name}
+              images={product.images}
+              description={product.description}
+              price={product.price}
+              avalaible={product.avalaible}
+              stock={product.stock}
+            />
+          );
+        })}
     </div>
   );
 };

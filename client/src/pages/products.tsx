@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import data from "../data.json";
+import React, { ReactElement, useEffect, useState } from "react";
 import ProductListing from "@/components/product-listing";
 import ProductInterface from "../interfaces/productsInterface";
 import Paginated from "@/components/paginated";
 import FilterProducts from "@/components/filter-products";
+import { useRouter } from "next/router";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { getProducts } from "@/store/actionCreators/getProducts";
+import { NextPageWithLayout } from "@/pages/_app";
+import MainLayout from "@/layout/main-layout";
 
 export async function getStaticProps() {
   return {
@@ -16,8 +18,7 @@ export async function getStaticProps() {
   };
 }
 
-let arrayProducts = data as ProductInterface[];
-const Products = () => {
+const Products: NextPageWithLayout = () => {
   const dispatch = useDispatch();
   const result = useTypedSelector((state) => state.products.ProductsFromDb);
 
@@ -41,5 +42,7 @@ const Products = () => {
     </div>
   );
 };
-
+Products.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
 export default Products;
