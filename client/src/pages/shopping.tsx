@@ -24,6 +24,7 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  
 
   const { user } = useUser();
 
@@ -113,6 +114,10 @@ const Shopping: NextPageWithLayout = () => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
   }, []);
+  
+
+
+
 
   return (
     <div className="flex justify-center content-center">

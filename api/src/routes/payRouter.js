@@ -6,6 +6,27 @@ const findProductByName = require("../Controllers/Products/findProductByName")
 
 const stripe = new Stripe(`${process.env.STRIPE_KEY_SECRET}`);
 
+
+
+
+// payRouter.put("/", async (req, res) => {
+//   try {
+//     const {productId, stock } = req.body;
+//     const update = await actualizarStock(productId, stock);
+//   }
+// catch(error){
+//   res.status(404).send({error: error.message})
+// }
+// });
+
+// module.exports = putItem;
+
+
+
+
+
+
+
 payRouter.post("/", async (req, res) => {
   try {
     // const {amount} = req.body;
@@ -56,6 +77,7 @@ payRouter.post("/", async (req, res) => {
 payRouter.post('/create-checkout-session', async (req, res) => {
 
   const { estado } = req.body;
+console.log(estado[0].email)
   const aux = async (estado) => {
     let arrayProducts = [];
     await Promise.all(
@@ -72,19 +94,23 @@ payRouter.post('/create-checkout-session', async (req, res) => {
           price: priceId,
           quantity: obj.cantidad,
         });
+        
       })
     );
+    
     return arrayProducts;
   };
   let resultfinal;
   aux(estado)
     .then((response) => {
-      // console.log(response);
+      
       resultfinal = response;
     })
     .catch((error) => {
       console.error(error);
     });
+    
+
 
   const obtenerResultado = async () => {
     try {
@@ -138,6 +164,7 @@ payRouter.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (
       event.data.object.id,
       {
         expand: ['line_items'],
+
       }
     );
     const lineItems = sessionWithLineItems.line_items;

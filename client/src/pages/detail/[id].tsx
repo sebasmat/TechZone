@@ -76,6 +76,7 @@ const Detail = () => {
     }
   };
 
+
   useEffect(() => {
     if (id !== undefined) {
       dispatch(getDetails(Number(id)));
@@ -83,6 +84,7 @@ const Detail = () => {
     }
     return () => dispatch(deleteProduct());
   }, [dispatch, id]);
+
 
   //habria que hacer una action para buscar el producto por id de la bdd, guardarlo un la store y traerlo aca.
   //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card

@@ -7,8 +7,7 @@ const salesRouter = express.Router();
 salesRouter.post("/", async (req, res) => {
     try {
         const { user, product } = req.body;
-        
-        const response = await createSale(user.id, product);
+        const response = await createSale(user[0].id, product);
         
         res.status(200).json(response);
     } catch (error) {
@@ -28,6 +27,7 @@ salesRouter.get("/", async (req, res) => {
 salesRouter.get("/:id", async (req, res) => {
     try {
         const {id} = req.params;
+        console.log("si entra a la ruta y este es el id:",id);
         const getSales = await getSalesByUser(id);
         res.status(200).json(getSales)
     } catch (error) {
