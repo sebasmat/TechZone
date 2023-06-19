@@ -111,7 +111,7 @@ const Succes: NextPageWithLayout = () => {
   //     )
 
   const mail = async () => {
-    console.log(CartItems)
+    
     const user: any = [];
     const productos: any = [];
     user.push({

@@ -21,14 +21,14 @@ transporter.verify().then(() => {
 succesRouter.post('/', async (req, res) => {
 
   const { user, productos } = req.body;
-  
+  console.log('entro aca2')
 
   const total = productos.reduce((acumulador, productos) => acumulador + productos.price, 0);
  
  
   await transporter.sendMail({
     from: `"Compra Exitosa" <urculluvalentin@gmail.com>`, // sender address
-    to: `${user[0].email}`, // list of receivers
+    to: `h.baldino@yahoo.com.ar`, // list of receivers
     subject: "Compra Exitosa ✔", // Subject line
     text: "Hello world?", // plain text body
     html: ` <!DOCTYPE html>
