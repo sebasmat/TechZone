@@ -28,7 +28,7 @@ succesRouter.post('/', async (req, res) => {
  
   await transporter.sendMail({
     from: `"Compra Exitosa" <urculluvalentin@gmail.com>`, // sender address
-    to: `h.baldino@yahoo.com.ar`, // list of receivers
+    to: `${user[0].email}`, // list of receivers
     subject: "Compra Exitosa ✔", // Subject line
     text: "Hello world?", // plain text body
     html: ` <!DOCTYPE html>
