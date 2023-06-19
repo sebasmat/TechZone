@@ -24,6 +24,7 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  
 
   const { user } = useUser();
 
@@ -107,11 +108,16 @@ const Shopping: NextPageWithLayout = () => {
       setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     }
   };
-
+  console.log(CartItems);
+  
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
   }, []);
+  
+
+
+
 
   return (
     <div className="flex justify-center content-center">
@@ -293,6 +299,14 @@ const Shopping: NextPageWithLayout = () => {
           </button>
         ) : null}
       </div>
+//este elements de abajo nose si va o no fijense!
+      <Elements stripe={stripe}>
+        <CheckoutForm state={CartItems} />
+      </Elements>
+      
+       
+      
+
     </div>
   );
 };

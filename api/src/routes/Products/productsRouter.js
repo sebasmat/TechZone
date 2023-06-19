@@ -116,5 +116,20 @@ productsRouter.get("/:idProduct", async (req, res) => {
     }
 })
 
+productsRouter.post("/:idProduct", async (req,res)=>{
+    console.log("si entra a la ruta");
+    try {
+        console.log("si entra a la ruta");
+        const {idProduct} = req.params;
+        const {quantity} = req.body;
+        const productUpdated = await updateProduct(idProduct,quantity);
+        console.log(productUpdated);
+        res.status(200).json(productUpdated);
+    } catch (error) {
+        res.status(500).json({error:error.message})
+    }
+   
+})
+
 
 module.exports = productsRouter;

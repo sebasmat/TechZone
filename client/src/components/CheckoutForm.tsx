@@ -1,4 +1,7 @@
 // import {PaymentElement} from '@stripe/react-stripe-js';
+
+
+
 import axios from "axios";
 
 const CheckoutForm = (props: any) => {
@@ -9,14 +12,16 @@ const CheckoutForm = (props: any) => {
       estado.push({
         name: obj.name,
         cantidad: obj.quantity,
-      });
-    });
-    const { data } = await axios.post(
-      "http://localhost:3001/pay/create-checkout-session",
-      { estado: estado }
-    );
-    window.location.href = data;
-  };
+        email:UserFromDb.email,
+      })
+    })
+   
+    const {data} = await axios.post("http://localhost:3001/pay/create-checkout-session", {estado:estado})
+
+    console.log(data.sessionId);
+    window.location.href=`${data.sessionURL}`;
+
+  }
   return (
     <div>
       <button
