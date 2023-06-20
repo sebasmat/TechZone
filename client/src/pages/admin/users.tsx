@@ -26,7 +26,7 @@ const Users: NextPageWithLayout = () => {
       });
   }, []);
   return (
-    <div className="px-16 py-10 mx-auto flex flex-wrap">
+    <div className="px-16 py-10 mx-auto flex flex-wrap gap-4">
       {users &&
         users.map((user) => (
           <div
@@ -46,12 +46,24 @@ const Users: NextPageWithLayout = () => {
               </p>
               <p className="tz-badge tz-badge-neutral">Genere: {user.Gender}</p>
               <div className="tz-card-actions justify-end">
-                <button
-                  className="tz-btn tz-btn-primary"
-                  onClick={() => handlePutUser(user)}
-                >
-                  {user.available ? "Desactivar" : "Activar"}
-                </button>
+                {/*<button*/}
+                {/*  className="tz-btn tz-btn-primary"*/}
+                {/*  onClick={() => handlePutUser(user)}*/}
+                {/*>*/}
+                {/*  {user.available ? "Desactivar" : "Activar"}*/}
+                {/*</button>*/}
+
+                <div className="tz-join">
+                  <span
+                    className="tz-join-item tz-btn"
+                    onClick={(e) => handlePutUser(user)}
+                  >
+                    Cambiar Estado
+                  </span>
+                  <div className=" tz-join-item tz-btn tz-btn-secondary" id="a">
+                    {user.available ? "Activo" : "Inactivo"}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

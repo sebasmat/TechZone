@@ -2,7 +2,6 @@
 import { useTypedSelector } from "@/store/useTypeSelector";
 import axios from "axios";
 
-
 const CheckoutForm = (props: any) => {
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const createPayment = async () => {
@@ -12,16 +11,18 @@ const CheckoutForm = (props: any) => {
       estado.push({
         name: obj.name,
         cantidad: obj.quantity,
-        email:UserFromDb.email,
-      })
-    })
-   
-    const {data} = await axios.post("http://localhost:3001/pay/create-checkout-session", {estado:estado})
+        email: UserFromDb.email,
+      });
+    });
+
+    const { data } = await axios.post(
+      "http://localhost:3001/pay/create-checkout-session",
+      { estado: estado }
+    );
 
     console.log(data.sessionId);
-    window.location.href=`${data.sessionURL}`;
-
-  }
+    window.location.href = `${data.sessionURL}`;
+  };
   return (
     <div>
       <button
@@ -32,7 +33,7 @@ const CheckoutForm = (props: any) => {
         }}
       >
         {" "}
-        Submit
+        Submit To Pay Cart
       </button>
     </div>
   );
