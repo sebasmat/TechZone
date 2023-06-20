@@ -41,17 +41,29 @@ const FilterProducts = () => {
   }, []);
 
   const handleButtonFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (valueCategory == "Todos" && valueBrand == "Todos") {
-      dispatch(getProducts(0, null, null));
+    if (valueCategory == "Todos" && valueBrand == "Todos" && !valuePrice ) {
+      dispatch(getProducts(0, null, null,null));
     }
-    if (valueCategory != "Todos" && valueCategory != "Todos") {
-      dispatch(getProducts(null, valueCategory, valueBrand));
+    if (valueCategory != "Todos" && valueBrand != "Todos" && valuePrice) {
+      dispatch(getProducts(null, valueCategory, valueBrand,valuePrice));
     }
-    if (valueCategory != "Todos" && valueBrand == "Todos") {
-      dispatch(getProducts(null, valueCategory, null));
+    if (valueCategory != "Todos" && valueBrand == "Todos" && !valuePrice) {
+      dispatch(getProducts(null, valueCategory, null,null));
     }
-    if (valueCategory == "Todos" && valueBrand != "Todos") {
-      dispatch(getProducts(null, null, valueBrand));
+    if (valueCategory == "Todos" && valueBrand != "Todos" && !valuePrice) {
+      dispatch(getProducts(null, null, valueBrand,null));
+    }
+    if (valueCategory == "Todos" && valueBrand == "Todos" && valuePrice ) {
+      dispatch(getProducts(0, null, null,valuePrice));
+    }
+    if (valueCategory != "Todos" && valueBrand != "Todos" && !valuePrice) {
+      dispatch(getProducts(null, valueCategory, valueBrand,null));
+    }
+    if (valueCategory != "Todos" && valueBrand == "Todos" && valuePrice) {
+      dispatch(getProducts(null, valueCategory, null,valuePrice));
+    }
+    if (valueCategory == "Todos" && valueBrand != "Todos" && valuePrice) {
+      dispatch(getProducts(null, null, valueBrand,valuePrice));
     }
   };
 
@@ -184,8 +196,9 @@ const FilterProducts = () => {
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
+      <br/>
       <div>
-        <button className="bg-white" onClick={handleButtonFilter}>
+        <button className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300" onClick={handleButtonFilter}>
           Filtrar
         </button>
       </div>
