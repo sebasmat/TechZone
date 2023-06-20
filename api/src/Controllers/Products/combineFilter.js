@@ -1,6 +1,7 @@
 const {Products} = require("../../db");
 
 const getProductsByBrand = async (req, res) => {
+  console.log("categoria y marca");
   const { brand, category } = req.query;
 
   const pageAsNumber = Number.parseInt(req.query.page)

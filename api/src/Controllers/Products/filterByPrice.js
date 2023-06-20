@@ -2,6 +2,7 @@ const {Products} = require("../../db");
 const {Op} = require("sequelize")
 
 const filterByPrice = async (req, res) => {
+  console.log("precio");
   const minPrice = parseFloat(req.query.minPrice) || 0
   const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_VALUE
 

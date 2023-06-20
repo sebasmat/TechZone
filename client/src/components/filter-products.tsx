@@ -41,17 +41,29 @@ const FilterProducts = () => {
   }, []);
 
   const handleButtonFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (valueCategory == "Todos" && valueBrand == "Todos") {
-      dispatch(getProducts(0, null, null));
+    if (valueCategory == "Todos" && valueBrand == "Todos" && !valuePrice ) {
+      dispatch(getProducts(0, null, null,null));
     }
-    if (valueCategory != "Todos" && valueCategory != "Todos") {
-      dispatch(getProducts(null, valueCategory, valueBrand));
+    if (valueCategory != "Todos" && valueBrand != "Todos" && valuePrice) {
+      dispatch(getProducts(null, valueCategory, valueBrand,valuePrice));
     }
-    if (valueCategory != "Todos" && valueBrand == "Todos") {
-      dispatch(getProducts(null, valueCategory, null));
+    if (valueCategory != "Todos" && valueBrand == "Todos" && !valuePrice) {
+      dispatch(getProducts(null, valueCategory, null,null));
     }
-    if (valueCategory == "Todos" && valueBrand != "Todos") {
-      dispatch(getProducts(null, null, valueBrand));
+    if (valueCategory == "Todos" && valueBrand != "Todos" && !valuePrice) {
+      dispatch(getProducts(null, null, valueBrand,null));
+    }
+    if (valueCategory == "Todos" && valueBrand == "Todos" && valuePrice ) {
+      dispatch(getProducts(0, null, null,valuePrice));
+    }
+    if (valueCategory != "Todos" && valueBrand != "Todos" && !valuePrice) {
+      dispatch(getProducts(null, valueCategory, valueBrand,null));
+    }
+    if (valueCategory != "Todos" && valueBrand == "Todos" && valuePrice) {
+      dispatch(getProducts(null, valueCategory, null,valuePrice));
+    }
+    if (valueCategory == "Todos" && valueBrand != "Todos" && valuePrice) {
+      dispatch(getProducts(null, null, valueBrand,valuePrice));
     }
   };
 
