@@ -9,7 +9,8 @@ import axios from "axios";
 import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { ActionType } from "@/store/actionTypes";
 import { manageCart } from "@/utils/localStorageUtils";
-import Link from "next/link";
+import ReviewsComponent from "@/components/reviewsComponent";
+
 
 const Detail = () => {
   const router = useRouter();
@@ -114,10 +115,14 @@ const Detail = () => {
                 onClick={() => handleCartPostItems()}
               >
                 añadir al carro
-              </button>      
+              </button>
+              <div>
+                <ReviewsComponent idProduct={40}/>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </main>
   );
