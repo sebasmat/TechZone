@@ -20,9 +20,12 @@ const postItemFav = require("./Favorites/postItem");
 const deleteItemFav = require("./Favorites/deleteItem");
 const getItemsFav = require ("./Favorites/getItems")
 const brandRouter = require("./brandRouter");
-// const succesRouter = require("./succesRouter");
+// //const succesRouter = require("./succesRouter"); ERROR
 const salesRouter = require("./Sales/addSales");
 const updateStock = require("./Products/updateStock");
+const addReview = require("./Review/addReview");
+const getReview = require("../routes/Review/getReview");
+const updateReview = require("./Review/updateReview");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -45,11 +48,13 @@ router.use("/cart", postItemToCart);
 router.use("/cart", getIems);
 router.use("/cart", deleteItem);
 router.use("/cart", putItem);
-router.use("/confirmacion",succesRouter)
-router.use("/favorites", getItemsFav)
-router.use("/favorites", postItemFav)
-router.use("/favorites", deleteItemFav)
-// router.use("/confirmacion", succesRouter)
+router.use("/confirmacion",succesRouter);
+router.use("/favorites", getItemsFav);
+router.use("/favorites", postItemFav);
+router.use("/favorites", deleteItemFav);
+router.use("/review", getReview)
+router.use("/addreview", addReview)
+router.use("/updatereview", updateReview)
 router.use("/sales", salesRouter)
 router.use("/stock", updateStock);
 
