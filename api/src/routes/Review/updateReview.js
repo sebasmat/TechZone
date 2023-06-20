@@ -19,7 +19,10 @@ updateReview.put("/", async (req, res) => {
             userId,
             productsId
         })
-        res.status(200).json(newReview);
+        res.status(200).json({
+            content: newReview,
+            aprovved: true,
+        });
     } catch (error) {
         res.status(500).send(console.log(error));
     }

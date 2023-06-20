@@ -15,7 +15,13 @@ const ReviewAndScore = () => {
     const user = useTypedSelector((state) => state.user)
 
     const router = useRouter();
-    const [reviewFromDb, setReviewFromDb] = useState({})
+    const [reviewFromDb, setReviewFromDb] = useState<reviewInterface>({
+        id: "",
+        review: "",
+        score: 0,
+        userId: 0,
+        productsId: 0,
+    })
     const { id } = router.query;
     const [inputReview, SetInputReview] = useState<string>("")
     const [fullStar, SetFullStar] = useState<number>(0);
@@ -71,7 +77,7 @@ const ReviewAndScore = () => {
     }
 
     const handleButtonRate = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        if (!reviewFromDb.id) {
+        if (reviewFromDb.id == "") {
             try {
                 axios.post(`http://localhost:3001/addreview`, {
                     review: inputReview,
@@ -84,8 +90,19 @@ const ReviewAndScore = () => {
             } catch (error) {
                 alert("Tuvimos un problema al guardar tu opinion, por favor intenta más tarde")
             }
-
-
+        } else {
+            try {
+                axios.put(`http://localhost:3001/updatereview`, {
+                    id: reviewFromDb.id,
+                    review: inputReview,
+                    score: fullStar,
+                    userId: user.UserFromDb.id,
+                    productsId: id,
+                })
+                alert("se ha actualizado exitosamente tu opinion")
+            } catch (error) {
+                alert("Tuvimos un problema al guardar tu opinion, por favor intenta más tarde")
+            }
         }
     }
 
