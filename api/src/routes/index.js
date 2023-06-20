@@ -20,9 +20,9 @@ const postItemFav = require("./Favorites/postItem");
 const deleteItemFav = require("./Favorites/deleteItem");
 const getItemsFav = require ("./Favorites/getItems")
 const brandRouter = require("./brandRouter");
-//const succesRouter = require("./succesRouter"); ERROR
+// //const succesRouter = require("./succesRouter"); ERROR
 const salesRouter = require("./Sales/addSales");
-
+const updateStock = require("./Products/updateStock");
 const addReview = require("./Review/addReview");
 const getReview = require("../routes/Review/getReview")
 // Importar todos los routers;
@@ -54,6 +54,7 @@ router.use("/favorites", deleteItemFav);
 router.use("/review", getReview)
 router.use("/addreview", addReview)
 router.use("/sales", salesRouter)
+router.use("/stock", updateStock);
     
 
 module.exports = router;

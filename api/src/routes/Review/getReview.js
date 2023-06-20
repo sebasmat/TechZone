@@ -7,8 +7,8 @@ const getReview = express.Router();
 
 getReview.get("/products/:idProduct", async (req, res) => {
     try {
-        const { id } = req.params
-        const getReviewByProduct = await findReviewByProduct(id);
+        const { idProduct } = req.params
+        const getReviewByProduct = await findReviewByProduct(idProduct);
         res.status(200).send(getReviewByProduct)
     } catch (error) {
         res.status(500).send(console.log(error));

@@ -114,12 +114,7 @@ const Detail = () => {
                 onClick={() => handleCartPostItems()}
               >
                 añadir al carro
-              </button>
-              <Link href = {`/reviewAndScore/${id}`}>
-              <button>
-                Comentar y calificar
-              </button>
-              </Link>
+              </button>      
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 // import {PaymentElement} from '@stripe/react-stripe-js';
-
-
-
+import { useTypedSelector } from "@/store/useTypeSelector";
 import axios from "axios";
 
+
 const CheckoutForm = (props: any) => {
+  const { UserFromDb } = useTypedSelector((state) => state.user);
   const createPayment = async () => {
     const estado: any = [];
     const array: any[] = props.state.products;

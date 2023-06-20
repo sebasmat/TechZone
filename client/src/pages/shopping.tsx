@@ -299,14 +299,6 @@ const Shopping: NextPageWithLayout = () => {
           </button>
         ) : null}
       </div>
-//este elements de abajo nose si va o no fijense!
-      <Elements stripe={stripe}>
-        <CheckoutForm state={CartItems} />
-      </Elements>
-      
-       
-      
-
     </div>
   );
 };
