@@ -34,7 +34,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
                 clipRule="evenodd"
               />
             </svg>
-            <h1 className="bg-white">Invitado</h1>
+            <h1 className="bg-white text-center rounded-full px-3">Invitado</h1>
+            <br />
             <Link href={"/api/auth/login"}>
               <h1 className="bg-white">Login</h1>
             </Link>
