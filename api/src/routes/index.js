@@ -24,7 +24,8 @@ const brandRouter = require("./brandRouter");
 const salesRouter = require("./Sales/addSales");
 const updateStock = require("./Products/updateStock");
 const addReview = require("./Review/addReview");
-const getReview = require("../routes/Review/getReview")
+const getReview = require("../routes/Review/getReview");
+const updateReview = require("./Review/updateReview");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -53,8 +54,9 @@ router.use("/favorites", postItemFav);
 router.use("/favorites", deleteItemFav);
 router.use("/review", getReview)
 router.use("/addreview", addReview)
+router.use("/updatereview", updateReview)
 router.use("/sales", salesRouter)
 router.use("/stock", updateStock);
-    
+
 
 module.exports = router;
