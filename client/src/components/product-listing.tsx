@@ -24,6 +24,7 @@ const ProductListing = ({ arrayProducts }: ProductListingProps) => {
     <div className="container ">
       {arrayProducts
         .filter((product) => product.avalaible)
+        .filter((product) => product.stock > 0)
         .map((product) => {
           return (
             <ProductCard
