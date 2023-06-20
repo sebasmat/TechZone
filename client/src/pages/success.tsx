@@ -103,8 +103,12 @@ const Succes: NextPageWithLayout = () => {
   //     )
 
   const mail = async () => {
+
+    
+
     console.log(CartItems);
     localStorage.setItem("cartSuccess", JSON.stringify(CartItems));
+
 
     const user: any = [];
     const productos: any = [];
