@@ -1,10 +1,13 @@
-const { Review } = require("../../db")
+const { Review, Products, Users } = require("../../db")
 
 const findReviewByProduct = async (productId) => {
     const review = await Review.findAll({
         where: {
-            productsId: productId
-        }
+            ProductId: productId
+        },
+        include: [{
+            model: Users
+        }]
     })
     return review;
 }

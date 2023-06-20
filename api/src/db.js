@@ -37,7 +37,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Products, Users, Favorites, Sales, Review } = sequelize.models;
+const { Products, Users, Favorites, Sales, Review} = sequelize.models;
 
 // Aca vendrian las relaciones
 
@@ -56,12 +56,12 @@ Products.belongsToMany(Users, { through: Cart });
 
 Users.hasMany(Sales);
 Sales.belongsTo(Users);
-Users.hasMany(Review, { foreignKey: "userId" });
-Products.hasMany(Review, { foreignKey: "productsId" });
 
+Users.hasMany(Review);
+Review.belongsTo(Users);
+Products.hasMany(Review);
+Review.belongsTo(Products);
 
-Users.hasMany(Review,{foreignKey: "userId"});
-Products.hasMany(Review,{foreignKey: "productsId"});
 const SalesProducts = sequelize.define(
   "SalesProducts",
   {

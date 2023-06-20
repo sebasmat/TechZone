@@ -8,14 +8,14 @@ addReview.post("/", async (req, res) => {
         const {
             review,
             score,
-            userId,
-            productsId
+            ProductId,
+            UserId
         } = req.body
         const newReview = await createReview({
             review,
             score,
-            userId,
-            productsId
+            ProductId,
+            UserId
         })
         res.status(200).json(newReview)
     } catch (error) {
