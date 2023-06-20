@@ -2,7 +2,7 @@ const {Products} = require("../../db");
 
 const getProductsByBrand = async (req, res) => {
   const { brand } = req.query;
-
+  console.log("marca");
   const pageAsNumber = Number.parseInt(req.query.page)
   const sizeAsNumber = Number.parseInt(req.query.size)
 

@@ -59,6 +59,9 @@ Sales.belongsTo(Users);
 Users.hasMany(Review, { foreignKey: "userId" });
 Products.hasMany(Review, { foreignKey: "productsId" });
 
+
+Users.hasMany(Review,{foreignKey: "userId"});
+Products.hasMany(Review,{foreignKey: "productsId"});
 const SalesProducts = sequelize.define(
   "SalesProducts",
   {
@@ -79,7 +82,7 @@ Sales.belongsToMany(Products, {
 Products.belongsToMany(Sales, {
   through: SalesProducts,
 });
-
+// Product.hasMany(Reviews);
 
 module.exports = {
   Cart,

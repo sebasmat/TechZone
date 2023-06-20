@@ -2,7 +2,7 @@ const {Products} = require("../../db");
 
 const getProductsByCategory = async (req, res) => {
   const { category } = req.query;
-
+  console.log("categoria");
   const pageAsNumber = Number.parseInt(req.query.page)
   const sizeAsNumber = Number.parseInt(req.query.pageSize)
 

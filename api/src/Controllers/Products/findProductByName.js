@@ -9,7 +9,7 @@ const getProductsByName = async (req, res) => {
 
   const filterOptions = {
     name: {
-      [Op.like]: `%${name}%`
+      [Op.iLike]: `%${name}%`
     }
   };
   let page = 1;

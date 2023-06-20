@@ -23,7 +23,7 @@ const Products: NextPageWithLayout = () => {
   const result = useTypedSelector((state) => state.products.ProductsFromDb);
 
   useEffect(() => {
-    dispatch(getProducts(0,null,null));
+    dispatch(getProducts(0,null,null,null));
   }, []);
 
   const arrayProducts = result;
