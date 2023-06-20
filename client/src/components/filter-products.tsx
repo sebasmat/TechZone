@@ -184,8 +184,9 @@ const FilterProducts = () => {
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
+      <br/>
       <div>
-        <button className="bg-white" onClick={handleButtonFilter}>
+        <button className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300" onClick={handleButtonFilter}>
           Filtrar
         </button>
       </div>
