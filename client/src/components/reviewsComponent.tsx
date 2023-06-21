@@ -8,8 +8,13 @@ const ReviewsComponent = ({ idProduct }: { idProduct: number }) => {
 
 
     const findReview = async () => {
-        const review = await axios.get(`http://localhost:3001/review/products/${idProduct}`)
-            .then((data) => setReviewFromDb(data.data))
+        try {
+            const review = await axios.get(`http://localhost:3001/review/products/${idProduct}`)
+            .then((data) => setReviewFromDb(data.data))    
+        } catch (error) {
+            setReviewFromDb([])
+        }
+        
     }
 
 
@@ -22,6 +27,10 @@ const ReviewsComponent = ({ idProduct }: { idProduct: number }) => {
         {typeof (reviewsFromDb[0]) == "object" ?
             reviewsFromDb.map((review: reviewInterface) => {
                 return (<div>
+                    <div className="flex">
+                    <img className="w-10 h-10" src={review.User.profileIMG} />
+                    <p>{review.User.name}</p>
+                    </div>
                     <p>{review.review}</p>
                     <StarScore score={review.score}/>
                 </div>

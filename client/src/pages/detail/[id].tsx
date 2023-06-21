@@ -117,7 +117,7 @@ const Detail = () => {
                 añadir al carro
               </button>
               <div>
-                <ReviewsComponent idProduct={40}/>
+                <ReviewsComponent idProduct={id}/>
               </div>
             </div>
           </div>
