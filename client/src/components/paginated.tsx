@@ -35,7 +35,7 @@ const Paginated = () => {
     if (origin[0] == "all") {
       const actualPage = parseInt(event.currentTarget.value);
       setPage(actualPage);
-      dispatch(getProducts(actualPage, null, null));
+      dispatch(getProducts(actualPage, null, null,null));
     }
     if (origin[0] == "name") {
       const actualPage = parseInt(event.currentTarget.value) + 1;
