@@ -6,6 +6,7 @@ import MainLayout from "@/layout/main-layout";
 import { ActionType } from "@/store/actionTypes";
 import { useDispatch } from "react-redux";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
+import { useRouter } from "next/router";
 
 
 const Succes: NextPageWithLayout = () => {
@@ -13,7 +14,7 @@ const Succes: NextPageWithLayout = () => {
   const { CartItems } = useTypedSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-
+  const router = useRouter();
 
   const mail = async () => {
 
@@ -99,12 +100,18 @@ const Succes: NextPageWithLayout = () => {
     };
   }, []);
   return (
-    <div>
-      <h1>HOLA</h1>
-      <h1>Felicidades por su compra</h1>
-      <h3>{UserFromDb?.name}</h3>
-      <h3>{UserFromDb?.direction}</h3>
-      <div>
+    <div className=" flex flex-col  justify-center items-center py-5">
+      <div className="flex flex-col  justify-center items-center space-y-5 ">
+        <h1 className="text-5xl text-black">Compra realizada con exito</h1>
+        <img src="https://i.ibb.co/gzZDJzC/hecho.png" className="bg-none" />
+        <p className="text-black text-xl">Gracias por su compra, por favor verifique su correo electronico </p>
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-black text-xl">Sigue explorando mas de nuestros productos</p>
+          <button onClick={()=>{router.push('/products')}} className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 w-40 rounded my-3">Ver productos</button>
+        </div> 
+
+      </div>
+      {/* <div className="flex items-center bg-red-300">
         {CartItems.products?.length > 0 ? (
           CartItems.products?.map((item: any) => (
             <div>
@@ -114,14 +121,14 @@ const Succes: NextPageWithLayout = () => {
                 <p className="text-violet-950 font-bold text-2xl">
                   ${item.price}
                 </p>
-                <p>cant:{item.quantity}</p>
+                <p>cantidad:{item.quantity}</p>
               </div>
             </div>
           ))
         ) : (
           <h1>no se encontraron productos</h1>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

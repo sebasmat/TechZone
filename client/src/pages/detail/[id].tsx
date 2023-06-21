@@ -1,6 +1,6 @@
 import style from "../../styles/detail.module.css";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDetails } from "@/store/actionCreators/getDetails";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -10,9 +10,11 @@ import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { ActionType } from "@/store/actionTypes";
 import { manageCart } from "@/utils/localStorageUtils";
 import ReviewsComponent from "@/components/reviewsComponent";
+import { NextPageWithLayout } from "../_app";
+import MainLayout from "@/layout/main-layout";
 
 
-const Detail = () => {
+const Detail:NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
@@ -106,7 +108,7 @@ const Detail = () => {
   //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card
 
   return (
-    <main>
+    <div>
       <div className={style.backround}>
         <div className={style.container}>
           <div>
@@ -138,8 +140,11 @@ const Detail = () => {
         </div>
 
       </div>
-    </main>
+    </div>
   );
+};
+Detail.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
 };
 
 export default Detail;
