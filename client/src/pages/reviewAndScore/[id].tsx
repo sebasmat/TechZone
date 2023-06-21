@@ -82,8 +82,8 @@ const ReviewAndScore = () => {
                 axios.post(`http://localhost:3001/addreview`, {
                     review: inputReview,
                     score: fullStar,
-                    userId: user.UserFromDb.id,
-                    productsId: id,
+                    UserId: user.UserFromDb.id,
+                    ProductId: id,
                 }
                 )
                 alert("Tu opinion ha sido guardada exitosamente")
@@ -96,8 +96,8 @@ const ReviewAndScore = () => {
                     id: reviewFromDb.id,
                     review: inputReview,
                     score: fullStar,
-                    userId: user.UserFromDb.id,
-                    productsId: id,
+                    UserId: user.UserFromDb.id,
+                    ProductId: id,
                 })
                 alert("se ha actualizado exitosamente tu opinion")
             } catch (error) {
