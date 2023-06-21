@@ -10,7 +10,7 @@ import ProductInterface from "@/interfaces/productsInterface";
 
 const ProfilePage: NextPageWithLayout = () => {
   const { Error, UserFromDb } = useTypedSelector((state) => state.user);
-
+  
 
   const [arrayProducts, setArrayproducts] = useState<ProductInterface[]>([])
   // let arrayProducts: ProductInterface[] = [];
@@ -43,17 +43,17 @@ const ProfilePage: NextPageWithLayout = () => {
       })
   }, [])
 
-  const getSales = async () => {
-
+  const getSales = async ()=>{
+    
     const result = await axios.get(`http://localhost:3001/sales/${UserFromDb.id}`);
     const arreglo = result.data;
 
-    if (arreglo.length > 0) {
-      const arrayAux: ProductInterface[] = [];
-      arreglo.forEach((obj: any) => {
-        obj.Products?.forEach((product: any) => {
-          console.log("este es el producto", product);
-          const productos: ProductInterface = {
+    if(arreglo.length>0){
+      const arrayAux:ProductInterface[] = [];
+      arreglo.forEach((obj:any)=>{
+        obj.Products?.forEach((product:any)=>{
+          console.log("este es el producto",product);
+          const productos:ProductInterface = {
             id: product.id,
             category: product.category,
             brand: product.brand,
@@ -67,41 +67,41 @@ const ProfilePage: NextPageWithLayout = () => {
           arrayProducts.push(productos)
         })
       })
-      console.log("este es el productos nuevo", arrayProducts);
+      console.log("este es el productos nuevo",arrayProducts);
       // setArrayproducts([...arrayProducts, ...arrayAux]);
       // console.log("este es el estado local", arrayProducts);
     }
 
-    console.log("Esta es la variable normal", arrayProducts);
+    console.log("Esta es la variable normal",arrayProducts);
+    
+    
 
-
-
-
-
-
-    // for (let i = 0; i < data.data[0].Products.length; i++) {
-    //   const product = data.data[0].Products[i];
-    //   const objProduct: ProductInterface = {
-    //     id: product.id,
-    //     name: product.name,
-    //     category: product.category,
-    //     brand: product.brand,
-    //     images: product.images,
-    //     description: product.description,
-    //     price: product.price,
-    //     avalaible: product.avalaible,
-    //     stock: product.stock
-    //   };
-    //   let flag: boolean = true;
-    //   for (let i = 0; i < arrayProducts.length; i++) {
-    //     if (arrayProducts[i].id == product.id)
-    //       flag = false;
-    //   };
-    //   if (flag == true) {
-    //     setArrayproducts((prevArray => ([...prevArray, objProduct])))
-    //   }
-    // }
-
+    
+    
+    
+        // for (let i = 0; i < data.data[0].Products.length; i++) {
+        //   const product = data.data[0].Products[i];
+        //   const objProduct: ProductInterface = {
+        //     id: product.id,
+        //     name: product.name,
+        //     category: product.category,
+        //     brand: product.brand,
+        //     images: product.images,
+        //     description: product.description,
+        //     price: product.price,
+        //     avalaible: product.avalaible,
+        //     stock: product.stock
+        //   };
+        //   let flag: boolean = true;
+        //   for (let i = 0; i < arrayProducts.length; i++) {
+        //     if (arrayProducts[i].id == product.id)
+        //       flag = false;
+        //   };
+        //   if (flag == true) {
+        //     setArrayproducts((prevArray => ([...prevArray, objProduct])))
+        //   }
+        // }
+     
   }
 
   return (
