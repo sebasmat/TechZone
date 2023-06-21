@@ -39,7 +39,7 @@ const ReviewAndScore = () => {
     const dispatch = useDispatch();
 
     const findReview = async (id: string | string[]) => {
-        const result = await axios.get(`http://localhost:3001/review?user=${1}&product=40`)
+        const result = await axios.get(`http://localhost:3001/review?user=${user.UserFromDb.id}&product=${id}`)
             .then((data) => {
                 if (data.data != undefined) {
                     setReviewFromDb(data.data);
