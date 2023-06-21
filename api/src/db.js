@@ -58,8 +58,8 @@ Users.hasMany(Sales);
 Sales.belongsTo(Users);
 
 
-Users.hasMany(Review,{foreignKey: "userId"});
-Products.hasMany(Review,{foreignKey: "productsId"});
+Users.hasMany(Review);
+Products.hasMany(Review);
 const SalesProducts = sequelize.define(
   "SalesProducts",
   {
