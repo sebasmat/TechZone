@@ -7,11 +7,12 @@ import Home from "@/pages/index";
 import ProductListing from "@/components/product-listing";
 import axios from "axios";
 import ProductInterface from "@/interfaces/productsInterface";
+import { cpSync } from "fs";
 
 const ProfilePage: NextPageWithLayout = () => {
-  const { Error, UserFromDb } = useTypedSelector((state) => state.user);
 
-  const [arrayProducts, setArrayproducts] = useState<ProductInterface[]>([])
+  const { Error, UserFromDb } = useTypedSelector((state) => state.user);
+  const [arrayProducts, setArrayProducts] = useState<ProductInterface[]>([])
 
   useEffect(() => {
     axios.get(`http://localhost:3001/sales/1`)
@@ -35,11 +36,12 @@ const ProfilePage: NextPageWithLayout = () => {
               flag = false;
           };
           if (flag == true) {
-            setArrayproducts((prevArray => ([...prevArray, objProduct])))
+            setArrayProducts((prevArray => ([...prevArray, objProduct])))
           }
         }
       })
   }, [])
+  console.log(arrayProducts)
 
   return (
     <div className="flex flex-col items-center">
@@ -69,7 +71,14 @@ const ProfilePage: NextPageWithLayout = () => {
         )}
       </div>
       <div>
-        <ProductListing arrayProducts={arrayProducts} />
+        {arrayProducts?.length >= 0 ? <ProductListing arrayProducts={arrayProducts} /> :
+          <div>
+            <h1>No has comprado ningún Producto</h1>
+            <img src={"https://i.ibb.co/KKg0kqb/bolsa-vacia-1.png"} />
+            <Link href={"/products"}>
+              <button>Ver todos los productos</button>
+            </Link>
+          </div>}
       </div>
     </div>
   );
