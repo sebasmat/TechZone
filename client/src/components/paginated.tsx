@@ -89,7 +89,7 @@ const Paginated = () => {
               value={number - 1}
               onClick={handlePaginatedButton}
               className="bg-violet-900 
-                m-3 px-2 text-xl rounded focus:bg-violet-400 hover:bg-violet-400"
+                m-3 px-2 text-xl rounded focus:bg-violet-400 hover:bg-violet-400 text-white"
             >
               {number}
             </button>

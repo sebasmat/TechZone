@@ -109,26 +109,7 @@ const Succes: NextPageWithLayout = () => {
           <p className="text-black text-xl">Sigue explorando mas de nuestros productos</p>
           <button onClick={()=>{router.push('/products')}} className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 w-40 rounded my-3">Ver productos</button>
         </div> 
-
       </div>
-      {/* <div className="flex items-center bg-red-300">
-        {CartItems.products?.length > 0 ? (
-          CartItems.products?.map((item: any) => (
-            <div>
-              <div className="pl-2">
-                <p className="font-bold">{item.name}</p>
-                <p>{item.brand}</p>
-                <p className="text-violet-950 font-bold text-2xl">
-                  ${item.price}
-                </p>
-                <p>cantidad:{item.quantity}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <h1>no se encontraron productos</h1>
-        )}
-      </div> */}
     </div>
   );
 };
