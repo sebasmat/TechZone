@@ -1,11 +1,14 @@
-const { Review } = require("../../db")
+const { Review, Users } = require("../../db")
 
 const findUniqueReview = async (user, product) => {
     const review = await Review.findOne({
         where: {
-            userId: user,
-            productsId: product
-        }
+            UserId: user,
+            ProductId: product
+        },
+        include: [{
+            model: Users
+        }]
     })
     return review
 }
