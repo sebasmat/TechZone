@@ -24,7 +24,7 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
-  
+
 
   const { user } = useUser();
 
@@ -109,12 +109,12 @@ const Shopping: NextPageWithLayout = () => {
     }
   };
   console.log(CartItems);
-  
+
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
   }, []);
-  
+
 
 
 
@@ -193,7 +193,9 @@ const Shopping: NextPageWithLayout = () => {
               </div>
             ))
           ) : (
-            <p>No hay productos</p>
+            <div>
+              <p>No hay productos</p>
+            </div>
           )
         ) : cart.length > 0 ? (
           cart.map((item: any) => (
