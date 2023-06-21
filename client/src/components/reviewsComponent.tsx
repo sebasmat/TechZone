@@ -1,27 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import StarScore from "./star-score"
+import { useRouter } from "next/router"
 
-const ReviewsComponent = ({ idProduct }: { idProduct: number }) => {
+const ReviewsComponent = ( {reviewsFromDb} : {reviewsFromDb: reviewInterface[]} ) => {
 
-    const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
-
-
-    const findReview = async () => {
-        try {
-            const review = await axios.get(`http://localhost:3001/review/products/${idProduct}`)
-            .then((data) => setReviewFromDb(data.data))    
-        } catch (error) {
-            setReviewFromDb([])
-        }
-        
-    }
-
-
-
-    useEffect(() => {
-        findReview()
-    }, [])
+    console.log(reviewsFromDb)
 
     return (<div>
         {typeof (reviewsFromDb[0]) == "object" ?
