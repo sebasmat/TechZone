@@ -22,7 +22,7 @@ const Products: NextPageWithLayout = () => {
     e.stopPropagation();
     const currentProduct = ProductsFromDb.find((product) => product.id === id);
     try {
-      await axios.put("http://localhost:3001/update", {
+      await axios.put("https://tech-zone-api-n786.onrender.com/update", {
         ...currentProduct,
         avalaible: !currentProduct?.avalaible,
       });
@@ -45,8 +45,13 @@ const Products: NextPageWithLayout = () => {
     router.push("/updateProduct");
   }
 
+  const manageOpenModal = () => {
+    // @ts-ignore
+    window.my_modal_1.showModal();
+  };
+
   useEffect(() => {
-    dispatch(getProducts(0, null, null,null));
+    dispatch(getProducts(0, null, null, null));
   }, [dispatch]);
 
   return (
@@ -54,7 +59,7 @@ const Products: NextPageWithLayout = () => {
       {/* Open the modal using ID.showModal() method */}
       <button
         className="tz-btn tz-btn-primary"
-        onClick={() => window.my_modal_1.showModal()}
+        onClick={() => manageOpenModal()}
       >
         Crear Nuevo Producto
       </button>

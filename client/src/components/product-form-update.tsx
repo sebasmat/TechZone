@@ -22,7 +22,7 @@ const ProductFormUpdate = () => {
   const { detail } = useTypedSelector((state) => state.product);
   const dispatch = useDispatch();
   console.log("esto es detail", detail);
-  
+
   const router = useRouter();
 
   const categories = useCategories();
@@ -64,7 +64,7 @@ const ProductFormUpdate = () => {
         );
         urls = response.data.data.display_url;
       }
-      await axios.put("http://localhost:3001/update", {
+      await axios.put("https://tech-zone-api-n786.onrender.com/update", {
         ...product,
         price: parseFloat(product.price.toString()),
         stock: parseInt(product.stock.toString()),

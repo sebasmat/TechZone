@@ -9,8 +9,12 @@ const Users: NextPageWithLayout = () => {
 
   const handlePutUser = async (user: UserInterface) => {
     try {
-      await axios.put(`http://localhost:3001/create/User/estate/${user.email}`);
-      const { data } = await axios.get("http://localhost:3001/users/all");
+      await axios.put(
+        `https://tech-zone-api-n786.onrender.com/create/User/estate/${user.email}`
+      );
+      const { data } = await axios.get(
+        "https://tech-zone-api-n786.onrender.com/users/all"
+      );
       setUsers(data);
       alert("Usuario actualizado correctamente");
     } catch (error: any) {
@@ -19,7 +23,7 @@ const Users: NextPageWithLayout = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/users/all")
+    fetch("https://tech-zone-api-n786.onrender.com/users/all")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);

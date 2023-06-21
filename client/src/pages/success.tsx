@@ -7,18 +7,14 @@ import { ActionType } from "@/store/actionTypes";
 import { useDispatch } from "react-redux";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 
-
 const Succes: NextPageWithLayout = () => {
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
-
   const mail = async () => {
-
     localStorage.setItem("cartSuccess", JSON.stringify(CartItems));
-
 
     const user: any = [];
     const productos: any = [];
@@ -36,26 +32,37 @@ const Succes: NextPageWithLayout = () => {
         image: item.images[0],
       });
     });
-    const request = await axios.post("http://localhost:3001/sales", {
-      //esta ruta me CREA el registro de la venta, relacionadando el usuario y los productos que compro
-      user: user,
-      product: CartItems.products, //OJO, para crear efectivamente la venta toca mandarle todos los campos del producto, por eso lo mando desde CartItem.products
-    });
+    const request = await axios.post(
+      "https://tech-zone-api-n786.onrender.com/sales",
+      {
+        //esta ruta me CREA el registro de la venta, relacionadando el usuario y los productos que compro
+        user: user,
+        product: CartItems.products, //OJO, para crear efectivamente la venta toca mandarle todos los campos del producto, por eso lo mando desde CartItem.products
+      }
+    );
 
-    const updateStock = await axios.put("http://localhost:3001/stock", {
-      products: CartItems.products,
-    }); //esta ruta actualiza el stock
+    const updateStock = await axios.put(
+      "https://tech-zone-api-n786.onrender.com/stock",
+      {
+        products: CartItems.products,
+      }
+    ); //esta ruta actualiza el stock
 
-    const getSales = await axios.get("http://localhost:3001/sales"); // esta ruta me TRAE todas las ventas realizadas
+    const getSales = await axios.get(
+      "https://tech-zone-api-n786.onrender.com/sales"
+    ); // esta ruta me TRAE todas las ventas realizadas
 
     const getSalesByUser = await axios.get(
-      "http://localhost:3001/sales/" + user[0].id
+      "https://tech-zone-api-n786.onrender.com/sales/" + user[0].id
     ); //esta ruta me TRAE todas las compras que un usuario realizo, añadir el ID del usuario
 
-    const { data } = await axios.post("http://localhost:3001/confirmacion", {
-      user,
-      productos,
-    });
+    const { data } = await axios.post(
+      "https://tech-zone-api-n786.onrender.com/confirmacion",
+      {
+        user,
+        productos,
+      }
+    );
 
     window.location.href = data.url;
   };
@@ -69,7 +76,7 @@ const Succes: NextPageWithLayout = () => {
       await Promise.all(
         getTemporalCart.products.map(async (product) => {
           await axios.delete(
-            `http://localhost:3001/cart/item/${getTemporalCart.user.id}/${product.id}`
+            `https://tech-zone-api-n786.onrender.com/cart/item/${getTemporalCart.user.id}/${product.id}`
           );
         })
       );

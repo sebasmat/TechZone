@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "@/layout/nav-bar";
 import HeaderMain from "@/layout/header-main";
+import { useTypedSelector } from "@/store/useTypeSelector";
 
 const MainLayout = ({ children }: any) => {
+  const { UserFromDb } = useTypedSelector((state) => state.user);
+  useEffect(() => {});
   return (
     <>
       <HeaderMain />

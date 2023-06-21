@@ -24,13 +24,13 @@ const FilterProducts = () => {
   const dispatch = useDispatch();
 
   const resultCategories = async () => {
-    await fetch("http://localhost:3001/categories")
+    await fetch("https://tech-zone-api-n786.onrender.com/categories")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   };
 
   const resultBrands = async () => {
-    await fetch("http://localhost:3001/brands")
+    await fetch("https://tech-zone-api-n786.onrender.com/brands")
       .then((response) => response.json())
       .then((data) => setBrands(data));
   };
@@ -41,29 +41,29 @@ const FilterProducts = () => {
   }, []);
 
   const handleButtonFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (valueCategory == "Todos" && valueBrand == "Todos" && !valuePrice ) {
-      dispatch(getProducts(0, null, null,null));
+    if (valueCategory == "Todos" && valueBrand == "Todos" && !valuePrice) {
+      dispatch(getProducts(0, null, null, null));
     }
     if (valueCategory != "Todos" && valueBrand != "Todos" && valuePrice) {
-      dispatch(getProducts(null, valueCategory, valueBrand,valuePrice));
+      dispatch(getProducts(null, valueCategory, valueBrand, valuePrice));
     }
     if (valueCategory != "Todos" && valueBrand == "Todos" && !valuePrice) {
-      dispatch(getProducts(null, valueCategory, null,null));
+      dispatch(getProducts(null, valueCategory, null, null));
     }
     if (valueCategory == "Todos" && valueBrand != "Todos" && !valuePrice) {
-      dispatch(getProducts(null, null, valueBrand,null));
+      dispatch(getProducts(null, null, valueBrand, null));
     }
-    if (valueCategory == "Todos" && valueBrand == "Todos" && valuePrice ) {
-      dispatch(getProducts(0, null, null,valuePrice));
+    if (valueCategory == "Todos" && valueBrand == "Todos" && valuePrice) {
+      dispatch(getProducts(0, null, null, valuePrice));
     }
     if (valueCategory != "Todos" && valueBrand != "Todos" && !valuePrice) {
-      dispatch(getProducts(null, valueCategory, valueBrand,null));
+      dispatch(getProducts(null, valueCategory, valueBrand, null));
     }
     if (valueCategory != "Todos" && valueBrand == "Todos" && valuePrice) {
-      dispatch(getProducts(null, valueCategory, null,valuePrice));
+      dispatch(getProducts(null, valueCategory, null, valuePrice));
     }
     if (valueCategory == "Todos" && valueBrand != "Todos" && valuePrice) {
-      dispatch(getProducts(null, null, valueBrand,valuePrice));
+      dispatch(getProducts(null, null, valueBrand, valuePrice));
     }
   };
 
@@ -196,9 +196,12 @@ const FilterProducts = () => {
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
-      <br/>
+      <br />
       <div>
-        <button className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300" onClick={handleButtonFilter}>
+        <button
+          className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300"
+          onClick={handleButtonFilter}
+        >
           Filtrar
         </button>
       </div>

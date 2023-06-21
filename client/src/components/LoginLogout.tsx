@@ -7,7 +7,10 @@ import { useTypedSelector } from "@/store/useTypeSelector";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { ActionType } from "@/store/actionTypes";
-import { formatDataForFavorites, formatDataForLocal } from "@/utils/formatDataUtils";
+import {
+  formatDataForFavorites,
+  formatDataForLocal,
+} from "@/utils/formatDataUtils";
 import { removeCart } from "@/utils/localStorageUtils";
 import ProfileModal from "./profile-modal";
 
@@ -19,7 +22,7 @@ const LoginLogout = ({}: Props) => {
   const { CartItems } = useTypedSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { FavItems} = useTypedSelector((state) => state.favorites)
+  const { FavItems } = useTypedSelector((state) => state.favorites);
 
   const router = useRouter();
 
@@ -54,9 +57,12 @@ const LoginLogout = ({}: Props) => {
         };
       });
 
-      const { data } = await axios.post("http://localhost:3001/cart/items", {
-        cartItems: formatDataForApi,
-      });
+      const { data } = await axios.post(
+        "https://tech-zone-api-n786.onrender.com/cart/items",
+        {
+          cartItems: formatDataForApi,
+        }
+      );
 
       const formatData = formatDataForLocal(data);
       localStorage.removeItem("cart");
@@ -82,9 +88,12 @@ const LoginLogout = ({}: Props) => {
           productId: item.product.id,
         };
       });
-      const { data } = await axios.post("http://localhost:3001/cart/items", {
-        cartItems: formatDataForApi,
-      });
+      const { data } = await axios.post(
+        "https://tech-zone-api-n786.onrender.com/cart/items",
+        {
+          cartItems: formatDataForApi,
+        }
+      );
       dispatch({
         type: ActionType.GET_FAV_ITEMS,
         payload: formatDataForApi,
@@ -98,11 +107,10 @@ const LoginLogout = ({}: Props) => {
     }
   };
 
-
   const handleGetCartItems = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/cart/items/${UserFromDb.id}`
+        `https://tech-zone-api-n786.onrender.com/cart/items/${UserFromDb.id}`
       );
       const formatData = formatDataForLocal(data);
       dispatch({
@@ -117,12 +125,12 @@ const LoginLogout = ({}: Props) => {
     }
   };
 
-  const handleGetFavItems = async () =>{
+  const handleGetFavItems = async () => {
     try {
-      const {data} = await axios.get(
-        `http://localhost:3001/favorites/items/${UserFromDb.id}`
+      const { data } = await axios.get(
+        `https://tech-zone-api-n786.onrender.com/favorites/items/${UserFromDb.id}`
       );
-      const formatDataFav = formatDataForFavorites(data)
+      const formatDataFav = formatDataForFavorites(data);
       dispatch({
         type: ActionType.GET_FAV_ITEMS,
         payload: formatDataFav,
@@ -131,25 +139,24 @@ const LoginLogout = ({}: Props) => {
       dispatch({
         type: ActionType.GET_FAV_ITEMS_ERROR,
         payload: error.message,
-      })
-      
+      });
     }
   };
 
-  const handleFavDelete = async (id:number | undefined) => {
-    if ( UserFromDb.name ! == undefined){
+  const handleFavDelete = async (id: number | undefined) => {
+    if (UserFromDb.name! == undefined) {
       try {
         const deleteOk = await axios.delete(
-          `http://localhost:3001/favorites/item/${UserFromDb.id}/${id}`
+          `https://tech-zone-api-n786.onrender.com/favorites/item/${UserFromDb.id}/${id}`
         );
-        if (deleteOk.status ===200) {
-          const {data } = await axios.get (
-            `http://localhost:3001/favorites/item/${UserFromDb.id}`
+        if (deleteOk.status === 200) {
+          const { data } = await axios.get(
+            `https://tech-zone-api-n786.onrender.com/favorites/item/${UserFromDb.id}`
           );
           const FormatData = formatDataForFavorites(data);
           dispatch({
             type: ActionType.GET_FAV_ITEMS,
-            payload: FormatData
+            payload: FormatData,
           });
         }
       } catch (error: any) {
@@ -157,10 +164,10 @@ const LoginLogout = ({}: Props) => {
         dispatch({
           type: ActionType.GET_FAV_ITEMS_ERROR,
           payload: error.message,
-        })
+        });
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (UserFromDb.name !== undefined) {

@@ -21,8 +21,7 @@ const ProductCard = ({
   avalaible,
   stock,
 }: ProductInterface) => {
-  const router = useRouter()
-
+  const router = useRouter();
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
@@ -37,13 +36,16 @@ const ProductCard = ({
         );
 
         if (findInCart === -1) {
-          const { data } = await axios.post("http://localhost:3001/cart/item", {
-            cartItem: {
-              userId: UserFromDb.id,
-              productId: id,
-              quantity: 1,
-            },
-          });
+          const { data } = await axios.post(
+            "https://tech-zone-api-n786.onrender.com/cart/item",
+            {
+              cartItem: {
+                userId: UserFromDb.id,
+                productId: id,
+                quantity: 1,
+              },
+            }
+          );
 
           const formatData = formatDataForLocal(data);
 
@@ -109,16 +111,18 @@ const ProductCard = ({
           <h2 className="text-violet-950 font-bold text-2xl">${price}</h2>
         </Link>
         <div className="flex w-[100%] justify-end">
-          {router.asPath == "/profilePage" ?
+          {router.asPath == "/profilePage" ? (
             <Link href={`/reviewAndScore/${id}`}>
               <button>Calificar</button>
-            </Link> :
+            </Link>
+          ) : (
             <button
               onClick={() => handleCartPostItems()}
               className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
             >
               Agregar al carrito
-            </button>}
+            </button>
+          )}
         </div>
       </div>
     </div>

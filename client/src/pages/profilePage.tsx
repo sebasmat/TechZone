@@ -10,13 +10,13 @@ import ProductInterface from "@/interfaces/productsInterface";
 
 const ProfilePage: NextPageWithLayout = () => {
   const { Error, UserFromDb } = useTypedSelector((state) => state.user);
-  
 
-  const [arrayProducts, setArrayproducts] = useState<ProductInterface[]>([])
+  const [arrayProducts, setArrayproducts] = useState<ProductInterface[]>([]);
   // let arrayProducts: ProductInterface[] = [];
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/sales/${UserFromDb.id}`)
+    axios
+      .get(`https://tech-zone-api-n786.onrender.com/sales/${UserFromDb.id}`)
       .then((data) => {
         for (let i = 0; i < data.data[0]?.Products.length; i++) {
           const product = data.data[0].Products[i];
@@ -29,31 +29,31 @@ const ProfilePage: NextPageWithLayout = () => {
             description: product.description,
             price: product.price,
             avalaible: product.avalaible,
-            stock: product.stock
+            stock: product.stock,
           };
           let flag: boolean = true;
           for (let i = 0; i < arrayProducts.length; i++) {
-            if (arrayProducts[i].id == product.id)
-              flag = false;
-          };
+            if (arrayProducts[i].id == product.id) flag = false;
+          }
           if (flag == true) {
-            setArrayproducts((prevArray => ([...prevArray, objProduct])))
+            setArrayproducts((prevArray) => [...prevArray, objProduct]);
           }
         }
-      })
-  }, [])
+      });
+  }, []);
 
-  const getSales = async ()=>{
-    
-    const result = await axios.get(`http://localhost:3001/sales/${UserFromDb.id}`);
+  const getSales = async () => {
+    const result = await axios.get(
+      `https://tech-zone-api-n786.onrender.com/sales/${UserFromDb.id}`
+    );
     const arreglo = result.data;
 
-    if(arreglo.length>0){
-      const arrayAux:ProductInterface[] = [];
-      arreglo.forEach((obj:any)=>{
-        obj.Products?.forEach((product:any)=>{
-          console.log("este es el producto",product);
-          const productos:ProductInterface = {
+    if (arreglo.length > 0) {
+      const arrayAux: ProductInterface[] = [];
+      arreglo.forEach((obj: any) => {
+        obj.Products?.forEach((product: any) => {
+          console.log("este es el producto", product);
+          const productos: ProductInterface = {
             id: product.id,
             category: product.category,
             brand: product.brand,
@@ -63,46 +63,40 @@ const ProfilePage: NextPageWithLayout = () => {
             price: product.price,
             avalaible: product.avalaible,
             stock: product.stock,
-          }
-          arrayProducts.push(productos)
-        })
-      })
-      console.log("este es el productos nuevo",arrayProducts);
+          };
+          arrayProducts.push(productos);
+        });
+      });
+      console.log("este es el productos nuevo", arrayProducts);
       // setArrayproducts([...arrayProducts, ...arrayAux]);
       // console.log("este es el estado local", arrayProducts);
     }
 
-    console.log("Esta es la variable normal",arrayProducts);
-    
-    
+    console.log("Esta es la variable normal", arrayProducts);
 
-    
-    
-    
-        // for (let i = 0; i < data.data[0].Products.length; i++) {
-        //   const product = data.data[0].Products[i];
-        //   const objProduct: ProductInterface = {
-        //     id: product.id,
-        //     name: product.name,
-        //     category: product.category,
-        //     brand: product.brand,
-        //     images: product.images,
-        //     description: product.description,
-        //     price: product.price,
-        //     avalaible: product.avalaible,
-        //     stock: product.stock
-        //   };
-        //   let flag: boolean = true;
-        //   for (let i = 0; i < arrayProducts.length; i++) {
-        //     if (arrayProducts[i].id == product.id)
-        //       flag = false;
-        //   };
-        //   if (flag == true) {
-        //     setArrayproducts((prevArray => ([...prevArray, objProduct])))
-        //   }
-        // }
-     
-  }
+    // for (let i = 0; i < data.data[0].Products.length; i++) {
+    //   const product = data.data[0].Products[i];
+    //   const objProduct: ProductInterface = {
+    //     id: product.id,
+    //     name: product.name,
+    //     category: product.category,
+    //     brand: product.brand,
+    //     images: product.images,
+    //     description: product.description,
+    //     price: product.price,
+    //     avalaible: product.avalaible,
+    //     stock: product.stock
+    //   };
+    //   let flag: boolean = true;
+    //   for (let i = 0; i < arrayProducts.length; i++) {
+    //     if (arrayProducts[i].id == product.id)
+    //       flag = false;
+    //   };
+    //   if (flag == true) {
+    //     setArrayproducts((prevArray => ([...prevArray, objProduct])))
+    //   }
+    // }
+  };
 
   return (
     <div className="flex flex-col items-center">

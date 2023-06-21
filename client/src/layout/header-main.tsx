@@ -6,13 +6,14 @@ import data from "../data.json";
 import LoginLogout from "@/components/LoginLogout";
 
 const HeaderMain = () => {
-  let arrayProducts = data as ProductInterface[];
+  // let arrayProducts = data as ProductInterface[];
   return (
     <div className="flex content-center justify-between items-center px-8 py-4 bg-violet-900">
       <Link href={"/"}>
-      <img src="https://i.ibb.co/R6yKw82/7.png" className="pb-1 w-17 h-14" />
+        <img src="https://i.ibb.co/R6yKw82/7.png" className="pb-1 w-17 h-14" />
       </Link>
-      <Searchbar arrayProducts={arrayProducts} />
+      {/*<Searchbar arrayProducts={arrayProducts} />*/}
+      <Searchbar arrayProducts={[]} />
       <div>
         <Link href={"/shopping"}>
           <button>

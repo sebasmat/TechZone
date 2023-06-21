@@ -11,7 +11,7 @@ export const getUser = (email: string) => {
       });
 
       const { data } = await axios.get(
-        `http://localhost:3001/users?email=${email}`
+        `https://tech-zone-api-n786.onrender.com/users?email=${email}`
       );
 
       dispatch({

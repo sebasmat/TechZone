@@ -28,7 +28,7 @@ const Home: NextPageWithLayout = () => {
 
   const result = async () => {
     let productsHome: ProductInterface[];
-    await fetch("http://localhost:3001/homeproducts")
+    await fetch("https://tech-zone-api-n786.onrender.com/homeproducts")
       .then((response) => response.json())
       .then((data) => setArrayProducts(data));
   };

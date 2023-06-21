@@ -12,7 +12,7 @@ const Paginated = () => {
 
   // const findPageNumber = async () => {
   //   const response = await axios
-  //     .get("http://localhost:3001/products")
+  //     .get("https://tech-zone-api-n786.onrender.com/products")
   //     .then((data) => setTotalPages(data.data.totalPages));
   // };
 
@@ -35,7 +35,7 @@ const Paginated = () => {
     if (origin[0] == "all") {
       const actualPage = parseInt(event.currentTarget.value);
       setPage(actualPage);
-      dispatch(getProducts(actualPage, null, null,null));
+      dispatch(getProducts(actualPage, null, null, null));
     }
     if (origin[0] == "name") {
       const actualPage = parseInt(event.currentTarget.value) + 1;

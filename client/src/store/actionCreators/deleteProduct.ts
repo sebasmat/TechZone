@@ -13,7 +13,7 @@ export function deleteProduct() {
 // export const getDetails = (id: number) => {
 //   return async (dispatch: Dispatch<Action>) => {
 //     console.log(id)
-//     const { data } = await axios.get(`http://localhost:3001/products/${id}`);
+//     const { data } = await axios.get(`https://tech-zone-api-n786.onrender.com/products/${id}`);
 //     console.log(data)
 
 //     // try {
