@@ -70,7 +70,7 @@ const ProductFormUpdate = () => {
         stock: parseInt(product.stock.toString()),
         images: [urls, urls],
         avalaible: true,
-      });
+      });  
       alert("El producto fue creado con éxito");
     } catch (error) {
       alert("No fue posible crear el producto, por favor inténtelo más tarde");
