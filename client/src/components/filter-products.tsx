@@ -18,10 +18,10 @@ const FilterProducts = () => {
   const [valuePrice, setValuePrice] = useState("");
   const [valueStock, setValueStock] = useState("");
   const [orderBy, setOrderBy] = useState("ASC");
-  const [categories, setCategories] = useState<categoriesInterface[]>([])
-  const [brands, setBrands] = useState<brandsInterface[]>([])
+  const [categories, setCategories] = useState<categoriesInterface[]>([]);
+  const [brands, setBrands] = useState<brandsInterface[]>([]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const resultCategories = async () => {
     await fetch("http://localhost:3001/categories")
@@ -36,24 +36,24 @@ const FilterProducts = () => {
   };
 
   useEffect(() => {
-    resultBrands()
-    resultCategories()
-  }, [])
+    resultBrands();
+    resultCategories();
+  }, []);
 
   const handleButtonFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if(valueCategory == "Todos" && valueBrand == "Todos"){
-      dispatch(getProducts(0,null,null))
-      }
-    if(valueCategory != "Todos" && valueCategory != "Todos"){
-      dispatch(getProducts(null,valueCategory,valueBrand))
+    if (valueCategory == "Todos" && valueBrand == "Todos") {
+      dispatch(getProducts(0, null, null));
     }
-    if(valueCategory != "Todos" && valueBrand == "Todos"){
-      dispatch(getProducts(null,valueCategory,null))
+    if (valueCategory != "Todos" && valueCategory != "Todos") {
+      dispatch(getProducts(null, valueCategory, valueBrand));
     }
-    if(valueCategory == "Todos" && valueBrand != "Todos"){
-      dispatch(getProducts(null,null,valueBrand))
+    if (valueCategory != "Todos" && valueBrand == "Todos") {
+      dispatch(getProducts(null, valueCategory, null));
     }
-  }  
+    if (valueCategory == "Todos" && valueBrand != "Todos") {
+      dispatch(getProducts(null, null, valueBrand));
+    }
+  };
 
   // useEffect(() => {
   //   const getUniqueCategories = () => {
@@ -111,9 +111,6 @@ const FilterProducts = () => {
   //   orderBy,
   // ]);
 
-
-
-
   return (
     <div className="bg-violet-800 p-5 rounded-br-xl max-w-[280px]  ">
       <div className="flex flex-col gap-2">
@@ -142,9 +139,11 @@ const FilterProducts = () => {
           }}
         >
           <option>Todos</option>
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             return (
-              <option value={category.category}>{category.category}</option>
+              <option key={index} value={category.category}>
+                {category.category}
+              </option>
             );
           })}
         </select>
@@ -160,9 +159,11 @@ const FilterProducts = () => {
           }}
         >
           <option>Todos</option>
-          {brands.map((brand) => {
+          {brands.map((brand, index) => {
             return (
-              <option value={brand.brand}>{brand.brand}</option>
+              <option key={index} value={brand.brand}>
+                {brand.brand}
+              </option>
             );
           })}
         </select>
@@ -183,8 +184,11 @@ const FilterProducts = () => {
           className="bg-white px-2 rounded-xl font-semibold bg-violet-200"
         />
       </div>
+      <br/>
       <div>
-        <button className="bg-white" onClick={handleButtonFilter}>Filtrar</button>
+        <button className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300" onClick={handleButtonFilter}>
+          Filtrar
+        </button>
       </div>
     </div>
   );

@@ -1,14 +1,15 @@
 import { Dispatch } from "redux";
-import { ActionType, Action } from "../actionTypes";
+import { Action, ActionType } from "../actionTypes";
 
-export function deleteProduct (){
-    return (dispatch: Dispatch<Action>) => {
-        dispatch({
-            type: ActionType.DELETE_DETAILS,
-            payload: [],
-          });
+export function deleteProduct() {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.DELETE_DETAILS,
+      payload: [],
+    });
   };
 }
+
 // export const getDetails = (id: number) => {
 //   return async (dispatch: Dispatch<Action>) => {
 //     console.log(id)

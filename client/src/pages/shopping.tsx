@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Image from "next/image";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import data from "../data.json";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
 import { modifyCart, removeCart } from "@/utils/localStorageUtils";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -11,16 +12,21 @@ import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
+import { NextPageWithLayout } from "@/pages/_app";
+import MainLayout from "@/layout/main-layout";
 
 const stripe = loadStripe(`${process.env.PUBLIC_APIKEY}`);
 
-const Shopping = () => {
+const Shopping: NextPageWithLayout = () => {
   const [cart, setCart] = useState<ShoppingCartInterface[] | any[]>([]);
 
   const dispatch = useDispatch();
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  
+
+  const { user } = useUser();
 
   const ManageRemoveCart = async (id: number | undefined) => {
     if (UserFromDb.name !== undefined) {
@@ -53,8 +59,24 @@ const Shopping = () => {
   };
 
   const ManageModifyCart = async (id: number | undefined, quantity: number) => {
+    if (quantity <= 0) {
+      alert("La cantidad debe ser mayor a 0");
+      return;
+    }
     if (UserFromDb.name !== undefined) {
       try {
+        const itemFindCart = CartItems.products?.find(
+          (item: any) => item.id === id
+        );
+
+        if (
+          itemFindCart?.stock !== undefined &&
+          itemFindCart.stock < quantity
+        ) {
+          alert("No hay stock suficiente");
+          return;
+        }
+
         const { data } = await axios.put(`http://localhost:3001/cart/item`, {
           userId: UserFromDb.id,
           productId: id,
@@ -75,14 +97,27 @@ const Shopping = () => {
         });
       }
     } else {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const index = cart.find((item: any) => item.product.id === Number(id));
+      if (index.product.stock !== undefined && index.product.stock < quantity) {
+        alert("No hay stock suficiente");
+        return;
+      }
+
       modifyCart(id, quantity);
       setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     }
   };
-
+  console.log(CartItems);
+  
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
+    console.log(user);
   }, []);
+  
+
+
+
 
   return (
     <div className="flex justify-center content-center">
@@ -117,6 +152,7 @@ const Shopping = () => {
                     <p className="text-violet-950 font-bold text-2xl">
                       ${item.price}
                     </p>
+                    <p>{item.stock}</p>
                   </div>
                 </div>
 
@@ -185,6 +221,7 @@ const Shopping = () => {
                   <p className="text-violet-950 font-bold text-2xl">
                     {item.product?.price}
                   </p>
+                  <p>{item.product?.stock}</p>
                 </div>
               </div>
               <div
@@ -226,12 +263,48 @@ const Shopping = () => {
         ) : (
           <p>No hay productos</p>
         )}
+        {user !== undefined ? (
+          user.email_verified !== null ? (
+            user.email_verified !== undefined ? (
+              user.email_verified ? (
+                UserFromDb.name !== undefined ? (
+                  CartItems.products?.length > 0 ? (
+                    <Elements stripe={stripe}>
+                      <CheckoutForm state={CartItems} />
+                    </Elements>
+                  ) : null
+                ) : (
+                  <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                    Logueate y completa tus datos para continuar la compra
+                  </button>
+                )
+              ) : (
+                <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                  Logueate y completa tus datos para continuar la compra
+                </button>
+              )
+            ) : (
+              <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+                Logueate y completa tus datos para continuar la compra
+              </button>
+            )
+          ) : (
+            <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+              Logueate y completa tus datos para continuar la compra
+            </button>
+          )
+        ) : cart.length > 0 ? (
+          <button className="bg-violet-600 text-white py-2 px-4 rounded mt-4 w-full">
+            Logueate y completa tus datos para continuar la compra
+          </button>
+        ) : null}
       </div>
-      <Elements stripe={stripe}>
-        <CheckoutForm state={CartItems} />
-      </Elements>
     </div>
   );
 };
+Shopping.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+export default Shopping;
 
-export default withPageAuthRequired(Shopping);
+// export default withPageAuthRequired(Shopping);

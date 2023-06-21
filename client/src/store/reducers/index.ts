@@ -1,5 +1,5 @@
 import { Action, ActionType } from "../actionTypes";
-import detailReducerInterface from "../../interfaces/detailInterface"
+import detailReducerInterface from "../../interfaces/detailInterface";
 
 const initialState: detailReducerInterface = {
   detail: [],
@@ -14,10 +14,10 @@ const productReducer = (
       return {
         detail: action.payload,
       };
-      case ActionType.DELETE_DETAILS:
-        return {
-          detail: [],
-        };
+    case ActionType.DELETE_DETAILS:
+      return {
+        detail: [],
+      };
     default:
       return state;
   }
