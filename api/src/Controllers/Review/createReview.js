@@ -3,14 +3,14 @@ const { Review } = require("../../db")
 const createReview = async ({
     review,
     score,
-    userId,
-    productsId
+    UserId,
+    ProductId
 }) => {
     return await Review.create({
         review,
         score,
-        userId,
-        productsId
+        UserId,
+        ProductId
     })
 }
 

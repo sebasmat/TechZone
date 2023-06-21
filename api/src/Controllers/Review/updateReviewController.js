@@ -4,15 +4,15 @@ const updateReviewController = async ({
     id,
     review,
     score,
-    userId,
-    productsId
+    UserId,
+    ProductId
 }) => {
     return await Review.upsert({
         id,
         review,
         score,
-        userId,
-        productsId
+        UserId,
+        ProductId
     });
 };
 

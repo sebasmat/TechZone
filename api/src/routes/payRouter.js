@@ -38,18 +38,24 @@ payRouter.post("/", async (req, res) => {
     //         enabled: true,
     //     },
     // });
-    // const createandprice = async (product)=>{
-    //   const response = await stripe.products.create({
-    //     name: product.name,
-    //     description: product.descripcion,
-    //     images:product.imagenes
-    //   });
-    //   const price = await stripe.prices.create({
-    //     unit_amount: Math.trunc(product.price * 100),
-    //     currency: 'usd',
-    //     product: response.id,
-    //   });
-    // }
+    const {product} = req.body;
+    console.log("este es el producto que recibe la ruta ", product);
+    
+    const createandprice = async (product)=>{
+      const response = await stripe.products.create({
+        name: product.name,
+        description: product.description,
+      });
+      console.log("esta es la creación del producto", response);
+      const price = await stripe.prices.create({
+        unit_amount: Math.trunc(product.price * 100),
+        currency: 'usd',
+        product: response.id,
+      });
+      console.log("esta es la creación del precio", price);
+    }
+
+    createandprice(product);
     // const {arrayProducts} = req.body;
     // // console.log(arrayProducts);
     // arrayProducts.forEach(async (product) => {

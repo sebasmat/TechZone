@@ -7,8 +7,6 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import axios from "axios";
 import React from "react";
-import Detail from "../detail/[id]";
-import { getUser } from "@/store/actionCreators/getUser";
 
 const ReviewAndScore = () => {
     const result = useTypedSelector((state) => state.product.detail)
@@ -30,14 +28,14 @@ const ReviewAndScore = () => {
     const dispatch = useDispatch();
 
     const findReview = async (id: string | string[]) => {
-        const result = await axios.get(`http://localhost:3001/review/products/${id}`)
+        const result = await axios.get(`http://localhost:3001/review?user=${user.UserFromDb.id}&product=40`)
             .then((data) => {
-                if (data.data[0] != undefined) {
-                    setReviewFromDb(data.data[0]);
-                    SetInputReview(data.data[0].review)
-                    SetFullStar(data.data[0].score)
-                    setArrayEmptyStar(arrayEmptyStar.filter((star) => star > data.data[0].score))
-                    for (let i = arrayFullStar.length + 1; i <= data.data[0].score; i++) {
+                if (data.data!= undefined) {
+                    setReviewFromDb(data.data);
+                    SetInputReview(data.data.review)
+                    SetFullStar(data.data.score)
+                    setArrayEmptyStar(arrayEmptyStar.filter((star) => star > data.data.score))
+                    for (let i = arrayFullStar.length + 1; i <= data.data.score; i++) {
                         SetArrayFullStar(prevArray => [...prevArray, i])
                     }
                 }
@@ -82,8 +80,8 @@ const ReviewAndScore = () => {
                 axios.post(`http://localhost:3001/addreview`, {
                     review: inputReview,
                     score: fullStar,
-                    userId: user.UserFromDb.id,
-                    productsId: id,
+                    UserId: user.UserFromDb.id,
+                    ProductId: id,
                 }
                 )
                 alert("Tu opinion ha sido guardada exitosamente")
@@ -96,8 +94,8 @@ const ReviewAndScore = () => {
                     id: reviewFromDb.id,
                     review: inputReview,
                     score: fullStar,
-                    userId: user.UserFromDb.id,
-                    productsId: id,
+                    UserId: user.UserFromDb.id,
+                    ProductId: id,
                 })
                 alert("se ha actualizado exitosamente tu opinion")
             } catch (error) {

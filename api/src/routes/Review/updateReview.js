@@ -8,16 +8,16 @@ updateReview.put("/", async (req, res) => {
         id,
         review,
         score,
-        userId,
-        productsId
+        UserId,
+        ProductId
     } = req.body
     try {
         const newReview = updateReviewController({
             id,
             review,
             score,
-            userId,
-            productsId
+            UserId,
+            ProductId
         })
         res.status(200).json({
             content: newReview,
