@@ -19,6 +19,17 @@ const ReviewAndScore = () => {
         score: 0,
         userId: 0,
         productsId: 0,
+        User: {
+            Gender: "",
+            available: false,
+            cellPhone: "",
+            direction: "",
+            email: "",
+            id: 0,
+            name: "",
+            password: null,
+            profileIMG: ""
+        }
     })
     const { id } = router.query;
     const [inputReview, SetInputReview] = useState<string>("")
@@ -28,9 +39,9 @@ const ReviewAndScore = () => {
     const dispatch = useDispatch();
 
     const findReview = async (id: string | string[]) => {
-        const result = await axios.get(`http://localhost:3001/review?user=${user.UserFromDb.id}&product=40`)
+        const result = await axios.get(`http://localhost:3001/review?user=${1}&product=40`)
             .then((data) => {
-                if (data.data!= undefined) {
+                if (data.data != undefined) {
                     setReviewFromDb(data.data);
                     SetInputReview(data.data.review)
                     SetFullStar(data.data.score)
@@ -83,7 +94,8 @@ const ReviewAndScore = () => {
                     UserId: user.UserFromDb.id,
                     ProductId: id,
                 }
-                )
+                ).then((data) => { setReviewFromDb({ ...reviewFromDb, id: data.data.id }) })
+
                 alert("Tu opinion ha sido guardada exitosamente")
             } catch (error) {
                 alert("Tuvimos un problema al guardar tu opinion, por favor intenta más tarde")

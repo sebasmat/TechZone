@@ -1,6 +1,6 @@
 import style from "../../styles/detail.module.css";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDetails } from "@/store/actionCreators/getDetails";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -20,6 +20,19 @@ const Detail = () => {
   const result = useTypedSelector((state) => state.product.detail);
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  const [idProduct, setIdProduct] = useState("")
+  const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
+
+  const findReview = async (id:string | string[]) => {
+    try {
+      const review = await axios.get(`http://localhost:3001/review/products/${id}`)
+        .then((data) => setReviewFromDb(data.data))
+    } catch (error) {
+      setReviewFromDb([])
+    }
+
+  }
+
 
   const handleCartPostItems = async () => {
     try {
@@ -82,6 +95,7 @@ const Detail = () => {
   useEffect(() => {
     if (id !== undefined) {
       dispatch(getDetails(Number(id)));
+      findReview(id)
       // console.log(result[0]?.images[0] +"holaaa")
     }
     return () => dispatch(deleteProduct());
@@ -117,7 +131,7 @@ const Detail = () => {
                 añadir al carro
               </button>
               <div>
-                <ReviewsComponent idProduct={id}/>
+                <ReviewsComponent reviewsFromDb={reviewsFromDb} />
               </div>
             </div>
           </div>
