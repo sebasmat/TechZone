@@ -99,12 +99,16 @@ const Succes: NextPageWithLayout = () => {
     };
   }, []);
   return (
-    <div>
-      <h1>HOLA</h1>
-      <h1>Felicidades por su compra</h1>
-      <h3>{UserFromDb?.name}</h3>
-      <h3>{UserFromDb?.direction}</h3>
-      <div>
+    <div className="flex flex-col bg-gray-200 justify-center items-center space-y-5">
+      <div className="flex flex-col bg-green-200 justify-center items-center space-y-5">
+        <h1 className="text-5xl text-black">Compra Realizada</h1>
+        <h3 className="">{UserFromDb?.name}</h3>
+
+
+      </div>
+
+      {/* <h3>{UserFromDb?.direction}</h3> */}
+      <div className="flex items-center bg-red-300">
         {CartItems.products?.length > 0 ? (
           CartItems.products?.map((item: any) => (
             <div>
