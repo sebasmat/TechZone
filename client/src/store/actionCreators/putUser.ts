@@ -7,7 +7,7 @@ export const putUser = (userData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.put(
-        `https://tech-zone-api-n786.onrender.com/create/User/${userData.email}`,
+        `http://localhost:3001/create/User/${userData.email}`,
         {
           email: userData.email,
           name: userData.name,

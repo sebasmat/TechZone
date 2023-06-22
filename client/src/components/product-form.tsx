@@ -49,14 +49,14 @@ const ProductForm = () => {
         formData
       );
       const urls = response.data.data.display_url;
-      await axios.post("https://tech-zone-api-n786.onrender.com/create", {
+      await axios.post("http://localhost:3001/create", {
         ...product,
         price: parseFloat(product.price.toString()),
         stock: parseInt(product.stock.toString()),
         images: [urls, urls],
         avalaible: true,
       });
-      await axios.post("https://tech-zone-api-n786.onrender.com/pay", {
+      await axios.post("http://localhost:3001/pay", {
         product,
       }); // esta ruta me crea el producto en Stripe para poder hacer el pago.
       alert("El producto fue creado con éxito");

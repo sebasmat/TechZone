@@ -32,16 +32,13 @@ const ProductCardHome = ({
         );
 
         if (findInCart === -1) {
-          const { data } = await axios.post(
-            "https://tech-zone-api-n786.onrender.com/cart/item",
-            {
-              cartItem: {
-                userId: UserFromDb.id,
-                productId: id,
-                quantity: 1,
-              },
-            }
-          );
+          const { data } = await axios.post("http://localhost:3001/cart/item", {
+            cartItem: {
+              userId: UserFromDb.id,
+              productId: id,
+              quantity: 1,
+            },
+          });
 
           const formatData = formatDataForLocal(data);
 

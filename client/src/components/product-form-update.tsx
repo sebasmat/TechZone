@@ -64,13 +64,13 @@ const ProductFormUpdate = () => {
         );
         urls = response.data.data.display_url;
       }
-      await axios.put("https://tech-zone-api-n786.onrender.com/update", {
+      await axios.put("http://localhost:3001/update", {
         ...product,
         price: parseFloat(product.price.toString()),
         stock: parseInt(product.stock.toString()),
         images: [urls, urls],
         avalaible: true,
-      });  
+      });
       alert("El producto fue creado con éxito");
     } catch (error) {
       alert("No fue posible crear el producto, por favor inténtelo más tarde");

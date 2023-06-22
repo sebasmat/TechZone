@@ -12,9 +12,7 @@ const pasarela = () => {
     //traer todos los productos
     //recorrerlos y tomar las props pertinentes
     //preparar el back para que reciba un array
-    const { data } = await axios.get(
-      "https://tech-zone-api-n786.onrender.com/products?page=4"
-    );
+    const { data } = await axios.get("http://localhost:3001/products?page=4");
 
     const productos: any[] | undefined = [];
     const allproducts = data.content;
@@ -31,12 +29,9 @@ const pasarela = () => {
     // const price = 100;
     // const descripcion = "esta es la descripcion de PruebaProduct";
     // const imagenes = data.images;
-    const request = await axios.post(
-      "https://tech-zone-api-n786.onrender.com/pay",
-      {
-        arrayProducts: productos,
-      }
-    );
+    const request = await axios.post("http://localhost:3001/pay", {
+      arrayProducts: productos,
+    });
     console.log(request);
   };
 

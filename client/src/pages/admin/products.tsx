@@ -22,7 +22,7 @@ const Products: NextPageWithLayout = () => {
     e.stopPropagation();
     const currentProduct = ProductsFromDb.find((product) => product.id === id);
     try {
-      await axios.put("https://tech-zone-api-n786.onrender.com/update", {
+      await axios.put("http://localhost:3001/update", {
         ...currentProduct,
         avalaible: !currentProduct?.avalaible,
       });

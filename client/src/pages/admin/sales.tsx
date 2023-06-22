@@ -8,9 +8,7 @@ const Sales: NextPageWithLayout = () => {
   const [localSales, setLocalSales] = useState([]);
   const handleGetSales = async () => {
     try {
-      const { data } = await axios.get(
-        "https://tech-zone-api-n786.onrender.com/sales"
-      );
+      const { data } = await axios.get("http://localhost:3001/sales");
       console.log(data);
       setLocalSales(data);
     } catch (error) {

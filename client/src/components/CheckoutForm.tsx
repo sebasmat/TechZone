@@ -16,7 +16,7 @@ const CheckoutForm = (props: any) => {
     });
 
     const { data } = await axios.post(
-      "https://tech-zone-api-n786.onrender.com/pay/create-checkout-session",
+      "http://localhost:3001/pay/create-checkout-session",
       { estado: estado }
     );
 
