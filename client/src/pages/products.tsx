@@ -25,7 +25,7 @@ const Products: NextPageWithLayout = () => {
 
   useEffect(() => {
     setLoading(true)
-    dispatch(getProducts(0,null,null));
+    dispatch(getProducts(0,null,null,null));
     setLoading(false)
   }, []);
 

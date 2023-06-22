@@ -24,7 +24,7 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
-  
+
 
   const { user } = useUser();
 
@@ -109,12 +109,12 @@ const Shopping: NextPageWithLayout = () => {
     }
   };
   console.log(CartItems);
-  
+
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
   }, []);
-  
+
 
 
 
@@ -193,7 +193,10 @@ const Shopping: NextPageWithLayout = () => {
               </div>
             ))
           ) : (
-            <p>No hay productos</p>
+            <div className="flex flex-col justify-center items-center pt-5">
+            <p className="text-xl text-black ">No has agregado ningún producto al carrito de compras</p>
+            <img className="w-64 pt-3 opacity-70" src="https://i.ibb.co/Vt9dpMB/Carrito-de-compras-vacio.png"/>
+          </div>
           )
         ) : cart.length > 0 ? (
           cart.map((item: any) => (
@@ -261,7 +264,10 @@ const Shopping: NextPageWithLayout = () => {
             </div>
           ))
         ) : (
-          <p>No hay productos</p>
+          <div className="flex flex-col justify-center items-center pt-5">
+            <p className="text-xl text-black ">No has agregado ningún producto al carrito de compras</p>
+            <img className="w-64 pt-3 opacity-70" src="https://i.ibb.co/Vt9dpMB/Carrito-de-compras-vacio.png"/>
+          </div>
         )}
         {user !== undefined ? (
           user.email_verified !== null ? (

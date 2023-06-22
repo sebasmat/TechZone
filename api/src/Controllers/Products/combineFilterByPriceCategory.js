@@ -2,6 +2,7 @@ const {Products} = require("../../db");
 const {Op} = require("sequelize")
 
 const combineFilterByPriceCategory = async (req, res) => {
+    console.log("categoria y precio");
     const minPrice = parseFloat(req.query.minPrice) || 0
     const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_VALUE
     const {category} = req.query

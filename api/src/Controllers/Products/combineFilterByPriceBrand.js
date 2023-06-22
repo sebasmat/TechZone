@@ -2,6 +2,7 @@ const {Products} = require("../../db");
 const {Op} = require("sequelize")
 
 const combineFilterByPriceBrand = async (req, res) => {
+  console.log("Marca y precio");
     const minPrice = parseFloat(req.query.minPrice) || 0
     const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_VALUE
     const {brand} = req.query
@@ -21,8 +22,8 @@ const combineFilterByPriceBrand = async (req, res) => {
           page = pageAsNumber
       }
   
-      let size = 5
-      if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 5) {
+      let size = 6
+      if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 6) {
           size = sizeAsNumber
       }
   
