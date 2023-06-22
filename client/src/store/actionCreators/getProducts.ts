@@ -25,7 +25,7 @@ export const getProducts = (page: number | null, category: string | null, brand:
         });
       } 
       else if (brand) {
-        const { data } = await axios.get(`http://localhost:3001/products?brand=${brand}&page=${page}`);
+        const { data } = await axios.get(`http://localhost:3001/products?brand=${brand}&maxPrice=${price}&minPrice=0&page=${page}`);
         dispatch({
           type: ActionType.GET_PRODUCTS,
           payload: data,
