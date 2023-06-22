@@ -6,107 +6,18 @@ import MainLayout from "@/layout/main-layout";
 import { ActionType } from "@/store/actionTypes";
 import { useDispatch } from "react-redux";
 import ShoppingCartInterface from "@/interfaces/shoppingCartInterface";
+import { useRouter } from "next/router";
 
-// export default function succes(){
-//     const { UserFromDb } = useTypedSelector((state) => state.user);
-//     const { CartItems } = useTypedSelector((state) => state.cart);
-//     // const dispatch = useDispatch()
-//     console.log(CartItems)
 
-// //     useEffect(()=>{
-// //        console.log(CartItems)
-// //     },[CartItems]
-
-// //     )
-
-//       const mail = async ()=>{
-
-//         console.log("si entra a la funcion");
-
-//          const user:any = [];
-//          const productos:any = [];
-//         user.push({
-//             email: UserFromDb.email,
-//             name: UserFromDb.name,
-//             direccion : UserFromDb.direction,
-//         })
-
-//             CartItems.products.map((item: any)=>{
-//                 productos.push({
-//                           name:item.name,
-//                           cantidad: item.quantity,
-//                           price:item.price,
-//                           image:item.images[0],
-//                         })})
-//             console.log("hola entro cart item")
-
-//           const {data} =  await axios.post("http://localhost:3001/confirmacion", {user,productos})
-//         window.location.href=data;
-
-//       }
-//    useEffect(()=>{
-//     if(  CartItems.products.length >0){
-//         mail()
-//       }
-//    },[CartItems])
-
-//     return (
-//         <div>
-//             <h1>HOLA</h1>
-//             <h1>Felicidades por su compra</h1>
-//             <h3>{UserFromDb?.name}</h3>
-//             <h3>{UserFromDb?.direction}</h3>
-//             <div>
-//            {CartItems.products?.length > 0 ? (
-//             CartItems.products?.map((item: any) => (
-//                 <div>
-//                     <div className="pl-2">
-//                     <p className="font-bold">{item.name}</p>
-//                     <p>{item.brand}</p>
-//                     <p className="text-violet-950 font-bold text-2xl">
-//                       ${item.price}
-//                     </p>
-//                     <p>cant:{item.quantity}</p>
-//                   </div>
-//                   </div>
-// ))): <h1>no se encontraron productos</h1>}
-//            </div>
-//         </div>
-//     )
-// }
-
-//for (let i = 0; i < CartItems?.products?.length; i++) {
-//         //     productos.push(CartItems.products[i].name,CartItems.products[i].price,CartItems.products[i].quantity)
-//         //   }
-//         //   console.log(productos)
-
-// if(CartItems.products){
-//     CartItems.products.map((obj: any)=>{
-//     productos.push({
-//       name:obj.name,
-//       cantidad: obj.quantity,
-//       price:obj.price,
-//     })
-//   })}
-
-// =======
 const Succes: NextPageWithLayout = () => {
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-
-  //     useEffect(()=>{
-  //        console.log(CartItems)
-  //     },[CartItems]
-
-  //     )
+  const router = useRouter();
 
   const mail = async () => {
 
-    
-
-    console.log(CartItems);
     localStorage.setItem("cartSuccess", JSON.stringify(CartItems));
 
 
@@ -189,28 +100,15 @@ const Succes: NextPageWithLayout = () => {
     };
   }, []);
   return (
-    <div>
-      <h1>HOLA</h1>
-      <h1>Felicidades por su compra</h1>
-      <h3>{UserFromDb?.name}</h3>
-      <h3>{UserFromDb?.direction}</h3>
-      <div>
-        {CartItems.products?.length > 0 ? (
-          CartItems.products?.map((item: any) => (
-            <div>
-              <div className="pl-2">
-                <p className="font-bold">{item.name}</p>
-                <p>{item.brand}</p>
-                <p className="text-violet-950 font-bold text-2xl">
-                  ${item.price}
-                </p>
-                <p>cant:{item.quantity}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <h1>no se encontraron productos</h1>
-        )}
+    <div className=" flex flex-col  justify-center items-center py-5">
+      <div className="flex flex-col  justify-center items-center space-y-5 ">
+        <h1 className="text-5xl text-black">Compra realizada con exito</h1>
+        <img src="https://i.ibb.co/gzZDJzC/hecho.png" className="bg-none" />
+        <p className="text-black text-xl">Gracias por su compra, por favor verifique su correo electronico </p>
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-black text-xl">Sigue explorando mas de nuestros productos</p>
+          <button onClick={()=>{router.push('/products')}} className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 w-40 rounded my-3">Ver productos</button>
+        </div> 
       </div>
     </div>
   );

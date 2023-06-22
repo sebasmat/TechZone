@@ -26,7 +26,7 @@ const Products: NextPageWithLayout = () => {
         ...currentProduct,
         avalaible: !currentProduct?.avalaible,
       });
-      dispatch(getProducts(0, null, null));
+      dispatch(getProducts(0, null, null, null));
       alert("El producto se modifico con éxito");
     } catch (error) {
       alert(
@@ -46,7 +46,7 @@ const Products: NextPageWithLayout = () => {
   }
 
   useEffect(() => {
-    dispatch(getProducts(0, null, null));
+    dispatch(getProducts(0, null, null,null));
   }, [dispatch]);
 
   return (

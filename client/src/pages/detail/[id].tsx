@@ -1,6 +1,6 @@
 import style from "../../styles/detail.module.css";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDetails } from "@/store/actionCreators/getDetails";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -9,8 +9,12 @@ import axios from "axios";
 import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { ActionType } from "@/store/actionTypes";
 import { manageCart } from "@/utils/localStorageUtils";
+import ReviewsComponent from "@/components/reviewsComponent";
+import { NextPageWithLayout } from "../_app";
+import MainLayout from "@/layout/main-layout";
 
-const Detail = () => {
+
+const Detail: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
@@ -18,6 +22,19 @@ const Detail = () => {
   const result = useTypedSelector((state) => state.product.detail);
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  const [idProduct, setIdProduct] = useState("")
+  const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
+
+  const findReview = async (id: string | string[]) => {
+    try {
+      const review = await axios.get(`http://localhost:3001/review/products/${id}`)
+        .then((data) => setReviewFromDb(data.data))
+    } catch (error) {
+      setReviewFromDb([])
+    }
+
+  }
+
 
   const handleCartPostItems = async () => {
     try {
@@ -80,6 +97,7 @@ const Detail = () => {
   useEffect(() => {
     if (id !== undefined) {
       dispatch(getDetails(Number(id)));
+      findReview(id)
       // console.log(result[0]?.images[0] +"holaaa")
     }
     return () => dispatch(deleteProduct());
@@ -90,13 +108,15 @@ const Detail = () => {
   //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card
 
   return (
-    <main>
-      <div className={style.backround}>
-        <div className={style.container}>
-          <div>
+    <div>
+      <div className="flex h-full">
+        <div className="flex flex-col  w-1/2 justify-center items-center">
+          <div className="mx-4">
             <img src={result[0]?.images[1]} className={style.img}></img>
           </div>
-          <div className={style.details}>
+        </div>
+        <div className="w-1/2  pb-7">
+          <div >
             <h1 className="font-bold mt-10 text-4xl">{result[0]?.name}</h1>
             <br />
             <p className="my-10">{result[0]?.description}</p>
@@ -104,22 +124,31 @@ const Detail = () => {
               <h3 className="font-bold text-xl">
                 Categoria: {result[0]?.category}
               </h3>
-              <h3 className="font-bold text-xl">Marca:{result[0]?.brand}</h3>
-              <h3 className="font-bold text-3xl text-violet-900 p-5 ">
+              <h3 className="font-bold text-xl">Marca: {result[0]?.brand}</h3>
+              <h3 className="font-bold text-3xl text-violet-900 py-5 ">
                 Precio:${result[0]?.price}
               </h3>
               <button
                 className={style.button}
                 onClick={() => handleCartPostItems()}
               >
-                añadir al carro
+                Añadir al carro
               </button>
+              <div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+      <div className="flex flex-col justify-center items-center">
+        <ReviewsComponent reviewsFromDb={reviewsFromDb} />
+      </div>
+    </div>
   );
+};
+Detail.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
 };
 
 export default Detail;
