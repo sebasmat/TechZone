@@ -3,20 +3,24 @@ import { useEffect, useState } from "react"
 import StarScore from "./star-score"
 import { useRouter } from "next/router"
 
-const ReviewsComponent = ( {reviewsFromDb} : {reviewsFromDb: reviewInterface[]} ) => {
+const ReviewsComponent= ({ reviewsFromDb }: { reviewsFromDb: reviewInterface[] }) => {
 
     console.log(reviewsFromDb)
 
-    return (<div>
+    return (<div className="bg-violet-200 rounded-xl w-[500px] shadow-gray-700">
         {typeof (reviewsFromDb[0]) == "object" ?
             reviewsFromDb.map((review: reviewInterface) => {
                 return (<div>
-                    <div className="flex">
-                    <img className="w-10 h-10" src={review.User.profileIMG} />
-                    <p>{review.User.name}</p>
+                    <div className="flex items-center rounded-xl bg-violet-300 ">
+                        <img className="w-[85px] h-[85px] rounded-full m-4 " src={review.User.profileIMG} />
+                        <div className="ml-5">
+                            <p className="text-xl">{review.User.name}</p>
+                            <StarScore score={review.score} />
+                        </div>
                     </div>
-                    <p>{review.review}</p>
-                    <StarScore score={review.score}/>
+                    <div className="m-5" >
+                        <p>{review.review}</p>
+                    </div>
                 </div>
                 )
             }) : ""

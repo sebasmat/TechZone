@@ -35,7 +35,7 @@ const NavBar = ({ pageId }: NavbarProps) => {
             isSelected={pageId === "favoritesPage"}
           />
           <NavItem
-            title={"Más información"}
+            title={"Contacto"}
             url={"/info"}
             isSelected={pageId === "infoPage"}
           />

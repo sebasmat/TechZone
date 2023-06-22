@@ -14,7 +14,7 @@ import { NextPageWithLayout } from "../_app";
 import MainLayout from "@/layout/main-layout";
 
 
-const Detail:NextPageWithLayout = () => {
+const Detail: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Detail:NextPageWithLayout = () => {
   const [idProduct, setIdProduct] = useState("")
   const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
 
-  const findReview = async (id:string | string[]) => {
+  const findReview = async (id: string | string[]) => {
     try {
       const review = await axios.get(`http://localhost:3001/review/products/${id}`)
         .then((data) => setReviewFromDb(data.data))
@@ -109,36 +109,40 @@ const Detail:NextPageWithLayout = () => {
 
   return (
     <div>
-      <div className={style.backround}>
-        <div className={style.container}>
+      <div className="flex h-full">
+        <div className="flex flex-col w-1/2 justify-center items-center m-10 py-3 px-3">
           <div>
-            <img src={result[0]?.images[1]} className={style.img}></img>
+            <img src={result[0]?.images[1]} className="rounded-xl"></img>
           </div>
-          <div className={style.details}>
+        </div>
+        <div className="w-1/2 p-7 ">
+          <div >
             <h1 className="font-bold mt-10 text-4xl">{result[0]?.name}</h1>
             <br />
-            <p className="my-10">{result[0]?.description}</p>
+            <p className="p-5 bg-violet-300 m-5 rounded-xl">{result[0]?.description}</p>
             <div className="flex flex-col flex-around">
-              <h3 className="font-bold text-xl">
+              <h3 className="font-bold text-xl pl-5">
                 Categoria: {result[0]?.category}
               </h3>
-              <h3 className="font-bold text-xl">Marca:{result[0]?.brand}</h3>
-              <h3 className="font-bold text-3xl text-violet-900 p-5 ">
+              <h3 className="font-bold text-xl pl-5">Marca: {result[0]?.brand}</h3>
+              <h3 className="font-bold text-3xl text-violet-900 py-5 pl-5 ">
                 Precio:${result[0]?.price}
               </h3>
               <button
                 className={style.button}
                 onClick={() => handleCartPostItems()}
               >
-                añadir al carro
+                Añadir al carro
               </button>
               <div>
-                <ReviewsComponent reviewsFromDb={reviewsFromDb} />
+
               </div>
             </div>
           </div>
         </div>
-
+      </div>
+      <div className="flex flex-col justify-center items-center w-full mb-10">
+        <ReviewsComponent reviewsFromDb={reviewsFromDb} />
       </div>
     </div>
   );
