@@ -13,7 +13,6 @@ import ReviewsComponent from "@/components/reviewsComponent";
 import { NextPageWithLayout } from "../_app";
 import MainLayout from "@/layout/main-layout";
 
-
 const Detail: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -22,19 +21,20 @@ const Detail: NextPageWithLayout = () => {
   const result = useTypedSelector((state) => state.product.detail);
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
-  const [idProduct, setIdProduct] = useState("")
-  const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
+  const [idProduct, setIdProduct] = useState("");
+  const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>(
+    []
+  );
 
   const findReview = async (id: string | string[]) => {
     try {
-      const review = await axios.get(`http://localhost:3001/review/products/${id}`)
-        .then((data) => setReviewFromDb(data.data))
+      const review = await axios
+        .get(`https://tech-zone-api-n786.onrender.com/review/products/${id}`)
+        .then((data) => setReviewFromDb(data.data));
     } catch (error) {
-      setReviewFromDb([])
+      setReviewFromDb([]);
     }
-
-  }
-
+  };
 
   const handleCartPostItems = async () => {
     try {
@@ -44,13 +44,16 @@ const Detail: NextPageWithLayout = () => {
         );
 
         if (findInCart === -1) {
-          const { data } = await axios.post("http://localhost:3001/cart/item", {
-            cartItem: {
-              userId: UserFromDb.id,
-              productId: Number(id),
-              quantity: 1,
-            },
-          });
+          const { data } = await axios.post(
+            "https://tech-zone-api-n786.onrender.com/cart/item",
+            {
+              cartItem: {
+                userId: UserFromDb.id,
+                productId: Number(id),
+                quantity: 1,
+              },
+            }
+          );
 
           const formatData = formatDataForLocal(data);
 
@@ -93,16 +96,14 @@ const Detail: NextPageWithLayout = () => {
     }
   };
 
-
   useEffect(() => {
     if (id !== undefined) {
       dispatch(getDetails(Number(id)));
-      findReview(id)
+      findReview(id);
       // console.log(result[0]?.images[0] +"holaaa")
     }
     return () => dispatch(deleteProduct());
   }, [dispatch, id]);
-
 
   //habria que hacer una action para buscar el producto por id de la bdd, guardarlo un la store y traerlo aca.
   //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card
@@ -116,15 +117,19 @@ const Detail: NextPageWithLayout = () => {
           </div>
         </div>
         <div className="w-1/2 p-7 ">
-          <div >
+          <div>
             <h1 className="font-bold mt-10 text-4xl">{result[0]?.name}</h1>
             <br />
-            <p className="p-5 bg-violet-300 m-5 rounded-xl">{result[0]?.description}</p>
+            <p className="p-5 bg-violet-300 m-5 rounded-xl">
+              {result[0]?.description}
+            </p>
             <div className="flex flex-col flex-around">
               <h3 className="font-bold text-xl pl-5">
                 Categoria: {result[0]?.category}
               </h3>
-              <h3 className="font-bold text-xl pl-5">Marca: {result[0]?.brand}</h3>
+              <h3 className="font-bold text-xl pl-5">
+                Marca: {result[0]?.brand}
+              </h3>
               <h3 className="font-bold text-3xl text-violet-900 py-5 pl-5 ">
                 Precio:${result[0]?.price}
               </h3>
@@ -134,9 +139,7 @@ const Detail: NextPageWithLayout = () => {
               >
                 Añadir al carro
               </button>
-              <div>
-
-              </div>
+              <div></div>
             </div>
           </div>
         </div>

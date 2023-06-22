@@ -74,9 +74,12 @@ const User: React.FC<UserProps> = ({ user }: UserProps) => {
     }
     if (Error !== undefined) {
       try {
-        await axios.post("http://localhost:3001/create/User", {
-          email: user.email,
-        });
+        await axios.post(
+          "https://tech-zone-api-n786.onrender.com/create/User",
+          {
+            email: user.email,
+          }
+        );
       } catch (error) {
         alert("error al crear el usuario, intenta nuevamente");
         return;
@@ -84,7 +87,7 @@ const User: React.FC<UserProps> = ({ user }: UserProps) => {
     }
     try {
       const resUser = await axios.put(
-        `http://localhost:3001/create/User/${user.email}`,
+        `https://tech-zone-api-n786.onrender.com/create/User/${user.email}`,
         {
           email: user.email,
           name: userForm.name,

@@ -6,7 +6,9 @@ export const useCategories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch("http://localhost:3001/categories");
+      const response = await fetch(
+        "https://tech-zone-api-n786.onrender.com/categories"
+      );
       const data = await response.json();
       setCategories(data);
     };

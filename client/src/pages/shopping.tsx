@@ -24,7 +24,6 @@ const Shopping: NextPageWithLayout = () => {
 
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
-  
 
   const { user } = useUser();
 
@@ -32,11 +31,11 @@ const Shopping: NextPageWithLayout = () => {
     if (UserFromDb.name !== undefined) {
       try {
         const deleteOk = await axios.delete(
-          `http://localhost:3001/cart/item/${UserFromDb.id}/${id}`
+          `https://tech-zone-api-n786.onrender.com/cart/item/${UserFromDb.id}/${id}`
         );
         if (deleteOk.status === 200) {
           const { data } = await axios.get(
-            `http://localhost:3001/cart/items/${UserFromDb.id}`
+            `https://tech-zone-api-n786.onrender.com/cart/items/${UserFromDb.id}`
           );
           const formatData = formatDataForLocal(data);
 
@@ -77,11 +76,14 @@ const Shopping: NextPageWithLayout = () => {
           return;
         }
 
-        const { data } = await axios.put(`http://localhost:3001/cart/item`, {
-          userId: UserFromDb.id,
-          productId: id,
-          quantity: quantity,
-        });
+        const { data } = await axios.put(
+          `https://tech-zone-api-n786.onrender.com/cart/item`,
+          {
+            userId: UserFromDb.id,
+            productId: id,
+            quantity: quantity,
+          }
+        );
 
         const formatData = formatDataForLocal(data);
 
@@ -109,15 +111,11 @@ const Shopping: NextPageWithLayout = () => {
     }
   };
   console.log(CartItems);
-  
+
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
     console.log(user);
   }, []);
-  
-
-
-
 
   return (
     <div className="flex justify-center content-center">

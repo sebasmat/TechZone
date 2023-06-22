@@ -50,9 +50,7 @@ const AdminLayout = ({ children }: any) => {
             </Link>
           </div>
         </div>
-        <div className="tz-navbar-end">
-          <a className="tz-btn">Button</a>
-        </div>
+        <div className="tz-navbar-end"></div>
       </div>
       <main>{children}</main>
     </>

@@ -57,9 +57,12 @@ const LoginLogout = ({}: Props) => {
         };
       });
 
-      const { data } = await axios.post("http://localhost:3001/cart/items", {
-        cartItems: formatDataForApi,
-      });
+      const { data } = await axios.post(
+        "https://tech-zone-api-n786.onrender.com/cart/items",
+        {
+          cartItems: formatDataForApi,
+        }
+      );
 
       const formatData = formatDataForLocal(data);
       localStorage.removeItem("cart");
@@ -85,9 +88,12 @@ const LoginLogout = ({}: Props) => {
           productId: item.product.id,
         };
       });
-      const { data } = await axios.post("http://localhost:3001/cart/items", {
-        cartItems: formatDataForApi,
-      });
+      const { data } = await axios.post(
+        "https://tech-zone-api-n786.onrender.com/cart/items",
+        {
+          cartItems: formatDataForApi,
+        }
+      );
       dispatch({
         type: ActionType.GET_FAV_ITEMS,
         payload: formatDataForApi,
@@ -104,7 +110,7 @@ const LoginLogout = ({}: Props) => {
   const handleGetCartItems = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/cart/items/${UserFromDb.id}`
+        `https://tech-zone-api-n786.onrender.com/cart/items/${UserFromDb.id}`
       );
       const formatData = formatDataForLocal(data);
       dispatch({
@@ -122,7 +128,7 @@ const LoginLogout = ({}: Props) => {
   const handleGetFavItems = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/favorites/items/${UserFromDb.id}`
+        `https://tech-zone-api-n786.onrender.com/favorites/items/${UserFromDb.id}`
       );
       const formatDataFav = formatDataForFavorites(data);
       dispatch({
@@ -141,11 +147,11 @@ const LoginLogout = ({}: Props) => {
     if (UserFromDb.name! == undefined) {
       try {
         const deleteOk = await axios.delete(
-          `http://localhost:3001/favorites/item/${UserFromDb.id}/${id}`
+          `https://tech-zone-api-n786.onrender.com/favorites/item/${UserFromDb.id}/${id}`
         );
         if (deleteOk.status === 200) {
           const { data } = await axios.get(
-            `http://localhost:3001/favorites/item/${UserFromDb.id}`
+            `https://tech-zone-api-n786.onrender.com/favorites/item/${UserFromDb.id}`
           );
           const FormatData = formatDataForFavorites(data);
           dispatch({

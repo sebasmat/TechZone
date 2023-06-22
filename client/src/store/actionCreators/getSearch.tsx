@@ -7,7 +7,7 @@ export const getSearchs = (name: string, page: number) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/products?name=${name}&page=${page}`
+        `https://tech-zone-api-n786.onrender.com/products?name=${name}&page=${page}`
       );
       dispatch({
         type: ActionType.GET_SEARCH,

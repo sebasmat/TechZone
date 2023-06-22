@@ -8,7 +8,9 @@ import { Action, ActionType } from "../actionTypes";
 //y en reducers index en vez de product interface el creado arriba(detailReducerInterface)
 export const getDetails = (id: number) => {
   return async (dispatch: Dispatch<Action>) => {
-    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
+    const { data } = await axios.get(
+      `https://tech-zone-api-n786.onrender.com/products/${id}`
+    );
 
     // try {
     dispatch({

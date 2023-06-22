@@ -15,34 +15,36 @@ const ProfilePage: NextPageWithLayout = () => {
   // let arrayProducts: ProductInterface[] = [];
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/sales/${UserFromDb.id}`).then((data) => {
-      for (let i = 0; i < data.data[0]?.Products.length; i++) {
-        const product = data.data[0].Products[i];
-        const objProduct: ProductInterface = {
-          id: product.id,
-          name: product.name,
-          category: product.category,
-          brand: product.brand,
-          images: product.images,
-          description: product.description,
-          price: product.price,
-          avalaible: product.avalaible,
-          stock: product.stock,
-        };
-        let flag: boolean = true;
-        for (let i = 0; i < arrayProducts.length; i++) {
-          if (arrayProducts[i].id == product.id) flag = false;
+    axios
+      .get(`https://tech-zone-api-n786.onrender.com/sales/${UserFromDb.id}`)
+      .then((data) => {
+        for (let i = 0; i < data.data[0]?.Products.length; i++) {
+          const product = data.data[0].Products[i];
+          const objProduct: ProductInterface = {
+            id: product.id,
+            name: product.name,
+            category: product.category,
+            brand: product.brand,
+            images: product.images,
+            description: product.description,
+            price: product.price,
+            avalaible: product.avalaible,
+            stock: product.stock,
+          };
+          let flag: boolean = true;
+          for (let i = 0; i < arrayProducts.length; i++) {
+            if (arrayProducts[i].id == product.id) flag = false;
+          }
+          if (flag == true) {
+            setArrayproducts((prevArray) => [...prevArray, objProduct]);
+          }
         }
-        if (flag == true) {
-          setArrayproducts((prevArray) => [...prevArray, objProduct]);
-        }
-      }
-    });
+      });
   }, []);
 
   const getSales = async () => {
     const result = await axios.get(
-      `http://localhost:3001/sales/${UserFromDb.id}`
+      `https://tech-zone-api-n786.onrender.com/sales/${UserFromDb.id}`
     );
     const arreglo = result.data;
 
