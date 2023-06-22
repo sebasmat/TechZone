@@ -110,22 +110,22 @@ const Detail: NextPageWithLayout = () => {
   return (
     <div>
       <div className="flex h-full">
-        <div className="flex flex-col  w-1/2 justify-center items-center">
-          <div className="mx-4">
-            <img src={result[0]?.images[1]} className={style.img}></img>
+        <div className="flex flex-col w-1/2 justify-center items-center m-10 py-3 px-3">
+          <div>
+            <img src={result[0]?.images[1]} className="rounded-xl"></img>
           </div>
         </div>
-        <div className="w-1/2  pb-7">
+        <div className="w-1/2 p-7 ">
           <div >
             <h1 className="font-bold mt-10 text-4xl">{result[0]?.name}</h1>
             <br />
-            <p className="my-10">{result[0]?.description}</p>
+            <p className="p-5 bg-violet-300 m-5 rounded-xl">{result[0]?.description}</p>
             <div className="flex flex-col flex-around">
-              <h3 className="font-bold text-xl">
+              <h3 className="font-bold text-xl pl-5">
                 Categoria: {result[0]?.category}
               </h3>
-              <h3 className="font-bold text-xl">Marca: {result[0]?.brand}</h3>
-              <h3 className="font-bold text-3xl text-violet-900 py-5 ">
+              <h3 className="font-bold text-xl pl-5">Marca: {result[0]?.brand}</h3>
+              <h3 className="font-bold text-3xl text-violet-900 py-5 pl-5 ">
                 Precio:${result[0]?.price}
               </h3>
               <button
@@ -141,7 +141,7 @@ const Detail: NextPageWithLayout = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center w-full mb-10">
         <ReviewsComponent reviewsFromDb={reviewsFromDb} />
       </div>
     </div>
