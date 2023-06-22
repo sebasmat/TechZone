@@ -22,8 +22,8 @@ const combineFilterByPriceBrand = async (req, res) => {
           page = pageAsNumber
       }
   
-      let size = 5
-      if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 5) {
+      let size = 6
+      if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 6) {
           size = sizeAsNumber
       }
   
