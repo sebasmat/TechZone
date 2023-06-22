@@ -31,7 +31,7 @@ contactRouter.post('/', async (req, res) => {
 
   const {input} = req.body;
   const mailOptions = {
-    from: input.email, 
+    from:`${input.subject} <${input.email}>`, 
     to: `urculluvalentin@gmail.com`, 
     subject: `Mensaje de ${input.email}: ${input.subject}`, 
     text: input.message,
@@ -46,13 +46,7 @@ contactRouter.post('/', async (req, res) => {
     }
   })
 
-//   await transporter.sendMail({
-//     from: `${input.email}`, // sender address
-//     to: `urculluvalentin@gmail.com`, // list of receivers
-//     subject: `${input.subject}`, // Subject line
-//     text: `${input.message}`, // plain text body
-//     html:"",
-// })
+
   })
 
 
