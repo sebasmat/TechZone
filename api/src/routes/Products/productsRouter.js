@@ -15,24 +15,23 @@ const combineFilterByPriceBrand = require("../../Controllers/Products/combineFil
 const productsRouter = express.Router()
 
 productsRouter.get("/", async (req, res) => {
-    const { name, category, brand, minPrice, maxPrice  } = req.query;
+  const { name, category, brand, minPrice, maxPrice } = req.query;
 
-    const pageAsNumber = Number.parseInt(req.query.page)
-    const sizeAsNumber = Number.parseInt(req.query.pageSize)
+  const pageAsNumber = Number.parseInt(req.query.page)
+  const sizeAsNumber = Number.parseInt(req.query.pageSize)
 
   if (name) {
-    return findProductByName(req,res)
-}
+    return findProductByName(req, res)
+  }
 
-    if (category && brand) {
-    return combineFilter(req, res);
+  if (category && brand && maxPrice && minPrice) {
+    return combineFilterByPrice(req, res)
   } else if (category && maxPrice && minPrice) {
     return combineFilterByPriceCategory(req, res)
-  } else if (category && brand && maxPrice && minPrice) {
-    console.log('llega hasta aca');
-    return combineFilterByPrice(req, res)
   } else if (brand && maxPrice && minPrice) {
     return combineFilterByPriceBrand(req, res)
+  }  else if (category && brand) {
+    return combineFilter(req, res);
   } else if (maxPrice && minPrice) {
     return filterByPrice(req, res)
   } else if (category) {
@@ -41,15 +40,15 @@ productsRouter.get("/", async (req, res) => {
     return findProductByBrand(req, res);
   } else {
     try {
-        let page = 0;
-        if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
-            page = pageAsNumber
-        }
+      let page = 0;
+      if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
+        page = pageAsNumber
+      }
 
-        let size = 10
-        if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
-            size = sizeAsNumber
-        }
+      let size = 10
+      if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+        size = sizeAsNumber
+      }
       const allProducts = await Products.findAndCountAll({
         limit: size,
         offset: page * size
@@ -107,28 +106,28 @@ productsRouter.get("/", async (req, res) => {
 //     }
 // })
 productsRouter.get("/:idProduct", async (req, res) => {
-    try {
-        const { idProduct } = req.params;
-        const productById = await findById(idProduct)
-        res.status(200).json(productById)
-    } catch (error) {
-        res.status(500).json({ error: error.message })
-    }
+  try {
+    const { idProduct } = req.params;
+    const productById = await findById(idProduct)
+    res.status(200).json(productById)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 })
 
-productsRouter.post("/:idProduct", async (req,res)=>{
+productsRouter.post("/:idProduct", async (req, res) => {
+  console.log("si entra a la ruta");
+  try {
     console.log("si entra a la ruta");
-    try {
-        console.log("si entra a la ruta");
-        const {idProduct} = req.params;
-        const {quantity} = req.body;
-        const productUpdated = await updateProduct(idProduct,quantity);
-        console.log(productUpdated);
-        res.status(200).json(productUpdated);
-    } catch (error) {
-        res.status(500).json({error:error.message})
-    }
-   
+    const { idProduct } = req.params;
+    const { quantity } = req.body;
+    const productUpdated = await updateProduct(idProduct, quantity);
+    console.log(productUpdated);
+    res.status(200).json(productUpdated);
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+
 })
 
 

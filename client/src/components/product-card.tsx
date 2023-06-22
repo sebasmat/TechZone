@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductInterface from "@/interfaces/productsInterface";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ActionType } from "@/store/actionTypes";
 import { formatDataForLocal } from "@/utils/formatDataUtils";
+import { useRouter } from "next/router";
 
 const ProductCard = ({
   id,
@@ -20,6 +21,9 @@ const ProductCard = ({
   avalaible,
   stock,
 }: ProductInterface) => {
+  const router = useRouter()
+
+
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
 
@@ -105,12 +109,18 @@ const ProductCard = ({
           <h2 className="text-violet-950 font-bold text-2xl">${price}</h2>
         </Link>
         <div className="flex w-[100%] justify-end">
-          <button
-            onClick={() => handleCartPostItems()}
-            className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
-          >
-            Agregar al carrito
-          </button>
+          {router.asPath == "/profilePage" ?
+            <Link href={`/reviewAndScore/${id}`}>
+              <button className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
+              >
+                Calificar</button>
+            </Link> :
+            <button
+              onClick={() => handleCartPostItems()}
+              className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
+            >
+              Agregar al carrito
+            </button>}
         </div>
       </div>
     </div>

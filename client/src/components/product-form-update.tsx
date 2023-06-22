@@ -21,7 +21,8 @@ const ProductFormUpdate = () => {
 
   const { detail } = useTypedSelector((state) => state.product);
   const dispatch = useDispatch();
-
+  console.log("esto es detail", detail);
+  
   const router = useRouter();
 
   const categories = useCategories();
@@ -69,7 +70,7 @@ const ProductFormUpdate = () => {
         stock: parseInt(product.stock.toString()),
         images: [urls, urls],
         avalaible: true,
-      });
+      });  
       alert("El producto fue creado con éxito");
     } catch (error) {
       alert("No fue posible crear el producto, por favor inténtelo más tarde");
@@ -108,7 +109,7 @@ const ProductFormUpdate = () => {
       <div className="flex justify-center py-10 text-4xl text-violet-950 ">
         <h1>Editar - {product.name}</h1>
       </div>
-      {detail[0].images.length > 0 && (
+      {detail[0]?.images.length > 0 && (
         <Image
           src={detail[0].images[0]}
           alt={product.name}

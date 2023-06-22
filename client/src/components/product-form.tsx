@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { useCategories } from "@/hooks/products/useCategories";
 
 const ProductForm = () => {
@@ -56,6 +56,7 @@ const ProductForm = () => {
         images: [urls, urls],
         avalaible: true,
       });
+      await axios.post('http://localhost:3001/pay',{product}); // esta ruta me crea el producto en Stripe para poder hacer el pago.
       alert("El producto fue creado con éxito");
     } catch (error) {
       alert("No fue posible crear el producto, por favor inténtelo más tarde");

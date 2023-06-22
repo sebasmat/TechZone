@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useTypedSelector } from "@/store/useTypeSelector";
-import user from "@/pages/user";
 
 type ProfileModalProps = {
   showModal: boolean;
@@ -19,7 +18,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
       onClick={(event: React.MouseEvent<HTMLDivElement>) => closeModal(event)}
       className="absolute inset-0 mt-20 pr-2 flex justify-end z-50"
     >
-      <div className="bg-violet-900 w-[200px] h-[400px]">
+      <div className="flex flex-col  bg-violet-900 w-[200px] h-[300px] rounded-b-2xl">
         {UserFromDb.name == undefined && (
           <div>
             <svg
@@ -34,7 +33,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
                 clipRule="evenodd"
               />
             </svg>
-            <h1 className="bg-white text-center rounded-full">Invitado</h1>
+            <h1 className="text-white text-center ">Invitado</h1>
             <br />
             <Link href={"/api/auth/login"}>
               <h1 className="bg-white text-center rounded-full px-1 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300">Login</h1>
@@ -48,14 +47,15 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
               src={UserFromDb.profileIMG}
               alt=""
             />
-
-            <h1>{UserFromDb.name}</h1>
-            <Link href={"/profilePage"}>
-              <h1>Ver perfil</h1>
-            </Link>
-            <Link href={"/api/auth/logout"}>
-              <h1 className="bg-white">Logout</h1>
-            </Link>
+            <div className="flex flex-col justify-center items-center space-y-2 mt-3">
+              <h1 className="text-white">{UserFromDb.name}</h1>
+              <Link href={"/profilePage"}>
+                <h1 className="text-black bg-white rounded-full text-l px-2 hover:bg-gray-300 mt-3">Ver perfil</h1>
+              </Link>
+              <Link href={"/api/auth/logout"}>
+                <h1 className="text-black bg-white rounded-full text-l px-2 hover:bg-gray-300">Logout</h1>
+              </Link>
+            </div>
           </div>
         )}
       </div>
