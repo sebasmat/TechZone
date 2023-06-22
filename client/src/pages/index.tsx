@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useTypedSelector } from "@/store/useTypeSelector";
 import { NextPageWithLayout } from "./_app";
 import MainLayout from "@/layout/main-layout";
+import style from "../styles/loader.module.css"
 
 export async function getStaticProps() {
   return {
@@ -25,12 +26,17 @@ const images = [
 
 const Home: NextPageWithLayout = () => {
   const [arrayProducts, setArrayProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   const result = async () => {
     let productsHome: ProductInterface[];
+    setLoading(true);
     await fetch("http://localhost:3001/homeproducts")
       .then((response) => response.json())
-      .then((data) => setArrayProducts(data));
+      .then((data) => {
+        setLoading(false); 
+        setArrayProducts(data);});
   };
 
   useEffect(() => {
@@ -38,6 +44,13 @@ const Home: NextPageWithLayout = () => {
   }, []);
 
   return (
+    <div> 
+      {loading ? (
+        <div className={style.loadercontainer}>
+      	  <div className={style.spinner}></div>
+        </div>
+      ) : (
+      
     <div className="flex flex-col items-center ">
       <div className=" w-[1000px] h-[400] mx-auto my-0 pt-8 -z-50">
         <Carrousel loop>
@@ -61,6 +74,8 @@ const Home: NextPageWithLayout = () => {
         </button>
       </Link>
       <ProductListingHome arrayProducts={arrayProducts} />
+    </div>
+      )}
     </div>
   );
 };
