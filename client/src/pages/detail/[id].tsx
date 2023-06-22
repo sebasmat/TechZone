@@ -111,7 +111,7 @@ const Detail: NextPageWithLayout = () => {
     <div>
       <div className="flex h-full">
         <div className="flex flex-col  w-1/2 justify-center items-center">
-          <div>
+          <div className="mx-4">
             <img src={result[0]?.images[1]} className={style.img}></img>
           </div>
         </div>
