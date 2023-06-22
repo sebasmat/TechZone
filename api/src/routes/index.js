@@ -23,6 +23,7 @@ const brandRouter = require("./brandRouter");
 // const succesRouter = require("./succesRouter");
 const salesRouter = require("./Sales/addSales");
 const updateStock = require("./Products/updateStock");
+const contactRouter = require("./contactUs")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -52,6 +53,7 @@ router.use("/favorites", deleteItemFav)
 // router.use("/confirmacion", succesRouter)
 router.use("/sales", salesRouter)
 router.use("/stock", updateStock);
+router.use("/contact",contactRouter)
 
 
 module.exports = router;
