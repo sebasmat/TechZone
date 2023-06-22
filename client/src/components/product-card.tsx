@@ -111,7 +111,9 @@ const ProductCard = ({
         <div className="flex w-[100%] justify-end">
           {router.asPath == "/profilePage" ?
             <Link href={`/reviewAndScore/${id}`}>
-              <button>Calificar</button>
+              <button className="bg-violet-900 rounded-xl py-1 px-2 text-white hover:bg-violet-700 duration-300 mt-2 "
+              >
+                Calificar</button>
             </Link> :
             <button
               onClick={() => handleCartPostItems()}

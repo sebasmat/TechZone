@@ -3,11 +3,11 @@ import { useEffect, useState } from "react"
 import StarScore from "./star-score"
 import { useRouter } from "next/router"
 
-const ReviewsComponent = ({ reviewsFromDb }: { reviewsFromDb: reviewInterface[] }) => {
+const ReviewsComponent= ({ reviewsFromDb }: { reviewsFromDb: reviewInterface[] }) => {
 
     console.log(reviewsFromDb)
 
-    return (<div className="bg-violet-200 rounded-xl w-[500px]">
+    return (<div className="bg-violet-200 rounded-xl w-[500px] shadow-gray-700">
         {typeof (reviewsFromDb[0]) == "object" ?
             reviewsFromDb.map((review: reviewInterface) => {
                 return (<div>
