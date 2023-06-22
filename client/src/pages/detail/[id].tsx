@@ -1,6 +1,6 @@
 import style from "../../styles/detail.module.css";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDetails } from "@/store/actionCreators/getDetails";
 import { useTypedSelector } from "@/store/useTypeSelector";
@@ -10,8 +10,11 @@ import { formatDataForLocal } from "@/utils/formatDataUtils";
 import { ActionType } from "@/store/actionTypes";
 import { manageCart } from "@/utils/localStorageUtils";
 import ReviewsComponent from "@/components/reviewsComponent";
+import { NextPageWithLayout } from "../_app";
+import MainLayout from "@/layout/main-layout";
 
-const Detail = () => {
+
+const Detail:NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
@@ -19,6 +22,19 @@ const Detail = () => {
   const result = useTypedSelector((state) => state.product.detail);
   const { UserFromDb } = useTypedSelector((state) => state.user);
   const { CartItems } = useTypedSelector((state) => state.cart);
+  const [idProduct, setIdProduct] = useState("")
+  const [reviewsFromDb, setReviewFromDb] = useState<reviewInterface[] | any>([])
+
+  const findReview = async (id:string | string[]) => {
+    try {
+      const review = await axios.get(`http://localhost:3001/review/products/${id}`)
+        .then((data) => setReviewFromDb(data.data))
+    } catch (error) {
+      setReviewFromDb([])
+    }
+
+  }
+
 
   const handleCartPostItems = async () => {
     try {
@@ -28,16 +44,13 @@ const Detail = () => {
         );
 
         if (findInCart === -1) {
-          const { data } = await axios.post(
-            "https://tech-zone-api-n786.onrender.com/cart/item",
-            {
-              cartItem: {
-                userId: UserFromDb.id,
-                productId: Number(id),
-                quantity: 1,
-              },
-            }
-          );
+          const { data } = await axios.post("http://localhost:3001/cart/item", {
+            cartItem: {
+              userId: UserFromDb.id,
+              productId: Number(id),
+              quantity: 1,
+            },
+          });
 
           const formatData = formatDataForLocal(data);
 
@@ -80,19 +93,22 @@ const Detail = () => {
     }
   };
 
+
   useEffect(() => {
     if (id !== undefined) {
       dispatch(getDetails(Number(id)));
+      findReview(id)
       // console.log(result[0]?.images[0] +"holaaa")
     }
     return () => dispatch(deleteProduct());
   }, [dispatch, id]);
 
+
   //habria que hacer una action para buscar el producto por id de la bdd, guardarlo un la store y traerlo aca.
   //tambien hay que hacer una action para borrar el estado global de details y no se renderice algo que no queremos al cambiar de card
 
   return (
-    <main>
+    <div>
       <div className={style.backround}>
         <div className={style.container}>
           <div>
@@ -117,14 +133,18 @@ const Detail = () => {
                 añadir al carro
               </button>
               <div>
-                <ReviewsComponent idProduct={Number(id)} />
+                <ReviewsComponent reviewsFromDb={reviewsFromDb} />
               </div>
             </div>
           </div>
         </div>
+
       </div>
-    </main>
+    </div>
   );
+};
+Detail.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
 };
 
 export default Detail;

@@ -32,12 +32,12 @@ productsRouter.get("/", async (req, res) => {
     return combineFilterByPriceBrand(req, res)
   }  else if (category && brand) {
     return combineFilter(req, res);
+  } else if (maxPrice && minPrice) {
+    return filterByPrice(req, res)
   } else if (category) {
     return findProductByCategory(req, res);
   } else if (brand) {
     return findProductByBrand(req, res);
-  } else if (maxPrice && minPrice) {
-    return filterByPrice(req, res)
   } else {
     try {
       let page = 0;

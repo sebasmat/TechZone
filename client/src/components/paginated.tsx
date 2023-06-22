@@ -12,7 +12,7 @@ const Paginated = () => {
 
   // const findPageNumber = async () => {
   //   const response = await axios
-  //     .get("https://tech-zone-api-n786.onrender.com/products")
+  //     .get("http://localhost:3001/products")
   //     .then((data) => setTotalPages(data.data.totalPages));
   // };
 
@@ -35,12 +35,25 @@ const Paginated = () => {
     if (origin[0] == "all") {
       const actualPage = parseInt(event.currentTarget.value);
       setPage(actualPage);
-      dispatch(getProducts(actualPage, null, null, null));
+
+      dispatch(getProducts(actualPage, null, null,null));
+
+      dispatch(getProducts(actualPage, null, null,null));
     }
     if (origin[0] == "name") {
       const actualPage = parseInt(event.currentTarget.value) + 1;
       setPage(actualPage);
       dispatch(getSearchs(origin[1], actualPage));
+    }
+    if(origin[0] == "brand") {
+      const actualPage = parseInt(event.currentTarget.value)
+      setPage(actualPage)
+      dispatch(getProducts(actualPage, null, origin[1], null))
+    } 
+    if(origin[1] == "maxPrice") {
+      const actualPage = parseInt(event.currentTarget.value)
+      setPage(actualPage)
+      dispatch(getProducts(actualPage, null, null, origin[3]))
     }
   };
 

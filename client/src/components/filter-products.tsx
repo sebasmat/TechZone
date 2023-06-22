@@ -67,6 +67,12 @@ const FilterProducts = () => {
     }
   };
 
+  const handleButtonRefresh = (event:React.MouseEvent<HTMLButtonElement>) => {
+    setValueCategory("")
+    setValueBrand("")
+    setValuePrice("")
+    dispatch(getProducts(0, null, null, null))
+  }
   // useEffect(() => {
   //   const getUniqueCategories = () => {
   //     const unique = new Set(arrayProducts.map((product) => product.category));
@@ -127,9 +133,9 @@ const FilterProducts = () => {
     <div className="bg-violet-800 p-5 rounded-br-xl max-w-[280px]  ">
       <div className="flex flex-col gap-2">
         <label className="text-white font-semibold" htmlFor="category">
-          Orden por precio
+          Filtros
         </label>
-        <button
+        {/* <button
           className="bg-white rounded-xl font-semibold hover:bg-violet-200"
           onClick={() => setOrderBy("ASC")}
         >
@@ -140,11 +146,12 @@ const FilterProducts = () => {
           onClick={() => setOrderBy("DESC")}
         >
           Descendente
-        </button>
+        </button> */}
         <label htmlFor="category" className="text-white font-semibold">
           Categorias
         </label>
         <select
+        value={valueCategory}
           className="bg-white rounded-xl font-semibold hover:bg-violet-200"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             setValueCategory(event.currentTarget.value);
@@ -165,6 +172,7 @@ const FilterProducts = () => {
           Marcas
         </label>
         <select
+        value={valueBrand}
           className="bg-white rounded-xl font-semibold hover:bg-violet-200"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             setValueBrand(event.currentTarget.value);
@@ -203,6 +211,13 @@ const FilterProducts = () => {
           onClick={handleButtonFilter}
         >
           Filtrar
+        </button>
+      </div>
+      <div>
+        <button className="bg-white rounded-full px-3 text-center mr-2 mb-2 hover:bg-violet-500 active:bg-violet-200 focus:outline-none focus:ring focus:ring-violet-300" 
+        onClick={handleButtonRefresh}
+        >
+          Refrescar
         </button>
       </div>
     </div>

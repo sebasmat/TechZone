@@ -38,10 +38,10 @@ payRouter.post("/", async (req, res) => {
     //         enabled: true,
     //     },
     // });
-    const {product} = req.body;
+    const { product } = req.body;
     console.log("este es el producto que recibe la ruta ", product);
-    
-    const createandprice = async (product)=>{
+
+    const createandprice = async (product) => {
       const response = await stripe.products.create({
         name: product.name,
         description: product.description,
@@ -83,7 +83,7 @@ payRouter.post("/", async (req, res) => {
 payRouter.post('/create-checkout-session', async (req, res) => {
 
   const { estado } = req.body;
-console.log(estado[0].email)
+  console.log(estado[0].email)
   const aux = async (estado) => {
     let arrayProducts = [];
     await Promise.all(
@@ -100,22 +100,22 @@ console.log(estado[0].email)
           price: priceId,
           quantity: obj.cantidad,
         });
-        
+
       })
     );
-    
+
     return arrayProducts;
   };
   let resultfinal;
   aux(estado)
     .then((response) => {
-      
+
       resultfinal = response;
     })
     .catch((error) => {
       console.error(error);
     });
-    
+
 
 
   const obtenerResultado = async () => {
@@ -198,7 +198,7 @@ payRouter.post("/getName", async (req, res) => {
     console.log("si entra a la ruta");
     const { idProduct } = req.body;
     const data = await stripe.products.retrieve(idProduct);
-    console.log("esto es la data",data);
+    console.log("esto es la data", data);
     console.log("esto es el data.name", data.name);
     // const product = await findProductByName(data.name);
     // console.log("esto es el product", product.content);
@@ -206,9 +206,44 @@ payRouter.post("/getName", async (req, res) => {
     console.log(id);
     res.status(200).json(id);
   } catch (error) {
-    res.status(500).json({error:error.message});
+    res.status(500).json({ error: error.message });
   }
 
+})
+
+payRouter.put('/updateProduct', async (req, res) => {
+  try {
+    const { name, info } = req.body;
+    console.log("esto es el name", name);
+    console.log("esto es la info", info);
+    const { data } = await stripe.products.search({
+      query: `name:"${name}"`
+    });
+    console.log("esta es la respuesta de buscar el nombre: ", data);
+    const productId = data[0].id;
+    const request = await stripe.prices.search({
+      query: `product:"${productId}"`
+    });
+    console.log("esta es la respuesta de buscar el precio", request.data);
+    const product = await stripe.products.update(
+      `${productId}`,
+      {
+        name: info.name,
+        description: info.description
+      }
+    );
+    console.log("esta es la respuesta del producto", product);
+    const priceId = request.data[0].id;
+
+    const price = await stripe.prices.update(
+      `${priceId}`,
+      { unit_amount: Math.trunc(info.price * 100)}
+    );
+    console.log("esta es la respuesta del price ", price);
+    res.status(200).json({ok: "todo salio bien"});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 })
 
 module.exports = payRouter;
