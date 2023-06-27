@@ -19,10 +19,11 @@ transporter.verify().then(() => {
 succesRouter.post('/', async (req, res) => {
 
   const { user, productos } = req.body;
-  
-console.log("entra aca")
-  const total = productos.reduce((acumulador, productos) => acumulador + productos.price, 0);
- 
+const precio = productos.map(function(){
+  return productos.quantity * productos.price;
+})
+console.log(precio)
+const total= productos.reduce((acumulador,precio) => acumulador +precio , 0)
  
   await transporter.sendMail({
     from: `"Compra Exitosa" <urculluvalentin@gmail.com>`, // sender address
